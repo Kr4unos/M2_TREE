@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="open.png">icons/open.png</file>
+        <file alias="quit.png">icons/quit.png</file>
+        <file alias="export_obj.png">icons/export_obj.png</file>
+        <file alias="export_json.png">icons/export_json.png</file>
+        <file alias="settings.png">icons/settings.png</file>
+    </qresource>
+    <qresource prefix="/shaders">
+        <file alias="basic.fsh">shaders/basic.fsh</file>
+        <file alias="basic.vsh">shaders/basic.vsh</file>
+    </qresource>
+</RCC>
