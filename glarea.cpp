@@ -94,11 +94,11 @@ void GLArea::paintGL()
                 break;
             case LSystem::TURN_LEFT:
                 qDebug() << "glRotatef(" << -lsystem->getAngle() << ", 1, 0, 0)";
-                glRotatef(-lsystem->getAngle(), 1, 0, 0);
+                glRotatef(-lsystem->getAngle(), 0, 1, 0);
                 break;
             case LSystem::TURN_RIGHT:
                 qDebug() << "glRotatef(" << lsystem->getAngle() << ", 1, 0, 0)";
-                glRotatef(lsystem->getAngle(), 1, 0, 0);
+                glRotatef(lsystem->getAngle(), 0, 1, 0);
                 break;
             case LSystem::PUSH_BACK:
                 qDebug() << "glPushMatrix();";
