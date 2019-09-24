@@ -54,7 +54,7 @@ void GLArea::doProjection()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     GLfloat hr = m_radius, wr = hr * m_ratio;
-    glFrustum(-wr, wr, -hr, hr, 1.0f, 5.0f);
+    glFrustum(-wr, wr, -hr, hr, 1.0f, 10.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -83,6 +83,7 @@ void GLArea::paintGL()
         char currentChar = lsystem->getResult().at(i).toLatin1();
         LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
         if(action == LSystem::NO_ACTION) continue;
+        //qDebug() << "action dodu en cours : "<< static_cast<int>(action) << "avec un angle moulu de : "<< lsystem->getAngle();
         switch(action){
             case LSystem::DRAW_FORWARD:
                 glBegin(GL_LINES);
@@ -90,15 +91,21 @@ void GLArea::paintGL()
                   glVertex3f(x, y, z);
                   glVertex3f(x, y+(lsystem->getLength()/10), z);
                 glEnd();
-                y += (lsystem->getLength()/10);
+                //y += (lsystem->getLength()/10);
+                qDebug() << "DRAW_FORWARD";
+
                 break;
             case LSystem::TURN_LEFT:
                 qDebug() << "glRotatef(" << -lsystem->getAngle() << ", 1, 0, 0)";
-                glRotatef(-lsystem->getAngle(), 1, 0, 0);
+                glTranslatef (x,y+(lsystem->getLength()/10), z);
+
+                glRotatef(-lsystem->getAngle(), 0, 0, 1);
                 break;
             case LSystem::TURN_RIGHT:
                 qDebug() << "glRotatef(" << lsystem->getAngle() << ", 1, 0, 0)";
-                glRotatef(lsystem->getAngle(), 1, 0, 0);
+                glTranslatef (x,y+(lsystem->getLength()/10), z);
+
+                glRotatef(lsystem->getAngle(), 0, 0, 1);
                 break;
             case LSystem::PUSH_BACK:
                 qDebug() << "glPushMatrix();";
