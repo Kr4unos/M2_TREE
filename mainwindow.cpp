@@ -29,7 +29,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_openAction_triggered()
 {
     ui->statusBar->showMessage("Sélection du fichier de règles...");
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Ouvrir le fichier de configuration..."), "C://", tr("JSON Files (*.JSON)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Ouvrir le fichier de configuration..."), "C://", tr("JSON Files (*.json)"));
     if(fileName.isEmpty()) return;
     currentLSystem = new LSystem(fileName);
     emit parseAndGenerate(currentLSystem);
