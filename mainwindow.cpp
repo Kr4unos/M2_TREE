@@ -33,6 +33,8 @@ void MainWindow::on_openAction_triggered()
     if(fileName.isEmpty()) return;
     currentLSystem = new LSystem(fileName);
     emit parseAndGenerate(currentLSystem);
+    QFileInfo fileInfo(fileName);
+    ui->statusBar->showMessage("Fichier " + fileInfo.baseName() + " ouvert avec succès!");
 }
 void MainWindow::on_exportJSONAction_triggered()
 {
@@ -47,6 +49,7 @@ void MainWindow::on_exportJSONAction_triggered()
         return;
     }
     currentLSystem->exportJSON(fileName + ".json");
+    ui->statusBar->showMessage("Exportation en .JSON terminée!");
 }
 void MainWindow::on_exportOBJAction_triggered()
 {
@@ -58,6 +61,7 @@ void MainWindow::on_exportOBJAction_triggered()
     }
     fileName += ".obj";
     //TODO: Exportation en OBJ
+    ui->statusBar->showMessage("Exportation en .OBJ terminée!");
 }
 void MainWindow::on_quitAction_triggered()
 {

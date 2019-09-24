@@ -9,7 +9,7 @@ class LSystem
     public:
         LSystem(QString fileName);
 
-        enum Action { DRAW_FORWARD, TURN_LEFT, TURN_RIGHT, PUSH_BACK, POP_BACK, NO_ACTION };
+        enum Action { DRAW_FORWARD = 0, TURN_LEFT = 1, TURN_RIGHT = 2, PUSH_BACK = 3, POP_BACK = 4, NO_ACTION = 5 };
 
         Action getActionFromSymbol(char symbol);
         bool importJSON(QString fileName);

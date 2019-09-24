@@ -9,7 +9,7 @@ QT       += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = M2_Projet_MG
+TARGET = TREE
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -23,18 +23,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+#LIBS += -lGLU32\
+#        -lOpengl32
 
-unix:!macx {
-    LIBS += -lglut -lGLU
-}
-
+LIBS += -lglut -lGL -lGLU
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
     settings.cpp \
     lsystem.cpp \
-    glarea.cpp \
     glarea.cpp
 
 HEADERS += \

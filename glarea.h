@@ -3,16 +3,10 @@
 #ifndef GLAREA_H
 #define GLAREA_H
 
-#include <QKeyEvent>
-#include <QTimer>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
-#include <QOpenGLBuffer>
-#include <QOpenGLShaderProgram>
-#include <QDebug>
-#include <QSurfaceFormat>
-#include <QMatrix4x4>
-#include <QOpenGLTexture>
+#include <QKeyEvent>
+#include <QTimer>
 
 #include "lsystem.h"
 
@@ -27,14 +21,14 @@ public:
 
 public slots:
     void setRadius(double radius);
-    void startTimer();
-    void stopTimer();
-    void modifyTimeoutInterval(int value);
-    void setAngle(double angle);
+    void parseAndGenerate(LSystem* lsystem);
+
+signals:  // On ne les implémente pas, elles seront générées par MOC ;
+          // les paramètres seront passés aux slots connectés.
+    void radiusChanged(double newRadius);
 
 protected slots:
     void onTimeout();
-    void parseAndGenerate(LSystem* lsystem);
 
 protected:
     void initializeGL() override;
@@ -42,25 +36,16 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyPressEvent(QKeyEvent *ev) override;
-
 private:
 
-    QMatrix4x4 matrix;
-    QMatrix4x4 save_matrix;
+    QString result = "";
+    LSystem* lsystem = nullptr;
 
     double m_angle = 0;
     QTimer *m_timer = nullptr;
-    double m_anim = 0;
+    double m_alpha = 0;
     double m_radius = 0.5;
     double m_ratio = 1;
-    double m_upper = 0;
-    bool flag_sens = false;
-    QOpenGLShaderProgram *m_program;
-
-    void modifyVbo();
-    void makeGLObjects();
-    void tearGLObjects();
-    QOpenGLBuffer m_vbo;
 };
 
 #endif // GLAREA_H
