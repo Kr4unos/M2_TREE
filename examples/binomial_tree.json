@@ -4,7 +4,7 @@
     "X": "F[-X][+X]"
   },
   "angle": 30,
-  "iterations": 2,
+  "iterations": 5,
   "length": 30,
   "variables": ["X"]
 }
