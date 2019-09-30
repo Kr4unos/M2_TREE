@@ -5,6 +5,7 @@
   },
   "angle": 30,
   "iterations": 5,
-  "length": 30,
-  "variables": ["X"]
+  "branch_length": 0.15,
+  "branch_radius": 0.02,
+  "branch_radius_reduction": 0.0015
 }

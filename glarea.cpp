@@ -4,6 +4,7 @@
 #include <GL/glu.h>
 #include <QDebug>
 #include <QSurfaceFormat>
+#include "math.h"
 
 GLArea::GLArea(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -73,58 +74,133 @@ void GLArea::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    float x = 0.0f, y = 0.0f, z = 0.0f;
+    if(lsystem == nullptr) return;
+
+    GLfloat x              = 0.0;
+    GLfloat y              = 0.0;
+    GLfloat z              = 0.0;
+
+    GLfloat angle          = 0.0;
+    GLfloat angle_stepsize = 0.1;
+
+    GLfloat radius           = lsystem->getBranchRadius();
+    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
+    GLfloat height           = lsystem->getBranchLength();
+    std::stack<GLfloat> tempRadius;
 
     glLoadIdentity();
-    gluLookAt (0, 0, 3.0, 0, 0, 0, 0, 1, 0);
+    gluLookAt (3.0, 0.0, 0.0, 0, 0, 0, 0, 1, 0);
     glRotatef (m_angle, 0, 1, 0);
-    glPushMatrix();
+//    glEnable(GL_LINE_SMOOTH);
+//    glLineWidth(3.0f);
+
     for(int i = 0; i < result.size(); i++){
         char currentChar = lsystem->getResult().at(i).toLatin1();
         LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
-        if(action == LSystem::NO_ACTION) continue;
-        //qDebug() << "action dodu en cours : "<< static_cast<int>(action) << "avec un angle moulu de : "<< lsystem->getAngle();
+
         switch(action){
-            case LSystem::DRAW_FORWARD:
-                glBegin(GL_LINES);
-                  glColor3f(1, 1, 1);
-                  glVertex3f(x, y, z);
-                  glVertex3f(x, y+(lsystem->getLength()/10), z);
+
+            case LSystem::DRAW_BRANCH:
+
+                glColor3f(0.5f, 0.35f, 0.05f);
+
+                glBegin(GL_QUAD_STRIP);
+                    angle = 0.0;
+                    while( angle < 2 * M_PI ) {
+                        GLfloat tempX = radius * cos(angle);
+                        GLfloat tempZ = radius * sin(angle);
+                        glVertex3f(tempX, height, tempZ);
+                        glVertex3f(tempX, y, tempZ);
+                        angle += angle_stepsize;
+                    }
+                    glVertex3f(radius, height, 0.0);
+                    glVertex3f(radius, 0.0, 0.0);
                 glEnd();
-                //y += (lsystem->getLength()/10);
-                qDebug() << "DRAW_FORWARD";
 
-                break;
-            case LSystem::TURN_LEFT:
-                qDebug() << "glRotatef(" << -lsystem->getAngle() << ", 1, 0, 0)";
-                glTranslatef (x,y+(lsystem->getLength()/10), z);
+//                glBegin(GL_LINES);
+//                  glVertex3f(x, y, z);
+//                  glVertex3f(x, y+height, z);
+//                glEnd();
 
-                glRotatef(-lsystem->getAngle(), 0, 0, 1);
+
+                if(radius >= radius_reduction) radius -= radius_reduction;
+                glTranslatef (x, y+height, z);
                 break;
-            case LSystem::TURN_RIGHT:
-                qDebug() << "glRotatef(" << lsystem->getAngle() << ", 1, 0, 0)";
-                glTranslatef (x,y+(lsystem->getLength()/10), z);
+
+            case LSystem::DRAW_LEAF:
+
+                glColor3f(0.0f, 1.0f, 0.0f);
+
+                glBegin(GL_QUAD_STRIP);
+                    angle = 0.0;
+                    while( angle < 2 * M_PI ) {
+                        GLfloat tempX = radius * cos(angle);
+                        GLfloat tempZ = radius * sin(angle);
+                        glVertex3f(tempX, height, tempZ);
+                        glVertex3f(tempX, y, tempZ);
+                        angle += angle_stepsize;
+                    }
+                    glVertex3f(radius, height, 0.0);
+                    glVertex3f(radius, 0.0, 0.0);
+                glEnd();
+
+//                glBegin(GL_LINES);
+//                  glVertex3f(x, y, z);
+//                  glVertex3f(x, y+0.1f, z);
+//                glEnd();
+
+                if(radius >= radius_reduction) radius -= radius_reduction;
+                break;
+
+            case LSystem::ROTATE_LEFT_X:
+
+                glRotatef(lsystem->getAngle(), 1, 0, 0);
+                break;
+
+            case LSystem::ROTATE_RIGHT_X:
+
+                glRotatef(-lsystem->getAngle(), 1, 0, 0);
+                break;
+
+            case LSystem::ROTATE_UP_Y:
+
+                glRotatef(lsystem->getAngle(), 0, 1, 0);
+                break;
+
+            case LSystem::ROTATE_DOWN_Y:
+
+                glRotatef(-lsystem->getAngle(), 0, 1, 0);
+                break;
+
+            case LSystem::TWIST_LEFT_Z:
 
                 glRotatef(lsystem->getAngle(), 0, 0, 1);
                 break;
+
+            case LSystem::TWIST_RIGHT_Z:
+
+                glRotatef(-lsystem->getAngle(), 0, 0, 1);
+                break;
+
             case LSystem::PUSH_BACK:
-                qDebug() << "glPushMatrix();";
+                tempRadius.push(radius);
                 glPushMatrix();
                 break;
+
             case LSystem::POP_BACK:
-                qDebug() << "glPopMatrix();";
+                radius = tempRadius.top();
+                tempRadius.pop();
                 glPopMatrix();
+                break;
+
+            case LSystem::NO_ACTION:
                 break;
         }
     }
-    glPopMatrix();
 }
-
 
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
-    qDebug() << __FUNCTION__ << ev->text();
-
     switch(ev->key()) {
         case Qt::Key_Space :
             m_angle += 1;
@@ -138,15 +214,14 @@ void GLArea::keyPressEvent(QKeyEvent *ev)
             break;
         case Qt::Key_R :
             if (ev->text() == "r")
-                 setRadius(m_radius-0.05);
-            else setRadius(m_radius+0.05);
+                 setRadius(m_radius-0.10);
+            else setRadius(m_radius+0.10);
             break;
     }
 }
 
 void GLArea::onTimeout()
 {
-    qDebug() << __FUNCTION__ ;
     m_alpha += 1;
     if (m_alpha >= 360) m_alpha = 0;
     update();
@@ -154,10 +229,8 @@ void GLArea::onTimeout()
 
 void GLArea::setRadius(double radius)
 {
-    qDebug() << __FUNCTION__ << radius << sender();
-    if (radius != m_radius && radius > 0.01 && radius <= 10) {
+    if (radius != m_radius && radius > 0.01 && radius <= 50) {
         m_radius = radius;
-        qDebug() << "  emit radiusChanged()";
         emit radiusChanged(radius);
         makeCurrent();
         doProjection();

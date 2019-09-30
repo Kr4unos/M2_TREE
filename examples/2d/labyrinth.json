@@ -1,0 +1,11 @@
+{
+  "axiom": "F+F+F+F",
+  "rules": {
+    "F": "FF+F-F+F+FF"
+  },
+  "angle": 90,
+  "iterations": 6,
+  "branch_length": 0.02,
+  "branch_radius": 0.02,
+  "branch_radius_reduction": 0
+}

@@ -1,0 +1,12 @@
+{
+  "axiom": "fA",
+  "rules": {
+     "A": "^fB>>>B>>>>>B",
+	 "B": "[^^f>>>>>>A]"
+  },
+  "angle": 15,
+  "iterations": 13,
+  "branch_length": 0.15,
+  "branch_radius": 0.02,
+  "branch_radius_reduction": 0.0015
+}

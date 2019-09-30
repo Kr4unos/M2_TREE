@@ -6,12 +6,16 @@ Settings::Settings(QWidget *parent, LSystem* lsystem) :
     QDialog(parent)
 {
     setupUi(this);
+    this->setWindowTitle("Paramètres");
+
     this->lsystem = lsystem;
+
+    connect(this, SIGNAL(LSystemChanged()), parent, SLOT(settingsModified()));
 
     this->angle_input->setValue(lsystem->getAngle());
     this->axiom_input->setText(lsystem->getAxiom());
     this->iterations_input->setValue(lsystem->getIterations());
-    this->length_input->setValue(lsystem->getLength());
+    this->length_input->setValue(lsystem->getBranchLength());
 
     QString rules_txt("");
     for(int i = 0; i < lsystem->getRulesFrom().count(); ++i){
@@ -26,7 +30,7 @@ void Settings::on_buttonBox_accepted()
     this->lsystem->setAngle(this->angle_input->value());
     this->lsystem->setAxiom(this->axiom_input->text());
     this->lsystem->setIterations(this->iterations_input->value());
-    this->lsystem->setLength(this->length_input->value());
+    this->lsystem->setBranchLength(this->length_input->value());
 
     QStringList rules_lines = this->rules_input->toPlainText().split(QRegExp("\n|\r\n|\r"));
     rules_lines.removeAll(QString(""));
@@ -45,4 +49,6 @@ void Settings::on_buttonBox_accepted()
 
     this->lsystem->setRulesFrom(rulesFrom);
     this->lsystem->setRulesTo(rulesTo);
+
+    emit LSystemChanged();
 }

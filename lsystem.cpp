@@ -16,17 +16,57 @@ LSystem::Action LSystem::getActionFromSymbol(char symbol)
 {
     switch(symbol){
         case 'F':
-            return DRAW_FORWARD;
+        case 'f':
+            return DRAW_BRANCH;
+        case 'L':
+        case 'l':
+            return DRAW_LEAF;
         case '-':
-            return TURN_LEFT;
+            return ROTATE_LEFT_X;
         case '+':
-            return TURN_RIGHT;
+            return ROTATE_RIGHT_X;
+        case '^':
+            return ROTATE_UP_Y;
+        case 'v':
+            return ROTATE_DOWN_Y;
+        case '<':
+            return TWIST_LEFT_Z;
+        case '>':
+            return TWIST_RIGHT_Z;
         case '[':
             return PUSH_BACK;
         case ']':
             return POP_BACK;
         default:
             return NO_ACTION;
+    }
+}
+
+QString LSystem::getActionNameFromAction(LSystem::Action action)
+{
+    switch(action){
+        case DRAW_BRANCH:
+            return "DRAW_BRANCH";
+        case DRAW_LEAF:
+            return "DRAW_LEAF";
+        case ROTATE_LEFT_X:
+            return "ROTATE_LEFT_X";
+        case ROTATE_RIGHT_X:
+            return "ROTATE_RIGHT_X";
+        case ROTATE_UP_Y:
+            return "ROTATE_UP_Y";
+        case ROTATE_DOWN_Y:
+            return "ROTATE_DOWN_Y";
+        case TWIST_LEFT_Z:
+            return "TWIST_LEFT_Z";
+        case TWIST_RIGHT_Z:
+            return "TWIST_RIGHT_Z";
+        case PUSH_BACK:
+            return "PUSH_BACK";
+        case POP_BACK:
+            return "POP_BACK";
+        default:
+            return "NO_ACTION";
     }
 }
 
@@ -65,11 +105,12 @@ bool LSystem::importJSON(QString fileName)
 
     QVariantMap json_map = json_obj.toVariantMap();
 
-    this->setAngle(json_map["angle"].toInt());
+    this->setAngle(json_map["angle"].toFloat());
     this->setAxiom(json_map["axiom"].toString());
     this->setIterations(json_map["iterations"].toInt());
-    this->setLength(json_map["length"].toInt());
-    this->setVariables(json_map["variables"].toStringList());
+    this->setBranchRadius(json_map["branch_radius"].toFloat());
+    this->setBranchRadiusReduction(json_map["branch_radius_reduction"].toFloat());
+    this->setBranchLength(json_map["branch_length"].toFloat());
 
     QVariantMap rules_map = json_map["rules"].toMap();
 
@@ -101,13 +142,9 @@ bool LSystem::exportJSON(QString fileName)
 
     settings_obj.insert("rules", rules_obj);
     settings_obj["iterations"] = this->iterations;
-    settings_obj["length"] = this->length;
-
-    QJsonArray variables;
-    for(int i = 0; i < this->variables.count(); i++){
-        variables << this->variables.at(i);
-    }
-    settings_obj.insert("variables", variables);
+    settings_obj["branch_radius"] = this->branchRadius;
+    settings_obj["branch_radius_reduction"] = this->branchRadiusReduction;
+    settings_obj["branch_length"] = this->branchLength;
 
     QJsonDocument json_doc(settings_obj);
     QString json_string = json_doc.toJson();
@@ -124,15 +161,15 @@ bool LSystem::exportJSON(QString fileName)
 
 void LSystem::iterate()
 {
+    qDebug() << "NBR ITERATIONS A EFFECTUER:" << this->getIterations();
     QString result(this->getAxiom());
-    qDebug() << "ITERATION 0 = " << result;
     // On fait le nombre d'itérations demandées
     for(int i = 0; i < this->getIterations(); ++i){
         // On parcours chaque caractère de la string
         for(int j = 0; j < result.size(); ++j){
             QString currentChar = result.at(j);
             // Si le caractère courant n'est pas une variable, on saute directement au suivant
-            if(!this->getVariables().contains(currentChar)) continue;
+            if(!this->getRulesFrom().contains(currentChar)) continue;
             bool found = false;
             // Tant que l'on ne trouve pas la règle de transition
             while(!found) {
@@ -154,47 +191,21 @@ void LSystem::iterate()
     this->result = result;
 }
 
-
-int LSystem::getAngle() const
-{
-    return angle;
-}
-void LSystem::setAngle(int value)
-{
-    angle = value;
-}
-
 QString LSystem::getAxiom() const
 {
     return axiom;
 }
+
 void LSystem::setAxiom(const QString &value)
 {
     axiom = value;
-}
-
-int LSystem::getIterations() const
-{
-    return iterations;
-}
-void LSystem::setIterations(int value)
-{
-    iterations = value;
-}
-
-int LSystem::getLength() const
-{
-    return length;
-}
-void LSystem::setLength(int value)
-{
-    length = value;
 }
 
 QStringList LSystem::getRulesFrom() const
 {
     return rulesFrom;
 }
+
 void LSystem::setRulesFrom(const QStringList &value)
 {
     rulesFrom = value;
@@ -204,24 +215,67 @@ QStringList LSystem::getRulesTo() const
 {
     return rulesTo;
 }
+
 void LSystem::setRulesTo(const QStringList &value)
 {
     rulesTo = value;
 }
 
-QStringList LSystem::getVariables() const
+float LSystem::getAngle() const
 {
-    return variables;
+    return angle;
 }
-void LSystem::setVariables(const QStringList &value)
+
+void LSystem::setAngle(float value)
 {
-    variables = value;
+    angle = value;
+}
+
+int LSystem::getIterations() const
+{
+    return iterations;
+}
+
+void LSystem::setIterations(int value)
+{
+    iterations = value;
+}
+
+float LSystem::getBranchRadius() const
+{
+    return branchRadius;
+}
+
+void LSystem::setBranchRadius(float value)
+{
+    branchRadius = value;
+}
+
+float LSystem::getBranchRadiusReduction() const
+{
+    return branchRadiusReduction;
+}
+
+void LSystem::setBranchRadiusReduction(float value)
+{
+    branchRadiusReduction = value;
+}
+
+float LSystem::getBranchLength() const
+{
+    return branchLength;
+}
+
+void LSystem::setBranchLength(float value)
+{
+    branchLength = value;
 }
 
 QString LSystem::getResult() const
 {
     return result;
 }
+
 void LSystem::setResult(const QString &value)
 {
     result = value;

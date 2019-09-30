@@ -7,6 +7,7 @@
 #include <QOpenGLFunctions>
 #include <QKeyEvent>
 #include <QTimer>
+#include <stack>
 
 #include "lsystem.h"
 

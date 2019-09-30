@@ -32,8 +32,8 @@ private slots:
     void on_exportJSONAction_triggered();
     void on_exportOBJAction_triggered();
     void on_quitAction_triggered();
-
     void on_settingsAction_triggered();
+    void settingsModified();
 
 private:
 

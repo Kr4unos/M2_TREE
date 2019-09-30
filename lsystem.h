@@ -1,4 +1,4 @@
-#ifndef LSYSTEM_H
+﻿#ifndef LSYSTEM_H
 #define LSYSTEM_H
 
 #include <string>
@@ -9,24 +9,28 @@ class LSystem
     public:
         LSystem(QString fileName);
 
-        enum Action { DRAW_FORWARD = 0, TURN_LEFT = 1, TURN_RIGHT = 2, PUSH_BACK = 3, POP_BACK = 4, NO_ACTION = 5 };
+        enum Action {
+            DRAW_BRANCH = 0,
+            DRAW_LEAF = 1,
+            ROTATE_LEFT_X = 2,
+            ROTATE_RIGHT_X = 3,
+            ROTATE_UP_Y = 4,
+            ROTATE_DOWN_Y = 5,
+            TWIST_LEFT_Z = 6,
+            TWIST_RIGHT_Z = 7,
+            PUSH_BACK = 8,
+            POP_BACK = 9,
+            NO_ACTION = 10
+        };
 
         Action getActionFromSymbol(char symbol);
+        QString getActionNameFromAction(Action action);
         bool importJSON(QString fileName);
         bool exportJSON(QString fileName);
         void iterate();
 
-        int getAngle() const;
-        void setAngle(int value);
-
         QString getAxiom() const;
         void setAxiom(const QString &value);
-
-        int getIterations() const;
-        void setIterations(int value);
-
-        int getLength() const;
-        void setLength(int value);
 
         QStringList getRulesFrom() const;
         void setRulesFrom(const QStringList &value);
@@ -34,20 +38,34 @@ class LSystem
         QStringList getRulesTo() const;
         void setRulesTo(const QStringList &value);
 
-        QStringList getVariables() const;
-        void setVariables(const QStringList &value);
+        float getAngle() const;
+        void setAngle(float value);
+
+        int getIterations() const;
+        void setIterations(int value);
+
+        float getBranchRadius() const;
+        void setBranchRadius(float value);
+
+        float getBranchRadiusReduction() const;
+        void setBranchRadiusReduction(float value);
+
+        float getBranchLength() const;
+        void setBranchLength(float value);
 
         QString getResult() const;
         void setResult(const QString &value);
 
-    private:
-        int angle = 0;
+private:
+
         QString axiom;
         QStringList rulesFrom;
         QStringList rulesTo;
-        QStringList variables;
+        float angle = 0.0;
         int iterations = 0;
-        int length = 0;
+        float branchRadius = 0.0;
+        float branchRadiusReduction = 0.0;
+        float branchLength = 0.0;
 
         QString result;
 };

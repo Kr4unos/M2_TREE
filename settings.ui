@@ -82,7 +82,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="length_input"/>
+        <widget class="QDoubleSpinBox" name="length_input"/>
        </item>
       </layout>
      </item>

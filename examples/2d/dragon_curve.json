@@ -1,0 +1,12 @@
+{
+  "axiom": "FX",
+  "rules": {
+    "Y": "-FX-Y",
+	  "X": "X+YF+"
+  },
+  "angle": 90,
+  "iterations": 9,
+  "branch_length": 0.02,
+  "branch_radius": 0.02,
+  "branch_radius_reduction": 0
+}

@@ -1,0 +1,12 @@
+{
+  "axiom": "FA",
+  "rules": {
+     "A": "F[^BL]>>[^BL]>>A",
+	   "B": "F[-BL]B"
+  },
+  "angle": 30,
+  "iterations": 10,
+  "branch_length": 0.16,
+  "branch_radius": 0.01,
+  "branch_radius_reduction": 0.001
+}

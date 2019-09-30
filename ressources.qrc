@@ -5,6 +5,7 @@
         <file alias="export_obj.png">icons/export_obj.png</file>
         <file alias="export_json.png">icons/export_json.png</file>
         <file alias="settings.png">icons/settings.png</file>
+        <file alias="logo.png">icons/logo.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file alias="basic.fsh">shaders/basic.fsh</file>

@@ -17,6 +17,9 @@ class Settings : public QDialog, private Ui::Settings
 
     private slots:
         void on_buttonBox_accepted();
+
+    signals:
+        void LSystemChanged();
 };
 
 #endif // SETTINGS_H

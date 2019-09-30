@@ -5,10 +5,10 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    this->setWindowTitle("TREE - Tree Random and Epic Elaboration");
+    this->setWindowIcon(QIcon(":/icons/logo.png"));
     // Connect open event
     connect(this, SIGNAL(parseAndGenerate(LSystem*)), ui->glarea, SLOT(parseAndGenerate(LSystem*)));
-
 
     // Remove unused toolbar
     this->removeToolBar(ui->mainToolBar);
@@ -19,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->exportOBJAction->setIcon(icon_export_obj);
     ui->quitAction->setIcon(icon_quit);
     ui->settingsAction->setIcon(icon_settings);
-
 }
 MainWindow::~MainWindow()
 {
@@ -32,6 +31,8 @@ void MainWindow::on_openAction_triggered()
     QString fileName = QFileDialog::getOpenFileName(this, tr("Ouvrir le fichier de configuration..."), "C://", tr("JSON Files (*.json)"));
     if(fileName.isEmpty()) return;
     currentLSystem = new LSystem(fileName);
+    if(settings != nullptr && settings->isVisible()) settings->close();
+    settings = nullptr;
     emit parseAndGenerate(currentLSystem);
     QFileInfo fileInfo(fileName);
     ui->statusBar->showMessage("Fichier " + fileInfo.baseName() + " ouvert avec succès!");
@@ -48,7 +49,7 @@ void MainWindow::on_exportJSONAction_triggered()
         QMessageBox::critical(this, tr("Erreur"), QString("Vous devez spécifier un nom de fichier!"));
         return;
     }
-    currentLSystem->exportJSON(fileName + ".json");
+    currentLSystem->exportJSON(fileName);
     ui->statusBar->showMessage("Exportation en .JSON terminée!");
 }
 void MainWindow::on_exportOBJAction_triggered()
@@ -71,11 +72,17 @@ void MainWindow::on_settingsAction_triggered()
 {
     if(settings == nullptr){
         if(currentLSystem == nullptr) {
-            QMessageBox::warning(this, "Erreur!", "Vous n'avez rien à exporter!");
+            QMessageBox::warning(this, "Erreur!", "Aucun système chargé!");
             return;
         }
         settings = new Settings(this, currentLSystem);
         settings->show();
     }
     if(!settings->isVisible()) settings->show();
+}
+
+void MainWindow::settingsModified()
+{
+    currentLSystem->iterate();
+    emit parseAndGenerate(currentLSystem);
 }

@@ -1,0 +1,12 @@
+{
+  "axiom": "X",
+  "rules": {
+    "F": "FF",
+	"X": "F-[[X]+X]+F[+FX]-X"
+  },
+  "angle": 22.5,
+  "iterations": 4,
+  "branch_length": 0.1,
+  "branch_radius": 0.05,
+  "branch_radius_reduction": 0.0005  
+}
