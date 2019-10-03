@@ -9,14 +9,11 @@
 GLArea::GLArea(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-    qDebug() << "init GLArea" ;
 
     // Ce n'est pas indispensable
     QSurfaceFormat sf;
     sf.setDepthBufferSize(24);
     setFormat(sf);
-    qDebug() << "Depth is"<< format().depthBufferSize();
-
     setEnabled(true);  // événements clavier et souris
     setFocusPolicy(Qt::StrongFocus); // accepte focus
     setFocus();                      // donne le focus
@@ -29,8 +26,6 @@ GLArea::GLArea(QWidget *parent) :
 
 GLArea::~GLArea()
 {
-    qDebug() << "destroy GLArea";
-
     delete m_timer;
 
     // Contrairement aux méthodes virtuelles initializeGL, resizeGL et repaintGL,
@@ -38,7 +33,6 @@ GLArea::~GLArea()
     makeCurrent();
 
     // ici destructions de ressources GL
-
     doneCurrent();
 }
 
@@ -164,30 +158,32 @@ void GLArea::paintGL()
 
             case LSystem::ROTATE_UP_Y:
 
-                glRotatef(lsystem->getAngle(), 0, 1, 0);
+                glRotatef(lsystem->getAngle(), 0, 0, 1);
                 break;
 
             case LSystem::ROTATE_DOWN_Y:
 
-                glRotatef(-lsystem->getAngle(), 0, 1, 0);
+                glRotatef(-lsystem->getAngle(), 0, 0, 1);
                 break;
 
             case LSystem::TWIST_LEFT_Z:
 
-                glRotatef(lsystem->getAngle(), 0, 0, 1);
+                glRotatef(lsystem->getAngle(), 0, 1, 0);
                 break;
 
             case LSystem::TWIST_RIGHT_Z:
 
-                glRotatef(-lsystem->getAngle(), 0, 0, 1);
+                glRotatef(-lsystem->getAngle(), 0, 1, 0);
                 break;
 
             case LSystem::PUSH_BACK:
+
                 tempRadius.push(radius);
                 glPushMatrix();
                 break;
 
             case LSystem::POP_BACK:
+
                 radius = tempRadius.top();
                 tempRadius.pop();
                 glPopMatrix();
