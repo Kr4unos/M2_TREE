@@ -38,11 +38,19 @@ protected:
     void paintGL() override;
     void keyPressEvent(QKeyEvent *ev) override;
 private:
+    //cam setting
+    double cam_angle_x = 0;
+    double cam_angle_y = 0;
+    double cam_angle_z = 0;
+    double cam_x = 0;
+    double cam_y = 0;
+    double cam_z = 0;
+
 
     QString result = "";
     LSystem* lsystem = nullptr;
 
-    double m_angle = 0;
+
     QTimer *m_timer = nullptr;
     double m_alpha = 0;
     double m_radius = 0.5;

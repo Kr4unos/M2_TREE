@@ -90,7 +90,13 @@ void GLArea::paintGL()
 
     glLoadIdentity();
     gluLookAt (3.0, 0.0, 0.0, 0, 0, 0, 0, 1, 0);
-    glRotatef (m_angle, 0, 1, 0);
+
+    glTranslatef(0,-0.8,0);
+
+    glTranslatef(cam_x,cam_y,cam_z);
+    glRotatef(cam_angle_x, 1, 0, 0);
+    glRotatef(cam_angle_y, 0, 1, 0);
+    glRotatef(cam_angle_z, 0, 0, 1);
 //    glEnable(GL_LINE_SMOOTH);
 //    glLineWidth(3.0f);
 
@@ -164,22 +170,22 @@ void GLArea::paintGL()
 
             case LSystem::ROTATE_UP_Y:
 
-                glRotatef(lsystem->getAngle(), 0, 1, 0);
+                glRotatef(lsystem->getAngle(), 0, 0, 1);
                 break;
 
             case LSystem::ROTATE_DOWN_Y:
 
-                glRotatef(-lsystem->getAngle(), 0, 1, 0);
+                glRotatef(-lsystem->getAngle(), 0, 0, 1);
                 break;
 
             case LSystem::TWIST_LEFT_Z:
 
-                glRotatef(lsystem->getAngle(), 0, 0, 1);
+                glRotatef(lsystem->getAngle(), 0, 1, 0);
                 break;
 
             case LSystem::TWIST_RIGHT_Z:
 
-                glRotatef(-lsystem->getAngle(), 0, 0, 1);
+                glRotatef(-lsystem->getAngle(), 0, 1, 0);
                 break;
 
             case LSystem::PUSH_BACK:
@@ -201,22 +207,88 @@ void GLArea::paintGL()
 
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
-    switch(ev->key()) {
-        case Qt::Key_Space :
-            m_angle += 1;
-            if (m_angle >= 360) m_angle -= 360;
-            update();
-            break;
-        case Qt::Key_A :
-            if (m_timer->isActive())
-                m_timer->stop();
-            else m_timer->start();
-            break;
-        case Qt::Key_R :
-            if (ev->text() == "r")
-                 setRadius(m_radius-0.10);
-            else setRadius(m_radius+0.10);
-            break;
+    switch(ev->key()) {        
+    case Qt::Key_9 :
+        cam_angle_y += 1;
+        if (cam_angle_y >= 360) cam_angle_y -= 360;
+        update();
+        break;
+    case Qt::Key_7 :
+        cam_angle_y -= 1;
+        if (cam_angle_y <= -1) cam_angle_y += 360;
+        update();
+        break;
+    case Qt::Key_4 :
+        cam_angle_x += 1;
+        if (cam_angle_x >= 360) cam_angle_x -= 360;
+        update();
+        break;
+    case Qt::Key_6 :
+        cam_angle_x -= 1;
+        if (cam_angle_x <= -1) cam_angle_x += 360;
+        update();
+        break;
+    case Qt::Key_8 :
+        cam_angle_z += 1;
+        if (cam_angle_z >= 360) cam_angle_z -= 360;
+        update();
+        break;
+    case Qt::Key_2 :
+        cam_angle_z -= 1;
+        if (cam_angle_z <= -1) cam_angle_z += 360;
+        update();
+        break;
+    case Qt::Key_D :
+        cam_z+=0.1f;
+        update();
+        break;
+    case Qt::Key_Q :
+        cam_z-=0.1f;
+        update();
+        break;
+    case Qt::Key_Z :
+        cam_x+=0.1f;
+        update();
+        break;
+    case Qt::Key_S :
+        cam_x-=0.1f;
+        update();
+        break;
+    case Qt::Key_R :
+        cam_y-=0.1f;
+        update();
+        break;
+    case Qt::Key_F :
+        cam_y+=0.1f;
+        update();
+        break;
+    case Qt::Key_Return :
+        cam_x=0;
+        cam_y=0;
+        cam_z=0;
+        cam_angle_x=0;
+        cam_angle_y=0;
+        cam_angle_z=0;
+        update();
+        break;
+    case Qt::Key_Escape:
+        qDebug() <<"m_x" << cam_x
+                 <<"m_y" << cam_y
+                 <<"m_z" << cam_z
+                 <<"a_x" << cam_angle_x
+                 <<"a_y" << cam_angle_y
+                 <<"a_z" << cam_angle_z;
+        break;
+    case Qt::Key_A :
+        if (m_timer->isActive())
+            m_timer->stop();
+        else m_timer->start();
+        break;
+    case Qt::Key_W :
+        if (ev->text() == "r")
+             setRadius(m_radius-0.10);
+        else setRadius(m_radius+0.10);
+        break;
     }
 }
 

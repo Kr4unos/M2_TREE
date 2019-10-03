@@ -8,7 +8,7 @@ QT       += core gui
 QT       += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+mai
 TARGET = TREE
 TEMPLATE = app
 
@@ -47,5 +47,7 @@ FORMS += \
 
 RESOURCES += \
     ressources.qrc
+
+CONFIG += c++11
 
 
