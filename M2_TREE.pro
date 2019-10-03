@@ -8,8 +8,13 @@ QT       += core gui
 QT       += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+<<<<<<< HEAD:M2_TREE.pro
 
 TARGET = M2_TREE
+=======
+mai
+TARGET = TREE
+>>>>>>> master:TREE.pro
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -47,5 +52,7 @@ FORMS += \
 
 RESOURCES += \
     ressources.qrc
+
+CONFIG += c++11
 
 
