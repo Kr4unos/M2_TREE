@@ -22,6 +22,7 @@ GLArea::GLArea(QWidget *parent) :
     m_timer->setInterval(50);  // msec
     connect (m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
     connect (this, SIGNAL(radiusChanged(double)), this, SLOT(setRadius(double)));
+
 }
 
 GLArea::~GLArea()
@@ -69,6 +70,7 @@ void GLArea::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(lsystem == nullptr) return;
+    textureFeuille = raw_texture_load("/icons/texFeuille.png", 300, 217);
 
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
@@ -131,20 +133,30 @@ void GLArea::paintGL()
             case LSystem::DRAW_LEAF:
 
                 glColor3f(0.0f, 1.0f, 0.0f);
+                glEnable(GL_TEXTURE_2D);
+                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+                glBindTexture(GL_TEXTURE_2D, textureFeuille);
+
                 glBegin(GL_TRIANGLES);
-                    glVertex3f(x,y,z);
+                glNormal3f(0.0, 0.0, 1.0);
+
+                glTexCoord2d(0, 0); glVertex3f(x,y,z);
+                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
+                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
+                glEnd();
+                glFlush();
+
+                glDisable(GL_TEXTURE_2D);
+
+                /*
+                glBegin(GL_TRIANGLES);
                     glVertex3f(x,y+pas,z);
                     glVertex3f(x+pas,y,z);
-                glEnd();
-
-                glBegin(GL_TRIANGLES);
-                glVertex3f(x,y+pas,z);
-                glVertex3f(x+pas,y,z);
-                glVertex3f(x+pas,y+pas,z);
+                    glVertex3f(x+pas,y+pas,z);
                 glEnd();
 
 
-
+*/
 
                 /*
                 glBegin(GL_QUAD_STRIP); //cylindre
@@ -216,6 +228,58 @@ void GLArea::paintGL()
         }
     }
 }
+
+GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
+ {
+     GLuint texture;
+     unsigned char *data;
+     FILE *file;
+
+     // open texture data
+     file = fopen(filename, "rb");
+     if (file == NULL) return 0;
+
+     // allocate buffer
+     data = (unsigned char*) malloc(width * height * 4);
+
+     // read texture data
+     fread(data, width * height * 4, 1, file);
+     fclose(file);
+
+     // allocate a texture name
+     glGenTextures(1, &texture);
+
+     // select our current texture
+     glBindTexture(GL_TEXTURE_2D, texture);
+
+     // select modulate to mix texture with color for shading
+     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
+     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
+
+     // when texture area is small, bilinear filter the closest mipmap
+     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+     // when texture area is large, bilinear filter the first mipmap
+     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+     // texture should tile
+     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+     // build our texture mipmaps
+     gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+
+     // free buffer
+     free(data);
+
+     return texture;
+ }
+
+
+
+
 
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
