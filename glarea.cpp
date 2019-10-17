@@ -73,6 +73,7 @@ void GLArea::paintGL()
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
     GLfloat z              = 0.0;
+    GLfloat pas            = 0.05;
 
     GLfloat angle          = 0.0;
     GLfloat angle_stepsize = 0.1;
@@ -130,8 +131,23 @@ void GLArea::paintGL()
             case LSystem::DRAW_LEAF:
 
                 glColor3f(0.0f, 1.0f, 0.0f);
+                glBegin(GL_TRIANGLES);
+                    glVertex3f(x,y,z);
+                    glVertex3f(x,y+pas,z);
+                    glVertex3f(x+pas,y,z);
+                glEnd();
 
-                glBegin(GL_QUAD_STRIP);
+                glBegin(GL_TRIANGLES);
+                glVertex3f(x,y+pas,z);
+                glVertex3f(x+pas,y,z);
+                glVertex3f(x+pas,y+pas,z);
+                glEnd();
+
+
+
+
+                /*
+                glBegin(GL_QUAD_STRIP); //cylindre
                     angle = 0.0;
                     while( angle < 2 * M_PI ) {
                         GLfloat tempX = radius * cos(angle);
@@ -143,7 +159,7 @@ void GLArea::paintGL()
                     glVertex3f(radius, height, 0.0);
                     glVertex3f(radius, 0.0, 0.0);
                 glEnd();
-
+                */
 //                glBegin(GL_LINES);
 //                  glVertex3f(x, y, z);
 //                  glVertex3f(x, y+0.1f, z);
