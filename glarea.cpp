@@ -82,7 +82,7 @@ void GLArea::paintGL()
 
     GLfloat radius           = lsystem->getBranchRadius();
     GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
-    GLfloat height           = lsystem->getBranchLengthRandom();
+    GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
     std::stack<GLfloat> tempRadius;
 
     glLoadIdentity();
@@ -99,12 +99,12 @@ void GLArea::paintGL()
 
     for(int i = 0; i < result.size(); i++){
         char currentChar = lsystem->getResult().at(i).toLatin1();
-        LSystem::Action action = lsystem->getActionFromSymbol(currentChar); //rend l'arbre ne sera plus propotionel
+        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
 
         switch(action){
 
             case LSystem::DRAW_BRANCH:
-                height           = lsystem->getBranchLengthRandom();
+               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
                 glColor3f(0.5f, 0.35f, 0.05f);
 
                 glBegin(GL_QUAD_STRIP);
@@ -191,11 +191,12 @@ void GLArea::paintGL()
                 break;
 
             case LSystem::ROTATE_UP_Y:
-
+                qDebug() << "hello +y";
                 glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
                 break;
 
             case LSystem::ROTATE_DOWN_Y:
+                qDebug() << "hello -y";
 
                 glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
                 break;
