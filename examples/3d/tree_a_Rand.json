@@ -1,0 +1,14 @@
+{
+  "axiom": "FFFFFA",
+  "rules": {
+    "A": "F[++AL][--AL]>>>A"
+  },
+  "angle": 25,
+  "angle_alea": 2,
+  "iterations": 6,
+  "branch_length": 0.15,
+  "branch_length_alea": 0.002,
+  "branch_radius": 0.02,
+  "branch_radius_reduction": 0.0015,
+  "branch_radius_reduction_alea": 0.0000001
+}
