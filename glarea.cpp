@@ -154,32 +154,32 @@ void GLArea::paintGL()
 
             case LSystem::ROTATE_LEFT_X:
 
-                glRotatef(lsystem->getAngle(), 1, 0, 0);
+                glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
                 break;
 
             case LSystem::ROTATE_RIGHT_X:
 
-                glRotatef(-lsystem->getAngle(), 1, 0, 0);
+                glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
                 break;
 
             case LSystem::ROTATE_UP_Y:
 
-                glRotatef(lsystem->getAngle(), 0, 0, 1);
+                glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
                 break;
 
             case LSystem::ROTATE_DOWN_Y:
 
-                glRotatef(-lsystem->getAngle(), 0, 0, 1);
+                glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
                 break;
 
             case LSystem::TWIST_LEFT_Z:
 
-                glRotatef(lsystem->getAngle(), 0, 1, 0);
+                glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
                 break;
 
             case LSystem::TWIST_RIGHT_Z:
 
-                glRotatef(-lsystem->getAngle(), 0, 1, 0);
+                glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
                 break;
 
             case LSystem::PUSH_BACK:
