@@ -3,6 +3,8 @@
 
 #include <string>
 #include <QFile>
+#include <chrono>
+#include <random>
 
 class LSystem
 {
@@ -56,18 +58,47 @@ class LSystem
         QString getResult() const;
         void setResult(const QString &value);
 
+        float getBranchLengthAlea() const;
+        void setBranchLengthAlea(float value);
+
+        float getBranchRadiusReductionAlea() const;
+        void setBranchRadiusReductionAlea(float value);
+
+        float getBranchRadiusAlea() const;
+        void setBranchRadiusAlea(float value);
+
+        float getAngleAlea() const;
+        void setAngleAlea(float value);
+
+
+        float getAngleRandom();
+        float getBranchLengthRandom();
+        float getBranchRadiusRandom();
+        float getBranchRadiusReductionRandom();
+
 private:
 
         QString axiom;
         QStringList rulesFrom;
         QStringList rulesTo;
-        float angle = 0.0;
         int iterations = 0;
+        float angle = 0.0;
+        float angleAlea = 0.0;
         float branchRadius = 0.0;
+        float branchRadiusAlea = 0.0;
         float branchRadiusReduction = 0.0;
+        float branchRadiusReductionAlea = 0.0;
         float branchLength = 0.0;
+        float branchLengthAlea = 0.0;
+
 
         QString result;
+
+        std::default_random_engine R_generator;
+        std::normal_distribution<float> distributionAngle;
+        std::normal_distribution<float> distributionBranchRadius;
+        std::normal_distribution<float> distributionBranchRadiusReduction;
+        std::normal_distribution<float> distributionBranchLength;
 };
 
 #endif // LSYSTEM_H

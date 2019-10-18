@@ -106,11 +106,15 @@ bool LSystem::importJSON(QString fileName)
     QVariantMap json_map = json_obj.toVariantMap();
 
     this->setAngle(json_map["angle"].toFloat());
+    this->setAngleAlea(json_map["angle_alea"].toFloat());
     this->setAxiom(json_map["axiom"].toString());
     this->setIterations(json_map["iterations"].toInt());
     this->setBranchRadius(json_map["branch_radius"].toFloat());
+    this->setBranchRadiusAlea(json_map["branch_radius_alea"].toFloat());
     this->setBranchRadiusReduction(json_map["branch_radius_reduction"].toFloat());
+    this->setBranchRadiusReductionAlea(json_map["branch_radius_reduction_alea"].toFloat());
     this->setBranchLength(json_map["branch_length"].toFloat());
+    this->setBranchLengthAlea(json_map["branch_length_alea"].toFloat());
 
     QVariantMap rules_map = json_map["rules"].toMap();
 
@@ -126,6 +130,15 @@ bool LSystem::importJSON(QString fileName)
     this->setRulesFrom(key_list);
     this->setRulesTo(value_list);
 
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+
+    R_generator= std::default_random_engine(seed);
+
+    distributionAngle                 = std::normal_distribution<float> (angle,angleAlea);
+    distributionBranchRadius          = std::normal_distribution<float> (branchRadius,angleAlea);
+    distributionBranchRadiusReduction = std::normal_distribution<float> (branchRadiusReduction,branchRadiusReductionAlea);
+    distributionBranchLength          = std::normal_distribution<float> (branchLength,branchLengthAlea);
+
     return true;
 }
 bool LSystem::exportJSON(QString fileName)
@@ -133,6 +146,7 @@ bool LSystem::exportJSON(QString fileName)
 
     QJsonObject settings_obj;
     settings_obj["angle"] = this->angle;
+    settings_obj["angle_alea"] = this->angleAlea;
     settings_obj["axiom"] = this->axiom;
 
     QJsonObject rules_obj;
@@ -143,8 +157,11 @@ bool LSystem::exportJSON(QString fileName)
     settings_obj.insert("rules", rules_obj);
     settings_obj["iterations"] = this->iterations;
     settings_obj["branch_radius"] = this->branchRadius;
+    settings_obj["branch_radius_alea"] = this->branchRadiusAlea;
     settings_obj["branch_radius_reduction"] = this->branchRadiusReduction;
+    settings_obj["branch_radius_reduction_alea"] = this->branchRadiusReductionAlea;
     settings_obj["branch_length"] = this->branchLength;
+    settings_obj["branch_length_alea"] = this->branchLengthAlea;
 
     QJsonDocument json_doc(settings_obj);
     QString json_string = json_doc.toJson();
@@ -186,7 +203,7 @@ void LSystem::iterate()
                 if(!found && j+1 < result.size()) currentChar += result.at(++j);
             }
         }
-        qDebug() << "ITERATION " << i+1 << " = " << result;
+        //qDebug() << "ITERATION " << i+1 << " = " << result;
     }
     this->result = result;
 }
@@ -226,6 +243,11 @@ float LSystem::getAngle() const
     return angle;
 }
 
+float LSystem::getAngleRandom()
+{
+    return distributionAngle(R_generator);
+}
+
 void LSystem::setAngle(float value)
 {
     angle = value;
@@ -246,6 +268,11 @@ float LSystem::getBranchRadius() const
     return branchRadius;
 }
 
+float LSystem::getBranchRadiusRandom()
+{
+    return distributionBranchRadius(R_generator);
+}
+
 void LSystem::setBranchRadius(float value)
 {
     branchRadius = value;
@@ -256,6 +283,11 @@ float LSystem::getBranchRadiusReduction() const
     return branchRadiusReduction;
 }
 
+float LSystem::getBranchRadiusReductionRandom()
+{
+    return distributionBranchRadiusReduction(R_generator);
+}
+
 void LSystem::setBranchRadiusReduction(float value)
 {
     branchRadiusReduction = value;
@@ -264,6 +296,11 @@ void LSystem::setBranchRadiusReduction(float value)
 float LSystem::getBranchLength() const
 {
     return branchLength;
+}
+
+float LSystem::getBranchLengthRandom()
+{
+    return distributionBranchLength(R_generator);
 }
 
 void LSystem::setBranchLength(float value)
@@ -279,4 +316,44 @@ QString LSystem::getResult() const
 void LSystem::setResult(const QString &value)
 {
     result = value;
+}
+
+float LSystem::getBranchLengthAlea() const
+{
+    return branchLengthAlea;
+}
+
+void LSystem::setBranchLengthAlea(float value)
+{
+    branchLengthAlea = value;
+}
+
+float LSystem::getBranchRadiusReductionAlea() const
+{
+    return branchRadiusReductionAlea;
+}
+
+void LSystem::setBranchRadiusReductionAlea(float value)
+{
+    branchRadiusReductionAlea = value;
+}
+
+float LSystem::getBranchRadiusAlea() const
+{
+    return branchRadiusAlea;
+}
+
+void LSystem::setBranchRadiusAlea(float value)
+{
+    branchRadiusAlea = value;
+}
+
+float LSystem::getAngleAlea() const
+{
+    return angleAlea;
+}
+
+void LSystem::setAngleAlea(float value)
+{
+    angleAlea = value;
 }
