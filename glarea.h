@@ -19,6 +19,8 @@ class GLArea : public QOpenGLWidget,
 public:
     explicit GLArea(QWidget *parent = nullptr);
     ~GLArea() override;
+    GLuint raw_texture_load(const char *filename, int width, int height);
+
 
 public slots:
     void setRadius(double radius);
@@ -55,6 +57,7 @@ private:
     double m_alpha = 0;
     double m_radius = 0.5;
     double m_ratio = 1;
+    GLuint textureFeuille;
 };
 
 #endif // GLAREA_H
