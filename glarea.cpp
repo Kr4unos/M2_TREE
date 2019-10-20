@@ -4,7 +4,25 @@
 #include <GL/glu.h>
 #include <QDebug>
 #include <QSurfaceFormat>
+#include <QMatrix4x4>
 #include "math.h"
+
+static const char *vertexShaderSource =
+    "attribute highp vec4 posAttr; \n"
+    "attribute lowp vec4 colAttr; \n"
+    "varying lowp vec4 col; \n"
+    "uniform highp mat4 matrix; \n"
+    "void main() { \n"
+    " col = colAttr; \n"
+    " gl_Position = matrix * posAttr; \n"
+    "} \n";
+
+static const char *fragmentShaderSource =
+    "varying lowp vec4 col; \n"
+    "void main() { \n"
+    " gl_FragColor = col; \n"
+    "} \n";
+
 
 GLArea::GLArea(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -33,6 +51,7 @@ GLArea::~GLArea()
     // dans le destructeur le contexte GL n'est pas automatiquement rendu courant.
     makeCurrent();
 
+    tearGLObjects();
     // ici destructions de ressources GL
     doneCurrent();
 }
@@ -42,7 +61,17 @@ void GLArea::initializeGL()
 {
     qDebug() << __FUNCTION__ ;
     initializeOpenGLFunctions();
+
+    m_program = new QOpenGLShaderProgram(this);
+    m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+    m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+    m_program->link();
+    m_matrixUniform = m_program->uniformLocation("matrix");
+    m_posAttr = m_program->attributeLocation("posAttr");
+    m_colAttr = m_program->attributeLocation("colAttr");
+
     glEnable(GL_DEPTH_TEST);
+    //makeGLObjects();
 }
 
 void GLArea::doProjection()
@@ -57,18 +86,51 @@ void GLArea::doProjection()
 void GLArea::resizeGL(int w, int h)
 {
     qDebug() << __FUNCTION__ << w << h;
-
-    // C'est fait par défaut
-    glViewport(0, 0, w, h);
-
-    m_ratio = w / h;
     doProjection();
 }
 
 void GLArea::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    m_program->bind();
 
+    QMatrix4x4 matrix;
+    GLfloat hr = m_radius, wr = hr * m_ratio;
+    matrix.frustum(-wr, wr, -hr, hr, 1.0, 5.0);
+    matrix.translate(0,0, -3.0);
+    matrix.rotate(cam_angle_y, 0, 1, 0);
+    m_program->setUniformValue(m_matrixUniform, matrix);
+
+    GLfloat vertices[] = {
+        -0.7, -0.5, -0.1,
+         0.8, -0.2, -0.1,
+         0.1,  0.9,  0.3,
+        -0.6,  0.7, -0.2,
+         0.8,  0.8, -0.2,
+         0.1, -0.9,  0.7
+    };
+
+    GLfloat colors[] = {
+         1.0,  0.6,  0.6,
+         1.0,  0.6,  0.6,
+         1.0,  0.6,  0.6,
+         1.0,  0.0,  0.0,
+         0.0,  1.0,  0.0,
+         0.0,  0.0,  1.0
+    };
+
+    glVertexAttribPointer(m_posAttr, 3, GL_FLOAT, GL_FALSE, 0, vertices);
+    glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, colors);
+
+    glEnableVertexAttribArray(m_posAttr);
+    glEnableVertexAttribArray(m_colAttr);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    glDisableVertexAttribArray(m_posAttr);
+    glDisableVertexAttribArray(m_colAttr);
+
+    /*
     if(lsystem == nullptr) return;
     textureFeuille = raw_texture_load("/icons/texFeuille.png", 300, 217);
 
@@ -94,8 +156,7 @@ void GLArea::paintGL()
     glRotatef(cam_angle_x, 1, 0, 0);
     glRotatef(cam_angle_y, 0, 1, 0);
     glRotatef(cam_angle_z, 0, 0, 1);
-//    glEnable(GL_LINE_SMOOTH);
-//    glLineWidth(3.0f);
+
 
     for(int i = 0; i < result.size(); i++){
         char currentChar = lsystem->getResult().at(i).toLatin1();
@@ -120,11 +181,6 @@ void GLArea::paintGL()
                     glVertex3f(radius, 0.0, 0.0);
                 glEnd();
 
-//                glBegin(GL_LINES);
-//                  glVertex3f(x, y, z);
-//                  glVertex3f(x, y+height, z);
-//                glEnd();
-
 
                 if(radius >= radius_reduction) radius -= radius_reduction;
                 glTranslatef (x, y+height, z);
@@ -148,34 +204,6 @@ void GLArea::paintGL()
 
                 glDisable(GL_TEXTURE_2D);
 
-                /*
-                glBegin(GL_TRIANGLES);
-                    glVertex3f(x,y+pas,z);
-                    glVertex3f(x+pas,y,z);
-                    glVertex3f(x+pas,y+pas,z);
-                glEnd();
-
-
-*/
-
-                /*
-                glBegin(GL_QUAD_STRIP); //cylindre
-                    angle = 0.0;
-                    while( angle < 2 * M_PI ) {
-                        GLfloat tempX = radius * cos(angle);
-                        GLfloat tempZ = radius * sin(angle);
-                        glVertex3f(tempX, height, tempZ);
-                        glVertex3f(tempX, y, tempZ);
-                        angle += angle_stepsize;
-                    }
-                    glVertex3f(radius, height, 0.0);
-                    glVertex3f(radius, 0.0, 0.0);
-                glEnd();
-                */
-//                glBegin(GL_LINES);
-//                  glVertex3f(x, y, z);
-//                  glVertex3f(x, y+0.1f, z);
-//                glEnd();
 
                 if(radius >= radius_reduction) radius -= radius_reduction;
                 break;
@@ -228,6 +256,8 @@ void GLArea::paintGL()
                 break;
         }
     }
+    */
+    m_program->release();
 }
 
 GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
@@ -393,4 +423,134 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
     this->result = lsystem->getResult();
     this->lsystem = lsystem;
     update();
+}
+
+
+/*** vbo test ***/
+
+void GLArea::makeGLObjects(){
+/*
+
+
+    m_vbo.create();
+    GLfloat x              = 0.0;
+    GLfloat y              = 0.0;
+    GLfloat z              = 0.0;
+    GLfloat pas            = 0.05;
+
+    GLfloat angle          = 0.0;
+    GLfloat angle_stepsize = 0.1;
+
+    GLfloat radius           = lsystem->getBranchRadius();
+    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
+    GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
+    std::stack<GLfloat> tempRadius;
+
+
+    for(int i = 0; i < result.size(); i++){
+        char currentChar = lsystem->getResult().at(i).toLatin1();
+        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
+
+        switch(action){
+
+            case LSystem::DRAW_BRANCH:
+               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
+
+                glBegin(GL_QUAD_STRIP);
+                    angle = 0.0;
+                    while( angle < 2 * M_PI ) {
+                        GLfloat tempX = radius * cos(angle);
+                        GLfloat tempZ = radius * sin(angle);
+                        glVertex3f(tempX, height, tempZ);
+                        glVertex3f(tempX, y, tempZ);
+                        angle += angle_stepsize;
+                    }
+                    glVertex3f(radius, height, 0.0);
+                    glVertex3f(radius, 0.0, 0.0);
+                glEnd();
+
+                if(radius >= radius_reduction) radius -= radius_reduction;
+                glTranslatef (x, y+height, z);
+                break;
+
+            case LSystem::DRAW_LEAF:
+
+                glBegin(GL_TRIANGLES);
+                glNormal3f(0.0, 0.0, 1.0);
+
+                glTexCoord2d(0, 0); glVertex3f(x,y,z);
+                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
+                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
+                glEnd();
+                glFlush();
+
+                glDisable(GL_TEXTURE_2D);
+
+                if(radius >= radius_reduction) radius -= radius_reduction;
+                break;
+
+            case LSystem::ROTATE_LEFT_X:
+
+                glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
+                break;
+
+            case LSystem::ROTATE_RIGHT_X:
+
+                glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
+                break;
+
+            case LSystem::ROTATE_UP_Y:
+
+                glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
+                break;
+
+            case LSystem::ROTATE_DOWN_Y:
+
+                glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
+                break;
+
+            case LSystem::TWIST_LEFT_Z:
+
+                glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
+                break;
+
+            case LSystem::TWIST_RIGHT_Z:
+
+                glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
+                break;
+
+            case LSystem::PUSH_BACK:
+
+                tempRadius.push(radius);
+                glPushMatrix();
+                break;
+
+            case LSystem::POP_BACK:
+
+                radius = tempRadius.top();
+                tempRadius.pop();
+                glPopMatrix();
+                break;
+
+            case LSystem::NO_ACTION:
+                break;
+        }
+    }
+
+    QVector<GLfloat> vertData;
+    for(int i = 0; i < 6; i++){
+        for(int j = 0; j < 3; j++)
+            vertData.append(vertices[i*3+j]);
+        for(int j = 0; j < 3; j++)
+            vertData.append(colors[i*3+j]);
+    }
+
+    m_vbo.create();
+    m_vbo.bind();
+    m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
+    */
+}
+
+void GLArea::tearGLObjects(){
+    m_vbo.destroy();
 }

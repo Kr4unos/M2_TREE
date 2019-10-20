@@ -8,6 +8,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include <stack>
+#include <QOpenGLBuffer>
+#include <QOpenGLShaderProgram>
 
 #include "lsystem.h"
 
@@ -58,6 +60,16 @@ private:
     double m_radius = 0.5;
     double m_ratio = 1;
     GLuint textureFeuille;
+
+    /* VBO */
+    QOpenGLShaderProgram *m_program;
+    QOpenGLBuffer m_vbo;
+    int m_matrixUniform;
+    int m_posAttr;
+    int m_colAttr;
+
+    void makeGLObjects();
+    void tearGLObjects();
 };
 
 #endif // GLAREA_H
