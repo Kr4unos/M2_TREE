@@ -7,22 +7,8 @@
 #include <QMatrix4x4>
 #include "math.h"
 
-static const char *vertexShaderSource =
-    "attribute highp vec4 posAttr; \n"
-    "attribute lowp vec4 colAttr; \n"
-    "varying lowp vec4 col; \n"
-    "uniform highp mat4 matrix; \n"
-    "void main() { \n"
-    " col = colAttr; \n"
-    " gl_Position = matrix * posAttr; \n"
-    "} \n";
-
-static const char *fragmentShaderSource =
-    "varying lowp vec4 col; \n"
-    "void main() { \n"
-    " gl_FragColor = col; \n"
-    "} \n";
-
+static const char *vertexShaderSource = ":/shaders/basic.vsh";
+static const char *fragmentShaderSource = ":/shaders/basic.fsh";
 
 GLArea::GLArea(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -31,6 +17,7 @@ GLArea::GLArea(QWidget *parent) :
     // Ce n'est pas indispensable
     QSurfaceFormat sf;
     sf.setDepthBufferSize(24);
+    sf.setSamples(16);
     setFormat(sf);
     setEnabled(true);  // événements clavier et souris
     setFocusPolicy(Qt::StrongFocus); // accepte focus
@@ -63,15 +50,20 @@ void GLArea::initializeGL()
     initializeOpenGLFunctions();
 
     m_program = new QOpenGLShaderProgram(this);
-    m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
-    m_program->link();
+    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexShaderSource);
+    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentShaderSource);
+    if(!m_program->link()){
+        qWarning("Failed to compile and link shader program:");
+        qWarning() << m_program->log();
+    }
+
+
     m_matrixUniform = m_program->uniformLocation("matrix");
     m_posAttr = m_program->attributeLocation("posAttr");
     m_colAttr = m_program->attributeLocation("colAttr");
 
     glEnable(GL_DEPTH_TEST);
-    //makeGLObjects();
+    makeGLObjects();
 }
 
 void GLArea::doProjection()
@@ -101,29 +93,12 @@ void GLArea::paintGL()
     matrix.rotate(cam_angle_y, 0, 1, 0);
     m_program->setUniformValue(m_matrixUniform, matrix);
 
-    GLfloat vertices[] = {
-        -0.7, -0.5, -0.1,
-         0.8, -0.2, -0.1,
-         0.1,  0.9,  0.3,
-        -0.6,  0.7, -0.2,
-         0.8,  0.8, -0.2,
-         0.1, -0.9,  0.7
-    };
 
-    GLfloat colors[] = {
-         1.0,  0.6,  0.6,
-         1.0,  0.6,  0.6,
-         1.0,  0.6,  0.6,
-         1.0,  0.0,  0.0,
-         0.0,  1.0,  0.0,
-         0.0,  0.0,  1.0
-    };
+    m_program->setAttributeBuffer(m_posAttr, GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));
+    m_program->setAttributeBuffer(m_colAttr, GL_FLOAT, 3 * sizeof(GLfloat), 3, 6 * sizeof(GLfloat));
 
-    glVertexAttribPointer(m_posAttr, 3, GL_FLOAT, GL_FALSE, 0, vertices);
-    glVertexAttribPointer(m_colAttr, 3, GL_FLOAT, GL_FALSE, 0, colors);
-
-    glEnableVertexAttribArray(m_posAttr);
-    glEnableVertexAttribArray(m_colAttr);
+    m_program->enableAttributeArray(m_posAttr);
+    m_program->enableAttributeArray(m_colAttr);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -260,58 +235,6 @@ void GLArea::paintGL()
     m_program->release();
 }
 
-GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
- {
-     GLuint texture;
-     unsigned char *data;
-     FILE *file;
-
-     // open texture data
-     file = fopen(filename, "rb");
-     if (file == NULL) return 0;
-
-     // allocate buffer
-     data = (unsigned char*) malloc(width * height * 4);
-
-     // read texture data
-     fread(data, width * height * 4, 1, file);
-     fclose(file);
-
-     // allocate a texture name
-     glGenTextures(1, &texture);
-
-     // select our current texture
-     glBindTexture(GL_TEXTURE_2D, texture);
-
-     // select modulate to mix texture with color for shading
-     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-
-     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_DECAL);
-     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_DECAL);
-
-     // when texture area is small, bilinear filter the closest mipmap
-     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-     // when texture area is large, bilinear filter the first mipmap
-     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-     // texture should tile
-     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-     // build our texture mipmaps
-     gluBuild2DMipmaps(GL_TEXTURE_2D, 4, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-
-
-     // free buffer
-     free(data);
-
-     return texture;
- }
-
-
-
-
-
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
     switch(ev->key()) {        
@@ -429,10 +352,30 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 /*** vbo test ***/
 
 void GLArea::makeGLObjects(){
-/*
+
 
 
     m_vbo.create();
+
+    GLfloat vertices[] = {
+        -0.7, -0.5, -0.1,
+         0.8, -0.2, -0.1,
+         0.1,  0.9,  0.3,
+        -0.6,  0.7, -0.2,
+         0.8,  0.8, -0.2,
+         0.1, -0.9,  0.7
+    };
+
+    GLfloat colors[] = {
+         1.0,  0.6,  0.6,
+         1.0,  0.6,  0.6,
+         1.0,  0.6,  0.6,
+         1.0,  0.0,  0.0,
+         0.0,  1.0,  0.0,
+         0.0,  0.0,  1.0
+    };
+
+    /*
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
     GLfloat z              = 0.0;
@@ -536,7 +479,7 @@ void GLArea::makeGLObjects(){
                 break;
         }
     }
-
+*/
     QVector<GLfloat> vertData;
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 3; j++)
@@ -548,7 +491,7 @@ void GLArea::makeGLObjects(){
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
-    */
+
 }
 
 void GLArea::tearGLObjects(){
