@@ -52,6 +52,8 @@ void GLArea::initializeGL()
     m_program = new QOpenGLShaderProgram(this);
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexShaderSource);
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentShaderSource);
+    m_program->setUniformValue("texture", 0);
+
     if(!m_program->link()){
         qWarning("Failed to compile and link shader program:");
         qWarning() << m_program->log();
@@ -59,8 +61,6 @@ void GLArea::initializeGL()
 
 
     m_matrixUniform = m_program->uniformLocation("matrix");
-    m_posAttr = m_program->attributeLocation("posAttr");
-    m_colAttr = m_program->attributeLocation("colAttr");
 
     glEnable(GL_DEPTH_TEST);
     makeGLObjects();
@@ -94,16 +94,23 @@ void GLArea::paintGL()
     m_program->setUniformValue(m_matrixUniform, matrix);
 
 
-    m_program->setAttributeBuffer(m_posAttr, GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));
-    m_program->setAttributeBuffer(m_colAttr, GL_FLOAT, 3 * sizeof(GLfloat), 3, 6 * sizeof(GLfloat));
+    m_program->setAttributeBuffer("posAttr", GL_FLOAT, 0, 3, 5 * sizeof(GLfloat));
+    m_program->setAttributeBuffer("texAttr", GL_FLOAT, 3 * sizeof(GLfloat), 2, 5 * sizeof(GLfloat));
 
-    m_program->enableAttributeArray(m_posAttr);
-    m_program->enableAttributeArray(m_colAttr);
+    m_program->enableAttributeArray("posAttr");
+    m_program->enableAttributeArray("texAttr");
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    m_textures[0]->bind();
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    m_textures[0]->release();
 
-    glDisableVertexAttribArray(m_posAttr);
-    glDisableVertexAttribArray(m_colAttr);
+
+    m_textures[1]->bind();
+    glDrawArrays(GL_TRIANGLES, 3, 3);
+    m_textures[1]->release();
+
+    m_program->disableAttributeArray("posAttr");
+    m_program->disableAttributeArray("texAttr");
 
     /*
     if(lsystem == nullptr) return;
@@ -353,19 +360,22 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 
 void GLArea::makeGLObjects(){
 
-
-
     m_vbo.create();
 
-    GLfloat vertices[] = {
-        -0.7, -0.5, -0.1,
-         0.8, -0.2, -0.1,
-         0.1,  0.9,  0.3,
-        -0.6,  0.7, -0.2,
-         0.8,  0.8, -0.2,
-         0.1, -0.9,  0.7
-    };
+    QImage image(QString(":/icons/texFeuille.png"));
+    m_textures[0] = new QOpenGLTexture(image);
+    m_textures[1] = new QOpenGLTexture(image);
 
+
+    GLfloat vertices[] = {
+         0.0,  0.0,  0.0,
+         0.0,  1.0,  0.0,
+         1.0,  0.0,  0.0,
+         0.0,  1.0,  0.0,
+         1.0,  0.0,  0.0,
+         1.0,  1.0,  0.0
+    };
+/*
     GLfloat colors[] = {
          1.0,  0.6,  0.6,
          1.0,  0.6,  0.6,
@@ -374,7 +384,15 @@ void GLArea::makeGLObjects(){
          0.0,  1.0,  0.0,
          0.0,  0.0,  1.0
     };
-
+*/
+    GLfloat texCoords[] = {
+        0.0, 0.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        1.0, 1.0,
+    };
     /*
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
@@ -484,8 +502,8 @@ void GLArea::makeGLObjects(){
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 3; j++)
             vertData.append(vertices[i*3+j]);
-        for(int j = 0; j < 3; j++)
-            vertData.append(colors[i*3+j]);
+        for(int j = 0; j < 2; j++)
+            vertData.append(texCoords[i*2+j]);
     }
 
     m_vbo.create();
@@ -496,4 +514,8 @@ void GLArea::makeGLObjects(){
 
 void GLArea::tearGLObjects(){
     m_vbo.destroy();
+
+    for(auto i : m_textures){
+        i->destroy();
+    }
 }

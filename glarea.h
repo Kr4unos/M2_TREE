@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <stack>
 #include <QOpenGLBuffer>
+#include <QOpenGLTexture>
 #include <QOpenGLShaderProgram>
 
 #include "lsystem.h"
@@ -64,6 +65,7 @@ private:
     /* VBO */
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
+    QOpenGLTexture *m_textures[2];
     int m_matrixUniform;
     int m_posAttr;
     int m_colAttr;

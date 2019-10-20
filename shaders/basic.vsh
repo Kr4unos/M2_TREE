@@ -1,9 +1,9 @@
 attribute highp vec4 posAttr;
-attribute lowp vec4 colAttr;
-varying lowp vec4 col;
+attribute mediump vec4 texAttr;
+varying mediump vec4 texc;
 uniform highp mat4 matrix;
 
 void main() {
-   col = colAttr;
+   texc = texAttr;
    gl_Position = matrix * posAttr;
 }
