@@ -63,6 +63,7 @@ void GLArea::initializeGL()
     m_matrixUniform = m_program->uniformLocation("matrix");
 
     glEnable(GL_DEPTH_TEST);
+    initTexture();
     makeGLObjects();
 }
 
@@ -100,14 +101,11 @@ void GLArea::paintGL()
     m_program->enableAttributeArray("posAttr");
     m_program->enableAttributeArray("texAttr");
 
-    m_textures[0]->bind();
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    m_textures[0]->release();
-
-
-    m_textures[0]->bind();
-    glDrawArrays(GL_TRIANGLES, 3, 3);
-    m_textures[0]->release();
+    m_textures[1]->bind();
+    for(int i = 0; i < (sizeVertData/3); i = i+3){
+        glDrawArrays(GL_TRIANGLES, i, 3);
+    }
+    m_textures[1]->release();
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("texAttr");
@@ -352,16 +350,23 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 {
     this->result = lsystem->getResult();
     this->lsystem = lsystem;
+    makeGLObjects();
     update();
 }
 
 
 /*** vbo test ***/
 
-void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
+void GLArea::initTexture(){
 
     QImage imageFeuille(QString(":/icons/texFeuille.png"));
     m_textures[0] = new QOpenGLTexture(imageFeuille);
+
+    QImage imageTroncArbre(QString(":/icons/texTroncArbre.png"));
+    m_textures[1] = new QOpenGLTexture(imageTroncArbre);
+}
+
+void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
 
     GLfloat vertices[] = {
          0.0,  0.0,  0.0,
@@ -389,32 +394,76 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
     }
 }
 
+
+void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height){
+
+    GLfloat angle_stepsize = 0.1;
+    GLfloat angle = 0.0;
+    std::vector <GLfloat> vertices;
+    std::vector <GLfloat> texCoords;
+    GLfloat y = 0.0;
+
+    while( angle < 2 * M_PI ) {
+        GLfloat tempX = radius * cos(angle);
+        GLfloat tempZ = radius * sin(angle);
+        angle += angle_stepsize;
+        GLfloat tmp_tempX = radius * cos(angle);
+        GLfloat tmp_tempZ = radius * sin(angle);
+
+        //longueur de la branche
+        vertices.push_back(tempX); vertices.push_back(y); vertices.push_back(tempZ);
+        vertices.push_back(tempX); vertices.push_back(height); vertices.push_back(tempZ);
+        vertices.push_back(tmp_tempX); vertices.push_back(height); vertices.push_back(tmp_tempZ);
+
+        vertices.push_back(tempX); vertices.push_back(y); vertices.push_back(tempZ);
+        vertices.push_back(tmp_tempX); vertices.push_back(y); vertices.push_back(tmp_tempZ);
+        vertices.push_back(tmp_tempX); vertices.push_back(height); vertices.push_back(tmp_tempZ);
+
+        texCoords.push_back(0.0); texCoords.push_back(0.0);
+        texCoords.push_back(0.0); texCoords.push_back(1.0);
+        texCoords.push_back(1.0); texCoords.push_back(0.0);
+
+        texCoords.push_back(0.0); texCoords.push_back(1.0);
+        texCoords.push_back(1.0); texCoords.push_back(0.0);
+        texCoords.push_back(1.0); texCoords.push_back(1.0);
+
+        //épaisseur branche
+        vertices.push_back(tempX); vertices.push_back(y); vertices.push_back(tempZ);
+        vertices.push_back(tmp_tempX); vertices.push_back(y); vertices.push_back(tmp_tempZ);
+        vertices.push_back(0.0); vertices.push_back(y); vertices.push_back(0.0);
+
+        vertices.push_back(tempX); vertices.push_back(height); vertices.push_back(tempZ);
+        vertices.push_back(tmp_tempX); vertices.push_back(height); vertices.push_back(tmp_tempZ);
+        vertices.push_back(0.0); vertices.push_back(height); vertices.push_back(0.0);
+
+        texCoords.push_back(0.0); texCoords.push_back(0.0);
+        texCoords.push_back(0.0); texCoords.push_back(1.0);
+        texCoords.push_back(1.0); texCoords.push_back(0.0);
+
+        texCoords.push_back(0.0); texCoords.push_back(1.0);
+        texCoords.push_back(1.0); texCoords.push_back(0.0);
+        texCoords.push_back(1.0); texCoords.push_back(1.0);
+
+
+    }
+
+    for(int i = 0; i < vertices.size()/3; i++){
+        for(int j = 0; j < 3; j++)
+            vertData.append(static_cast<GLfloat>(vertices[i*3+j]));
+        for(int j = 0; j < 2; j++)
+            vertData.append(static_cast<GLfloat>(texCoords[i*2+j]));
+    }
+}
+
 void GLArea::makeGLObjects(){
+
+    QVector<GLfloat> vertData;
 
     m_vbo.create();
 
+    if(lsystem == nullptr) return;
 
-
-    QImage imageTroncArbre(QString(":/icons/texTroncArbre.png"));
-    m_textures[1] = new QOpenGLTexture(imageTroncArbre);
-
-
-
-/*
-    GLfloat colors[] = {
-         1.0,  0.6,  0.6,
-         1.0,  0.6,  0.6,
-         1.0,  0.6,  0.6,
-         1.0,  0.0,  0.0,
-         0.0,  1.0,  0.0,
-         0.0,  0.0,  1.0
-    };
-*/
-
-    /*
-    GLfloat x              = 0.0;
     GLfloat y              = 0.0;
-    GLfloat z              = 0.0;
     GLfloat pas            = 0.05;
 
     GLfloat angle          = 0.0;
@@ -433,27 +482,16 @@ void GLArea::makeGLObjects(){
         switch(action){
 
             case LSystem::DRAW_BRANCH:
-               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
+               height = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
 
-                glBegin(GL_QUAD_STRIP);
-                    angle = 0.0;
-                    while( angle < 2 * M_PI ) {
-                        GLfloat tempX = radius * cos(angle);
-                        GLfloat tempZ = radius * sin(angle);
-                        glVertex3f(tempX, height, tempZ);
-                        glVertex3f(tempX, y, tempZ);
-                        angle += angle_stepsize;
-                    }
-                    glVertex3f(radius, height, 0.0);
-                    glVertex3f(radius, 0.0, 0.0);
-                glEnd();
+               makeBranchObject(vertData, 0.16, 1.20);
 
-                if(radius >= radius_reduction) radius -= radius_reduction;
-                glTranslatef (x, y+height, z);
+               if(radius >= radius_reduction) radius -= radius_reduction;
+                //glTranslatef (x, y+height, z);
                 break;
 
             case LSystem::DRAW_LEAF:
-
+                /*
                 glBegin(GL_TRIANGLES);
                 glNormal3f(0.0, 0.0, 1.0);
 
@@ -464,7 +502,7 @@ void GLArea::makeGLObjects(){
                 glFlush();
 
                 glDisable(GL_TEXTURE_2D);
-
+                */
                 if(radius >= radius_reduction) radius -= radius_reduction;
                 break;
 
@@ -515,13 +553,16 @@ void GLArea::makeGLObjects(){
                 break;
         }
     }
-*/
-    QVector<GLfloat> vertData;
 
-    makeLeafObject(vertData);
+
+    //makeLeafObject(vertData);
+    //makeBranchObject(vertData, 0.16, 1.20);
+
+    sizeVertData = vertData.size();
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
+
 
 }
 

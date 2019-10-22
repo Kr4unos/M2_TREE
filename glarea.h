@@ -3,6 +3,7 @@
 #ifndef GLAREA_H
 #define GLAREA_H
 
+#include <iostream>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QKeyEvent>
@@ -63,8 +64,11 @@ private:
     GLuint textureFeuille;
 
     /* VBO */
+    void initTexture();
     void makeLeafObject(QVector<GLfloat> &vertData);
+    void makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height);
 
+    int sizeVertData = 0;
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
     QOpenGLTexture *m_textures[2];
