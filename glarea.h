@@ -14,6 +14,7 @@
 #include <QOpenGLShaderProgram>
 
 #include "lsystem.h"
+#include <vector>
 
 class GLArea : public QOpenGLWidget,
                protected QOpenGLFunctions
@@ -72,6 +73,7 @@ private:
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
     QOpenGLTexture *m_textures[2];
+    std::vector <int> texturePoint;
     int m_matrixUniform;
     int m_posAttr;
     int m_colAttr;

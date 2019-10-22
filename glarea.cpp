@@ -49,6 +49,11 @@ void GLArea::initializeGL()
     qDebug() << __FUNCTION__ ;
     initializeOpenGLFunctions();
 
+
+    glEnable(GL_DEPTH_TEST);
+    initTexture();
+    makeGLObjects();
+
     m_program = new QOpenGLShaderProgram(this);
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, vertexShaderSource);
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, fragmentShaderSource);
@@ -59,12 +64,7 @@ void GLArea::initializeGL()
         qWarning() << m_program->log();
     }
 
-
     m_matrixUniform = m_program->uniformLocation("matrix");
-
-    glEnable(GL_DEPTH_TEST);
-    initTexture();
-    makeGLObjects();
 }
 
 void GLArea::doProjection()
@@ -101,142 +101,23 @@ void GLArea::paintGL()
     m_program->enableAttributeArray("posAttr");
     m_program->enableAttributeArray("texAttr");
 
+    m_textures[0]->bind();
+    for(int i = 0; i < (sizeVertData/3); i = i+3){
+        if(texturePoint.at(i) == 0)
+            glDrawArrays(GL_TRIANGLES, i, 3);
+    }
+    m_textures[0]->release();
+
     m_textures[1]->bind();
     for(int i = 0; i < (sizeVertData/3); i = i+3){
-        glDrawArrays(GL_TRIANGLES, i, 3);
+        if(texturePoint.at(i) == 1)
+            glDrawArrays(GL_TRIANGLES, i, 3);
     }
     m_textures[1]->release();
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("texAttr");
 
-    /*
-    if(lsystem == nullptr) return;
-    textureFeuille = raw_texture_load("/icons/texFeuille.png", 300, 217);
-
-    GLfloat x              = 0.0;
-    GLfloat y              = 0.0;
-    GLfloat z              = 0.0;
-    GLfloat pas            = 0.05;
-
-    GLfloat angle          = 0.0;
-    GLfloat angle_stepsize = 0.1;
-
-    GLfloat radius           = lsystem->getBranchRadius();
-    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
-    GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
-    std::stack<GLfloat> tempRadius;
-
-    glLoadIdentity();
-    gluLookAt (3.0, 0.0, 0.0, 0, 0, 0, 0, 1, 0);
-
-    glTranslatef(0,-0.8,0);
-
-    glTranslatef(cam_x,cam_y,cam_z);
-    glRotatef(cam_angle_x, 1, 0, 0);
-    glRotatef(cam_angle_y, 0, 1, 0);
-    glRotatef(cam_angle_z, 0, 0, 1);
-
-
-    for(int i = 0; i < result.size(); i++){
-        char currentChar = lsystem->getResult().at(i).toLatin1();
-        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
-
-        switch(action){
-
-            case LSystem::DRAW_BRANCH:
-               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
-                glColor3f(0.5f, 0.35f, 0.05f);
-
-                glBegin(GL_QUAD_STRIP);
-                    angle = 0.0;
-                    while( angle < 2 * M_PI ) {
-                        GLfloat tempX = radius * cos(angle);
-                        GLfloat tempZ = radius * sin(angle);
-                        glVertex3f(tempX, height, tempZ);
-                        glVertex3f(tempX, y, tempZ);
-                        angle += angle_stepsize;
-                    }
-                    glVertex3f(radius, height, 0.0);
-                    glVertex3f(radius, 0.0, 0.0);
-                glEnd();
-
-
-                if(radius >= radius_reduction) radius -= radius_reduction;
-                glTranslatef (x, y+height, z);
-                break;
-
-            case LSystem::DRAW_LEAF:
-
-                glColor3f(0.0f, 1.0f, 0.0f);
-                glEnable(GL_TEXTURE_2D);
-                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-                glBindTexture(GL_TEXTURE_2D, textureFeuille);
-
-                glBegin(GL_TRIANGLES);
-                glNormal3f(0.0, 0.0, 1.0);
-
-                glTexCoord2d(0, 0); glVertex3f(x,y,z);
-                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
-                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
-                glEnd();
-                glFlush();
-
-                glDisable(GL_TEXTURE_2D);
-
-
-                if(radius >= radius_reduction) radius -= radius_reduction;
-                break;
-
-            case LSystem::ROTATE_LEFT_X:
-
-                glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
-                break;
-
-            case LSystem::ROTATE_RIGHT_X:
-
-                glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
-                break;
-
-            case LSystem::ROTATE_UP_Y:
-                qDebug() << "hello +y";
-                glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
-                break;
-
-            case LSystem::ROTATE_DOWN_Y:
-                qDebug() << "hello -y";
-
-                glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
-                break;
-
-            case LSystem::TWIST_LEFT_Z:
-
-                glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
-                break;
-
-            case LSystem::TWIST_RIGHT_Z:
-
-                glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
-                break;
-
-            case LSystem::PUSH_BACK:
-
-                tempRadius.push(radius);
-                glPushMatrix();
-                break;
-
-            case LSystem::POP_BACK:
-
-                radius = tempRadius.top();
-                tempRadius.pop();
-                glPopMatrix();
-                break;
-
-            case LSystem::NO_ACTION:
-                break;
-        }
-    }
-    */
     m_program->release();
 }
 
@@ -350,7 +231,10 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 {
     this->result = lsystem->getResult();
     this->lsystem = lsystem;
-    makeGLObjects();
+
+    if(lsystem != nullptr){
+        makeGLObjects();
+    }
     update();
 }
 
@@ -387,8 +271,10 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
     };
 
     for(int i = 0; i < 6; i++){
-        for(int j = 0; j < 3; j++)
+        for(int j = 0; j < 3; j++){
             vertData.append(vertices[i*3+j]);
+            texturePoint.push_back(0);
+        }
         for(int j = 0; j < 2; j++)
             vertData.append(texCoords[i*2+j]);
     }
@@ -397,7 +283,7 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
 
 void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height){
 
-    GLfloat angle_stepsize = 0.1;
+    GLfloat angle_stepsize = 0.5;
     GLfloat angle = 0.0;
     std::vector <GLfloat> vertices;
     std::vector <GLfloat> texCoords;
@@ -448,113 +334,106 @@ void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloa
     }
 
     for(int i = 0; i < vertices.size()/3; i++){
-        for(int j = 0; j < 3; j++)
+
+        for(int j = 0; j < 3; j++){
+            texturePoint.push_back(1);
             vertData.append(static_cast<GLfloat>(vertices[i*3+j]));
+        }
         for(int j = 0; j < 2; j++)
             vertData.append(static_cast<GLfloat>(texCoords[i*2+j]));
     }
 }
 
+
 void GLArea::makeGLObjects(){
 
     QVector<GLfloat> vertData;
-
     m_vbo.create();
+    //texturePoint.clear();
 
-    if(lsystem == nullptr) return;
+    if(lsystem != nullptr){
+        GLfloat y              = 0.0;
+        GLfloat pas            = 0.05;
 
-    GLfloat y              = 0.0;
-    GLfloat pas            = 0.05;
+        GLfloat angle          = 0.0;
+        GLfloat angle_stepsize = 0.1;
 
-    GLfloat angle          = 0.0;
-    GLfloat angle_stepsize = 0.1;
-
-    GLfloat radius           = lsystem->getBranchRadius();
-    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
-    GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
-    std::stack<GLfloat> tempRadius;
+        GLfloat radius           = lsystem->getBranchRadius();
+        GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
+        GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
+        std::stack<GLfloat> tempRadius;
 
 
-    for(int i = 0; i < result.size(); i++){
-        char currentChar = lsystem->getResult().at(i).toLatin1();
-        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
 
-        switch(action){
+        for(int i = 0; i < result.size(); i++){
+            char currentChar = lsystem->getResult().at(i).toLatin1();
+            LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
 
-            case LSystem::DRAW_BRANCH:
-               height = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
+            switch(action){
 
-               makeBranchObject(vertData, 0.16, 1.20);
+                case LSystem::DRAW_BRANCH:
 
-               if(radius >= radius_reduction) radius -= radius_reduction;
-                //glTranslatef (x, y+height, z);
-                break;
+                   height = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
 
-            case LSystem::DRAW_LEAF:
-                /*
-                glBegin(GL_TRIANGLES);
-                glNormal3f(0.0, 0.0, 1.0);
+                   makeBranchObject(vertData, 0.16, 1.20);
 
-                glTexCoord2d(0, 0); glVertex3f(x,y,z);
-                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
-                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
-                glEnd();
-                glFlush();
+                   if(radius >= radius_reduction) radius -= radius_reduction;
+                    //glTranslatef (x, y+height, z);
+                      break;
 
-                glDisable(GL_TEXTURE_2D);
-                */
-                if(radius >= radius_reduction) radius -= radius_reduction;
-                break;
+                case LSystem::DRAW_LEAF:
+                    makeLeafObject(vertData);
+                    if(radius >= radius_reduction) radius -= radius_reduction;
+                    break;
 
-            case LSystem::ROTATE_LEFT_X:
+                case LSystem::ROTATE_LEFT_X:
 
-                glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
-                break;
+                    //glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
+                    break;
 
-            case LSystem::ROTATE_RIGHT_X:
+                case LSystem::ROTATE_RIGHT_X:
 
-                glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
-                break;
+                    //glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
+                    break;
 
-            case LSystem::ROTATE_UP_Y:
+                case LSystem::ROTATE_UP_Y:
 
-                glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
-                break;
+                    //glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
+                    break;
 
-            case LSystem::ROTATE_DOWN_Y:
+                case LSystem::ROTATE_DOWN_Y:
 
-                glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
-                break;
+                    //glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
+                    break;
 
-            case LSystem::TWIST_LEFT_Z:
+                case LSystem::TWIST_LEFT_Z:
 
-                glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
-                break;
+                    //glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
+                    break;
 
-            case LSystem::TWIST_RIGHT_Z:
+                case LSystem::TWIST_RIGHT_Z:
 
-                glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
-                break;
+                    //glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
+                    break;
 
-            case LSystem::PUSH_BACK:
+                case LSystem::PUSH_BACK:
 
-                tempRadius.push(radius);
-                glPushMatrix();
-                break;
+                    tempRadius.push(radius);
+                    //glPushMatrix();
+                    break;
 
-            case LSystem::POP_BACK:
+                case LSystem::POP_BACK:
 
-                radius = tempRadius.top();
-                tempRadius.pop();
-                glPopMatrix();
-                break;
+                    radius = tempRadius.top();
+                    tempRadius.pop();
+                    //glPopMatrix();
+                    break;
 
-            case LSystem::NO_ACTION:
-                break;
+                case LSystem::NO_ACTION:
+                    break;
+            }
         }
     }
-
-
     //makeLeafObject(vertData);
     //makeBranchObject(vertData, 0.16, 1.20);
 
@@ -562,11 +441,11 @@ void GLArea::makeGLObjects(){
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
-
-
 }
 
 void GLArea::tearGLObjects(){
+    std::cout << "DESTRUCTION VBO" <<std::endl;
+
     m_vbo.destroy();
 
     for(auto i : m_textures){
