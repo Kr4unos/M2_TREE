@@ -358,16 +358,10 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 
 /*** vbo test ***/
 
-void GLArea::makeGLObjects(){
-
-    m_vbo.create();
+void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
 
     QImage imageFeuille(QString(":/icons/texFeuille.png"));
     m_textures[0] = new QOpenGLTexture(imageFeuille);
-
-    QImage imageTroncArbre(QString(":/icons/texTroncArbre.png"));
-    m_textures[1] = new QOpenGLTexture(imageTroncArbre);
-
 
     GLfloat vertices[] = {
          0.0,  0.0,  0.0,
@@ -377,6 +371,35 @@ void GLArea::makeGLObjects(){
          1.0,  0.0,  0.0,
          1.0,  1.0,  0.0
     };
+
+    GLfloat texCoords[] = {
+        0.0, 0.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        0.0, 1.0,
+        1.0, 0.0,
+        1.0, 1.0,
+    };
+
+    for(int i = 0; i < 6; i++){
+        for(int j = 0; j < 3; j++)
+            vertData.append(vertices[i*3+j]);
+        for(int j = 0; j < 2; j++)
+            vertData.append(texCoords[i*2+j]);
+    }
+}
+
+void GLArea::makeGLObjects(){
+
+    m_vbo.create();
+
+
+
+    QImage imageTroncArbre(QString(":/icons/texTroncArbre.png"));
+    m_textures[1] = new QOpenGLTexture(imageTroncArbre);
+
+
+
 /*
     GLfloat colors[] = {
          1.0,  0.6,  0.6,
@@ -387,14 +410,7 @@ void GLArea::makeGLObjects(){
          0.0,  0.0,  1.0
     };
 */
-    GLfloat texCoords[] = {
-        0.0, 0.0,
-        0.0, 1.0,
-        1.0, 0.0,
-        0.0, 1.0,
-        1.0, 0.0,
-        1.0, 1.0,
-    };
+
     /*
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
@@ -501,13 +517,8 @@ void GLArea::makeGLObjects(){
     }
 */
     QVector<GLfloat> vertData;
-    for(int i = 0; i < 6; i++){
-        for(int j = 0; j < 3; j++)
-            vertData.append(vertices[i*3+j]);
-        for(int j = 0; j < 2; j++)
-            vertData.append(texCoords[i*2+j]);
-    }
 
+    makeLeafObject(vertData);
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));

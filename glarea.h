@@ -63,6 +63,8 @@ private:
     GLuint textureFeuille;
 
     /* VBO */
+    void makeLeafObject(QVector<GLfloat> &vertData);
+
     QOpenGLShaderProgram *m_program;
     QOpenGLBuffer m_vbo;
     QOpenGLTexture *m_textures[2];
