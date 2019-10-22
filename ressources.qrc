@@ -7,9 +7,13 @@
         <file alias="settings.png">icons/settings.png</file>
         <file alias="logo.png">icons/logo.png</file>
         <file alias="texFeuille.png">icons/texFeuille.png</file>
+        <file alias="texTroncArbre.png">icons/texTroncArbre.png</file>
     </qresource>
     <qresource prefix="/shaders">
         <file alias="basic.fsh">shaders/basic.fsh</file>
         <file alias="basic.vsh">shaders/basic.vsh</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>icons/texTroncArbre.png</file>
     </qresource>
 </RCC>

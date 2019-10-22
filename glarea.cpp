@@ -105,9 +105,9 @@ void GLArea::paintGL()
     m_textures[0]->release();
 
 
-    m_textures[1]->bind();
+    m_textures[0]->bind();
     glDrawArrays(GL_TRIANGLES, 3, 3);
-    m_textures[1]->release();
+    m_textures[0]->release();
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("texAttr");
@@ -362,9 +362,11 @@ void GLArea::makeGLObjects(){
 
     m_vbo.create();
 
-    QImage image(QString(":/icons/texFeuille.png"));
-    m_textures[0] = new QOpenGLTexture(image);
-    m_textures[1] = new QOpenGLTexture(image);
+    QImage imageFeuille(QString(":/icons/texFeuille.png"));
+    m_textures[0] = new QOpenGLTexture(imageFeuille);
+
+    QImage imageTroncArbre(QString(":/icons/texTroncArbre.png"));
+    m_textures[1] = new QOpenGLTexture(imageTroncArbre);
 
 
     GLfloat vertices[] = {
