@@ -101,19 +101,11 @@ void GLArea::paintGL()
     m_program->enableAttributeArray("posAttr");
     m_program->enableAttributeArray("texAttr");
 
-    m_textures[0]->bind();
     for(int i = 0; i < (sizeVertData/3); i = i+3){
-        if(texturePoint.at(i) == 0)
+            m_textures[texturePoint.at(i/3)]->bind();
             glDrawArrays(GL_TRIANGLES, i, 3);
+            m_textures[texturePoint.at(i/3)]->release();
     }
-    m_textures[0]->release();
-
-    m_textures[1]->bind();
-    for(int i = 0; i < (sizeVertData/3); i = i+3){
-        if(texturePoint.at(i) == 1)
-            glDrawArrays(GL_TRIANGLES, i, 3);
-    }
-    m_textures[1]->release();
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("texAttr");
@@ -261,6 +253,10 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
          1.0,  1.0,  0.0
     };
 
+    //pour ces 2 triangles, on veut la texture 0
+    for(int a = 0; a < 2 ; a++)
+        texturePoint.push_back(0);
+
     GLfloat texCoords[] = {
         0.0, 0.0,
         0.0, 1.0,
@@ -273,11 +269,11 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 3; j++){
             vertData.append(vertices[i*3+j]);
-            texturePoint.push_back(0);
         }
         for(int j = 0; j < 2; j++)
             vertData.append(texCoords[i*2+j]);
     }
+    sizeVertData += 18;
 }
 
 
@@ -329,19 +325,23 @@ void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloa
         texCoords.push_back(0.0); texCoords.push_back(1.0);
         texCoords.push_back(1.0); texCoords.push_back(0.0);
         texCoords.push_back(1.0); texCoords.push_back(1.0);
+    }
 
-
+    //pour ces n triangles, on veut la texture 1
+    for(int a = 0; a < vertices.size()/3/3; a++){
+        texturePoint.push_back(1);
     }
 
     for(int i = 0; i < vertices.size()/3; i++){
-
         for(int j = 0; j < 3; j++){
-            texturePoint.push_back(1);
             vertData.append(static_cast<GLfloat>(vertices[i*3+j]));
         }
         for(int j = 0; j < 2; j++)
             vertData.append(static_cast<GLfloat>(texCoords[i*2+j]));
     }
+
+    sizeVertData += vertices.size();
+
 }
 
 
@@ -349,7 +349,7 @@ void GLArea::makeGLObjects(){
 
     QVector<GLfloat> vertData;
     m_vbo.create();
-    //texturePoint.clear();
+    texturePoint.clear();
 
     if(lsystem != nullptr){
         GLfloat y              = 0.0;
@@ -437,10 +437,11 @@ void GLArea::makeGLObjects(){
     //makeLeafObject(vertData);
     //makeBranchObject(vertData, 0.16, 1.20);
 
-    sizeVertData = vertData.size();
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
+    std::cout << "nombre de tex : " << texturePoint.size() << std::endl;
+    initTexture();
 }
 
 void GLArea::tearGLObjects(){
