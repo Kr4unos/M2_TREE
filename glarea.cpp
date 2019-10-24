@@ -102,9 +102,15 @@ void GLArea::paintGL()
     m_program->enableAttributeArray("texAttr");
 
     for(int i = 0; i < (sizeVertData/3); i = i+3){
-            m_textures[texturePoint.at(i/3)]->bind();
+            int textureID = texturePoint.at(i/3);
+            m_textures[textureID]->bind();
+
+            //Z-BUFFER
+            if(textureID==0) glDepthMask(GL_FALSE);
+
             glDrawArrays(GL_TRIANGLES, i, 3);
-            m_textures[texturePoint.at(i/3)]->release();
+            if(textureID==0) glDepthMask(GL_TRUE);
+            m_textures[textureID]->release();
     }
 
     m_program->disableAttributeArray("posAttr");
