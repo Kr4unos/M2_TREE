@@ -242,15 +242,15 @@ void GLArea::initTexture(){
     m_textures[1] = new QOpenGLTexture(imageTroncArbre);
 }
 
-void GLArea::makeLeafObject(QVector<GLfloat> &vertData){
+void GLArea::makeLeafObject(QVector<GLfloat> &vertData, float taille){
 
     GLfloat vertices[] = {
          0.0,  0.0,  0.0,
-         0.0,  1.0,  0.0,
-         1.0,  0.0,  0.0,
-         0.0,  1.0,  0.0,
-         1.0,  0.0,  0.0,
-         1.0,  1.0,  0.0
+         0.0,  taille,  0.0,
+         taille,  0.0,  0.0,
+         0.0,  taille,  0.0,
+         taille,  0.0,  0.0,
+         taille,  taille,  0.0
     };
 
     //pour ces 2 triangles, on veut la texture 0
@@ -341,7 +341,6 @@ void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloa
     }
 
     sizeVertData += vertices.size();
-
 }
 
 
@@ -357,6 +356,8 @@ void GLArea::makeGLObjects(){
 
         GLfloat angle          = 0.0;
         GLfloat angle_stepsize = 0.1;
+
+        GLfloat tailleFeuille = 0.1;
 
         GLfloat radius           = lsystem->getBranchRadius();
         GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
@@ -375,14 +376,15 @@ void GLArea::makeGLObjects(){
 
                    height = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
 
-                   makeBranchObject(vertData, 0.16, 1.20);
+                   makeBranchObject(vertData, radius, height);
 
                    if(radius >= radius_reduction) radius -= radius_reduction;
                     //glTranslatef (x, y+height, z);
                       break;
 
                 case LSystem::DRAW_LEAF:
-                    makeLeafObject(vertData);
+
+                    makeLeafObject(vertData, tailleFeuille);
                     if(radius >= radius_reduction) radius -= radius_reduction;
                     break;
 
@@ -434,18 +436,14 @@ void GLArea::makeGLObjects(){
             }
         }
     }
-    //makeLeafObject(vertData);
-    //makeBranchObject(vertData, 0.16, 1.20);
 
     m_vbo.create();
     m_vbo.bind();
     m_vbo.allocate(vertData.constData(), vertData.count()*sizeof(GLfloat));
-    std::cout << "nombre de tex : " << texturePoint.size() << std::endl;
     initTexture();
 }
 
 void GLArea::tearGLObjects(){
-    std::cout << "DESTRUCTION VBO" <<std::endl;
 
     m_vbo.destroy();
 

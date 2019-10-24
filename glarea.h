@@ -66,7 +66,7 @@ private:
 
     /* VBO */
     void initTexture();
-    void makeLeafObject(QVector<GLfloat> &vertData);
+    void makeLeafObject(QVector<GLfloat> &vertData, float taille);
     void makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height);
 
     int sizeVertData = 0;
