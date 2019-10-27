@@ -52,6 +52,9 @@ void GLArea::initializeGL()
 
     glEnable(GL_DEPTH_TEST);
     initTexture();
+    /*QMatrix4x4 first;
+    first.setToIdentity();
+    position.push_back(first);*/
     makeGLObjects();
 
     m_program = new QOpenGLShaderProgram(this);
@@ -110,6 +113,7 @@ void GLArea::paintGL()
 
             //Z-BUFFER
             if(textureID==0) glDepthMask(GL_FALSE);
+            m_program->setUniformValue("posGlObject", position.at((i)/3));
 
             glDrawArrays(GL_TRIANGLES, i, 3);
             if(textureID==0) glDepthMask(GL_TRUE);
@@ -252,7 +256,7 @@ void GLArea::initTexture(){
     m_textures[1] = new QOpenGLTexture(imageTroncArbre);
 }
 
-void GLArea::makeLeafObject(QVector<GLfloat> &vertData, float taille){
+void GLArea::makeLeafObject(QVector<GLfloat> &vertData, float taille, QMatrix4x4 posGlObject){
 
     GLfloat vertices[] = {
          0.0,  0.0,  0.0,
@@ -264,9 +268,10 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData, float taille){
     };
 
     //pour ces 2 triangles, on veut la texture 0
-    for(int a = 0; a < 2 ; a++)
+    for(int a = 0; a < 2 ; a++){
         texturePoint.push_back(0);
-
+        position.push_back(posGlObject); //glPushMatrix();
+    }
     GLfloat texCoords[] = {
         0.0, 0.0,
         0.0, 1.0,
@@ -287,7 +292,7 @@ void GLArea::makeLeafObject(QVector<GLfloat> &vertData, float taille){
 }
 
 
-void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height){
+void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height, QMatrix4x4 posGlObject){
 
     GLfloat angle_stepsize = 0.5;
     GLfloat angle = 0.0;
@@ -340,6 +345,7 @@ void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloa
     //pour ces n triangles, on veut la texture 1
     for(int a = 0; a < vertices.size()/3/3; a++){
         texturePoint.push_back(1);
+        position.push_back(posGlObject); //glPushMatrix();
     }
 
     for(int i = 0; i < vertices.size()/3; i++){
@@ -359,7 +365,6 @@ void GLArea::makeGLObjects(){
     QVector<GLfloat> vertData;
 
     QMatrix4x4 posGlObject;
-    std::vector <QMatrix4x4> position;
 
     m_vbo.create();
     texturePoint.clear();
@@ -393,7 +398,9 @@ void GLArea::makeGLObjects(){
 
                    height = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
 
-                   makeBranchObject(vertData, radius, height);
+                   makeBranchObject(vertData, radius, height, posGlObject);
+                   //position.push_back(posGlObject); //glPushMatrix();
+
 
                    if(radius >= radius_reduction) radius -= radius_reduction;
                    posGlObject.translate(x, y+height, z);//glTranslatef (x, y+height, z);
@@ -401,7 +408,9 @@ void GLArea::makeGLObjects(){
 
                 case LSystem::DRAW_LEAF:
 
-                    makeLeafObject(vertData, tailleFeuille);
+                    makeLeafObject(vertData, tailleFeuille, posGlObject);
+                    //position.push_back(posGlObject); //glPushMatrix();
+
                     if(radius >= radius_reduction) radius -= radius_reduction;
                     break;
 
@@ -438,14 +447,14 @@ void GLArea::makeGLObjects(){
                 case LSystem::PUSH_BACK:
 
                     tempRadius.push(radius);
-                    position.push_back(posGlObject); //glPushMatrix();
+                    //position.push_back(posGlObject); //glPushMatrix();
                     break;
 
                 case LSystem::POP_BACK:
 
                     radius = tempRadius.top();
                     tempRadius.pop();
-                    position.pop_back();//glPopMatrix();
+                    //position.pop_back();//glPopMatrix();
                     break;
 
                 case LSystem::NO_ACTION:
@@ -454,7 +463,6 @@ void GLArea::makeGLObjects(){
 
         }
     }
-    m_program->setUniformValue("posGlObject", position.back());
 
     m_vbo.create();
     m_vbo.bind();

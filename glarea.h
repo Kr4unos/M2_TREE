@@ -66,8 +66,8 @@ private:
 
     /* VBO */
     void initTexture();
-    void makeLeafObject(QVector<GLfloat> &vertData, float taille);
-    void makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height);
+    void makeLeafObject(QVector<GLfloat> &vertData, float taille, QMatrix4x4 posGlObject);
+    void makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloat height, QMatrix4x4 posGlObject);
 
     int sizeVertData = 0;
     QOpenGLShaderProgram *m_program;
@@ -77,6 +77,8 @@ private:
     int m_matrixUniform;
     int m_posAttr;
     int m_colAttr;
+    std::vector <QMatrix4x4> position;
+
 
     void makeGLObjects();
     void tearGLObjects();
