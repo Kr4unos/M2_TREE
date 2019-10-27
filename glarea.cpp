@@ -97,9 +97,12 @@ void GLArea::paintGL()
 
     m_program->setAttributeBuffer("posAttr", GL_FLOAT, 0, 3, 5 * sizeof(GLfloat));
     m_program->setAttributeBuffer("texAttr", GL_FLOAT, 3 * sizeof(GLfloat), 2, 5 * sizeof(GLfloat));
+    m_program->setAttributeBuffer("posGlObject", GL_FLOAT, 0, 3, 5 * sizeof(GLfloat));
 
     m_program->enableAttributeArray("posAttr");
     m_program->enableAttributeArray("texAttr");
+    m_program->enableAttributeArray("posGlObject");
+
 
     for(int i = 0; i < (sizeVertData/3); i = i+3){
             int textureID = texturePoint.at(i/3);
@@ -115,6 +118,7 @@ void GLArea::paintGL()
 
     m_program->disableAttributeArray("posAttr");
     m_program->disableAttributeArray("texAttr");
+    m_program->disableAttributeArray("posGlObject");
 
     m_program->release();
 }
@@ -353,11 +357,18 @@ void GLArea::makeBranchObject(QVector<GLfloat> &vertData, GLfloat radius, GLfloa
 void GLArea::makeGLObjects(){
 
     QVector<GLfloat> vertData;
+
+    QMatrix4x4 posGlObject;
+    std::vector <QMatrix4x4> position;
+
     m_vbo.create();
     texturePoint.clear();
+    posGlObject.setToIdentity();
 
     if(lsystem != nullptr){
+        GLfloat x              = 0.0;
         GLfloat y              = 0.0;
+        GLfloat z              = 0.0;
         GLfloat pas            = 0.05;
 
         GLfloat angle          = 0.0;
@@ -385,8 +396,8 @@ void GLArea::makeGLObjects(){
                    makeBranchObject(vertData, radius, height);
 
                    if(radius >= radius_reduction) radius -= radius_reduction;
-                    //glTranslatef (x, y+height, z);
-                      break;
+                   posGlObject.translate(x, y+height, z);//glTranslatef (x, y+height, z);
+                   break;
 
                 case LSystem::DRAW_LEAF:
 
@@ -396,52 +407,54 @@ void GLArea::makeGLObjects(){
 
                 case LSystem::ROTATE_LEFT_X:
 
-                    //glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
+                    posGlObject.rotate(lsystem->getAngleRandom(), 1, 0, 0);//glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
                     break;
 
                 case LSystem::ROTATE_RIGHT_X:
 
-                    //glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
+                    posGlObject.rotate(-lsystem->getAngleRandom(), 1, 0, 0);//glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
                     break;
 
                 case LSystem::ROTATE_UP_Y:
 
-                    //glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
+                    posGlObject.rotate(lsystem->getAngleRandom(), 0, 0, 1);//glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
                     break;
 
                 case LSystem::ROTATE_DOWN_Y:
 
-                    //glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
+                    posGlObject.rotate(-lsystem->getAngleRandom(), 0, 0, 1); //glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
                     break;
 
                 case LSystem::TWIST_LEFT_Z:
 
-                    //glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
+                    posGlObject.rotate(lsystem->getAngleRandom(), 0, 1, 0);//glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
                     break;
 
                 case LSystem::TWIST_RIGHT_Z:
 
-                    //glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
+                    posGlObject.rotate(-lsystem->getAngleRandom(), 0, 1, 0); //glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
                     break;
 
                 case LSystem::PUSH_BACK:
 
                     tempRadius.push(radius);
-                    //glPushMatrix();
+                    position.push_back(posGlObject); //glPushMatrix();
                     break;
 
                 case LSystem::POP_BACK:
 
                     radius = tempRadius.top();
                     tempRadius.pop();
-                    //glPopMatrix();
+                    position.pop_back();//glPopMatrix();
                     break;
 
                 case LSystem::NO_ACTION:
                     break;
             }
+
         }
     }
+    m_program->setUniformValue("posGlObject", position.back());
 
     m_vbo.create();
     m_vbo.bind();
