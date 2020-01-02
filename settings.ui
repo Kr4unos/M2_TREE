@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>390</width>
-    <height>201</height>
+    <height>350</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,20 @@
        </item>
        <item>
         <widget class="QSpinBox" name="angle_input"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLabel" name="angleRandom_label">
+         <property name="text">
+          <string>Angle random</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="angleRandom_input"/>
        </item>
       </layout>
      </item>
@@ -87,6 +101,34 @@
           <double>0.010000000000000</double>
          </property>
         </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="longueurRandom_label">
+         <property name="text">
+          <string>Longueur random</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="longueurRandom_input"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="reductionRadius_label">
+         <property name="text">
+          <string>Réduction radius</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="reductionRadius_input"/>
        </item>
       </layout>
      </item>

@@ -17,6 +17,10 @@ Settings::Settings(QWidget *parent, LSystem* lsystem) :
     this->iterations_input->setValue(lsystem->getIterations());
     this->length_input->setValue(lsystem->getBranchLength());
 
+    this->longueurRandom_input->setValue(lsystem->getBranchLengthAlea());
+    this->reductionRadius_input->setValue(lsystem->getBranchRadiusReduction());
+    this->angleRandom_input->setValue(lsystem->getAngleAlea());
+
     QString rules_txt("");
     for(int i = 0; i < lsystem->getRulesFrom().count(); ++i){
         rules_txt += lsystem->getRulesFrom().at(i) + " = " + lsystem->getRulesTo().at(i) + "\n";
@@ -31,6 +35,10 @@ void Settings::on_buttonBox_accepted()
     this->lsystem->setAxiom(this->axiom_input->text());
     this->lsystem->setIterations(this->iterations_input->value());
     this->lsystem->setBranchLength(this->length_input->value());
+
+    this->lsystem->setAngleAlea(this->angleRandom_input->value());
+    this->lsystem->setBranchLengthAlea(this->longueurRandom_input->value());
+    this->lsystem->setBranchRadiusReduction(this->reductionRadius_input->value());
 
     QStringList rules_lines = this->rules_input->toPlainText().split(QRegExp("\n|\r\n|\r"));
     rules_lines.removeAll(QString(""));
