@@ -75,9 +75,9 @@ void GLArea::makeGLObjects()
     std::stack<GLfloat> tempRadius;
 
     height=lsystem->getBranchLength();
-    cy=Cylindre(radius,radius-radius_reduction,height,8);
+    cy=Cylindre(radius,radius-1*radius_reduction,height,8);
     cy.initializeGL();
-    leaf=Leaf(0.025,0.05);
+    leaf=Leaf(0.03f,0.08f);
     leaf.initializeGL();
     QMatrix4x4 actualMatrice;
     std::vector<QMatrix4x4> vMatrice;
@@ -92,7 +92,7 @@ void GLArea::makeGLObjects()
             case LSystem::DRAW_BRANCH:
                 //position= actualMatrice * QVector3D(0,0,0);
                 cy.addObj(actualMatrice,size);
-                size*=(1-2*radius_reduction/radius);
+                size*=(1-1*radius_reduction/radius);
                 //actualMatrice.rotate(1,1,0,0);
                 actualMatrice.translate(QVector3D(0,height,0));
 
@@ -136,19 +136,6 @@ void GLArea::makeGLObjects()
 
     cy.makeGLObject();
     leaf.makeGLObject();
-    /*
-
-    // Création de textures
-    QImage image_sol(":/textures/ground.jpg");
-    if (image_sol.isNull())
-        qDebug() << "load image ground.jpg failed";
-    textures[0] = new QOpenGLTexture(image_sol);
-
-    QImage image_particule(":/textures/puffs.png");
-    if (image_particule.isNull())
-        qDebug() << "load image puffs.png failed";
-    textures[1] = new QOpenGLTexture(image_particule);
-    */
 }
 
 void GLArea::paintGL()
