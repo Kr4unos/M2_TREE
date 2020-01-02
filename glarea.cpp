@@ -14,68 +14,166 @@ GLArea::GLArea(QWidget *parent) :
     QSurfaceFormat sf;
     sf.setDepthBufferSize(24);
     setFormat(sf);
-    setEnabled(true);  // événements clavier et souris
+    setEnabled(true);                // événements clavier et souris
     setFocusPolicy(Qt::StrongFocus); // accepte focus
     setFocus();                      // donne le focus
 
-    m_timer = new QTimer(this);
-    m_timer->setInterval(50);  // msec
-    connect (m_timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+    timer = new QTimer(this);
+    timer->setInterval(20);           // msec
+    connect (timer, SIGNAL(timeout()), this, SLOT(onTimeout()));
+    timer->start();
+    elapsedTimer.start();
     connect (this, SIGNAL(radiusChanged(double)), this, SLOT(setRadius(double)));
-
 }
 
 GLArea::~GLArea()
 {
-    delete m_timer;
+    delete timer;
 
     // Contrairement aux méthodes virtuelles initializeGL, resizeGL et repaintGL,
     // dans le destructeur le contexte GL n'est pas automatiquement rendu courant.
     makeCurrent();
 
     // ici destructions de ressources GL
+    tearGLObjects();
     doneCurrent();
 }
 
-
 void GLArea::initializeGL()
 {
-    qDebug() << __FUNCTION__ ;
     initializeOpenGLFunctions();
+    glClearColor(0.6f,0.6f,1.0f,1.0f);
     glEnable(GL_DEPTH_TEST);
+
+    makeGLObjects();
 }
 
 void GLArea::doProjection()
 {
+    qDebug() << __func__ ;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    GLfloat hr = m_radius, wr = hr * m_ratio;
+    GLfloat hr = m_radius, wr = hr * windowRatio;
     glFrustum(-wr, wr, -hr, hr, 1.0f, 10.0f);
     glMatrixMode(GL_MODELVIEW);
 }
 
-void GLArea::resizeGL(int w, int h)
+void GLArea::tearGLObjects()
 {
-    qDebug() << __FUNCTION__ << w << h;
+}
 
-    // C'est fait par défaut
-    glViewport(0, 0, w, h);
+void GLArea::makeGLObjects()
+{
+    if(lsystem == nullptr) return;
+    qDebug() << __func__ ;
 
-    m_ratio = w / h;
-    doProjection();
+    GLfloat rotationAngle=lsystem->getAngleRandom();
+
+    GLfloat radius           = lsystem->getBranchRadius();
+    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
+    GLfloat height,size  = 1;
+    std::stack<GLfloat> tempRadius;
+
+    height=lsystem->getBranchLength();
+    cy=Cylindre(radius,radius-radius_reduction,height,8);
+    cy.initializeGL();
+    leaf=Leaf(0.025,0.05);
+    leaf.initializeGL();
+    QMatrix4x4 actualMatrice;
+    std::vector<QMatrix4x4> vMatrice;
+    std::vector<QVector3D> vNextRotation;
+    std::vector<GLfloat> vSize;
+
+    for(int i = 0; i < result.size(); i++){
+        char currentChar = lsystem->getResult().at(i).toLatin1();
+        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
+
+        switch (action) {
+            case LSystem::DRAW_BRANCH:
+                //position= actualMatrice * QVector3D(0,0,0);
+                cy.addObj(actualMatrice,size);
+                size*=(1-2*radius_reduction/radius);
+                //actualMatrice.rotate(1,1,0,0);
+                actualMatrice.translate(QVector3D(0,height,0));
+
+            break;
+            case LSystem::DRAW_LEAF:
+                leaf.addObj(actualMatrice);
+            break;
+            case LSystem::ROTATE_LEFT_X:
+            actualMatrice.rotate(rotationAngle,0,0,1);
+            break;
+            case LSystem::ROTATE_RIGHT_X:
+            actualMatrice.rotate(-rotationAngle,0,0,1);
+            break;
+            case LSystem::ROTATE_UP_Y:
+            actualMatrice.rotate(rotationAngle,1,0,0);
+            break;
+            case LSystem::ROTATE_DOWN_Y:
+            actualMatrice.rotate(-rotationAngle,1,0,0);
+            break;
+            case LSystem::TWIST_LEFT_Z:
+                actualMatrice.rotate(rotationAngle,0,1,0);
+            break;
+            case LSystem::TWIST_RIGHT_Z:
+                actualMatrice.rotate(-rotationAngle,0,1,0);
+            break;
+            case LSystem::PUSH_BACK:
+                vMatrice.push_back(actualMatrice);
+                vSize.push_back(size);
+            break;
+            case LSystem::POP_BACK:
+                actualMatrice = vMatrice.back();
+                vMatrice.pop_back();
+                size = vSize.back();
+                vSize.pop_back();
+            break;
+            case LSystem::NO_ACTION:
+            break;
+
+        }
+    }
+
+    cy.makeGLObject();
+    leaf.makeGLObject();
+    /*
+
+    // Création de textures
+    QImage image_sol(":/textures/ground.jpg");
+    if (image_sol.isNull())
+        qDebug() << "load image ground.jpg failed";
+    textures[0] = new QOpenGLTexture(image_sol);
+
+    QImage image_particule(":/textures/puffs.png");
+    if (image_particule.isNull())
+        qDebug() << "load image puffs.png failed";
+    textures[1] = new QOpenGLTexture(image_particule);
+    */
 }
 
 void GLArea::paintGL()
 {
+    glClearColor(bgr,bgg,bgb,bga);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(lsystem == nullptr) return;
-    textureFeuille = raw_texture_load("/icons/texFeuille.png", 300, 217);
+    // Matrice de projection
+    QMatrix4x4 projectionMatrix;
+    projectionMatrix.perspective(45.0f, windowRatio, 1.0f, 1000.0f);
 
+    // Matrice de vue (caméra)
+    QMatrix4x4 viewMatrix;
+    viewMatrix.translate(xPos, yPos, zPos);
+    viewMatrix.rotate(xRot, 1, 0, 0);
+    viewMatrix.rotate(yRot, 0, 1, 0);
+    viewMatrix.rotate(zRot, 0, 0, 1);
+    if(lsystem == nullptr) return;
+    cy.display(projectionMatrix,viewMatrix);
+    leaf.display(projectionMatrix,viewMatrix);
+
+/*
     GLfloat x              = 0.0;
     GLfloat y              = 0.0;
     GLfloat z              = 0.0;
-    GLfloat pas            = 0.05;
 
     GLfloat angle          = 0.0;
     GLfloat angle_stepsize = 0.1;
@@ -86,14 +184,12 @@ void GLArea::paintGL()
     std::stack<GLfloat> tempRadius;
 
     glLoadIdentity();
-    gluLookAt (3.0, 0.0, 0.0, 0, 0, 0, 0, 1, 0);
+    gluLookAt (3.0, 2.0, 0.0, 0, 0, 0, 0, 1, 0);
 
-    glTranslatef(0,-0.8,0);
-
-    glTranslatef(cam_x,cam_y,cam_z);
-    glRotatef(cam_angle_x, 1, 0, 0);
-    glRotatef(cam_angle_y, 0, 1, 0);
-    glRotatef(cam_angle_z, 0, 0, 1);
+    glTranslatef(xPos,yPos,zPos);
+    glRotatef(xRot, 1, 0, 0);
+    glRotatef(yRot, 0, 1, 0);
+    glRotatef(zRot, 0, 0, 1);
 //    glEnable(GL_LINE_SMOOTH);
 //    glLineWidth(3.0f);
 
@@ -104,7 +200,7 @@ void GLArea::paintGL()
         switch(action){
 
             case LSystem::DRAW_BRANCH:
-               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());//l'arbre ne sera plus propotionel
+               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());
                 glColor3f(0.5f, 0.35f, 0.05f);
 
                 glBegin(GL_QUAD_STRIP);
@@ -132,52 +228,50 @@ void GLArea::paintGL()
 
             case LSystem::DRAW_LEAF:
 
-                glColor3f(0.0f, 1.0f, 0.0f);
-                glEnable(GL_TEXTURE_2D);
-                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-                glBindTexture(GL_TEXTURE_2D, textureFeuille);
+//                glColor3f(0.0f, 1.0f, 0.0f);
+//                glEnable(GL_TEXTURE_2D);
+//                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+//                glBindTexture(GL_TEXTURE_2D, textureFeuille);
 
-                glBegin(GL_TRIANGLES);
-                glNormal3f(0.0, 0.0, 1.0);
+//                glBegin(GL_TRIANGLES);
+//                glNormal3f(0.0, 0.0, 1.0);
 
-                glTexCoord2d(0, 0); glVertex3f(x,y,z);
-                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
-                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
-                glEnd();
-                glFlush();
+//                glTexCoord2d(0, 0); glVertex3f(x,y,z);
+//                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
+//                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
+//                glEnd();
+//                glFlush();
 
-                glDisable(GL_TEXTURE_2D);
-
-                /*
-                glBegin(GL_TRIANGLES);
-                    glVertex3f(x,y+pas,z);
-                    glVertex3f(x+pas,y,z);
-                    glVertex3f(x+pas,y+pas,z);
-                glEnd();
+//                glDisable(GL_TEXTURE_2D);
 
 
-*/
+//                glBegin(GL_TRIANGLES);
+//                    glVertex3f(x,y+pas,z);
+//                    glVertex3f(x+pas,y,z);
+//                    glVertex3f(x+pas,y+pas,z);
+//                glEnd();
 
-                /*
-                glBegin(GL_QUAD_STRIP); //cylindre
-                    angle = 0.0;
-                    while( angle < 2 * M_PI ) {
-                        GLfloat tempX = radius * cos(angle);
-                        GLfloat tempZ = radius * sin(angle);
-                        glVertex3f(tempX, height, tempZ);
-                        glVertex3f(tempX, y, tempZ);
-                        angle += angle_stepsize;
-                    }
-                    glVertex3f(radius, height, 0.0);
-                    glVertex3f(radius, 0.0, 0.0);
-                glEnd();
-                */
+
+//                glBegin(GL_QUAD_STRIP); //cylindre
+//                    angle = 0.0;
+//                    while( angle < 2 * M_PI ) {
+//                        GLfloat tempX = radius * cos(angle);
+//                        GLfloat tempZ = radius * sin(angle);
+//                        glVertex3f(tempX, height, tempZ);
+//                        glVertex3f(tempX, y, tempZ);
+//                        angle += angle_stepsize;
+//                    }
+//                    glVertex3f(radius, height, 0.0);
+//                    glVertex3f(radius, 0.0, 0.0);
+//                glEnd();
+
+
 //                glBegin(GL_LINES);
 //                  glVertex3f(x, y, z);
 //                  glVertex3f(x, y+0.1f, z);
 //                glEnd();
 
-                if(radius >= radius_reduction) radius -= radius_reduction;
+//                if(radius >= radius_reduction) radius -= radius_reduction;
                 break;
 
             case LSystem::ROTATE_LEFT_X:
@@ -228,6 +322,7 @@ void GLArea::paintGL()
                 break;
         }
     }
+*/
 }
 
 GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
@@ -279,100 +374,135 @@ GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
  }
 
 
+void GLArea::resizeGL(int w, int h)
+{
+    qDebug() << __FUNCTION__ << w << h;
 
+    // C'est fait par défaut
+    glViewport(0, 0, w, h);
 
+    windowRatio = double(w) / h;
+    doProjection();
+}
 
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
-    switch(ev->key()) {        
-    case Qt::Key_9 :
-        cam_angle_y += 1;
-        if (cam_angle_y >= 360) cam_angle_y -= 360;
-        update();
+    qDebug() << QKeySequence(ev->key()).toString();
+    switch(ev->key()) {
+        case Qt::Key_A :
+            xRot -= deltaAngle/9;
         break;
-    case Qt::Key_7 :
-        cam_angle_y -= 1;
-        if (cam_angle_y <= -1) cam_angle_y += 360;
-        update();
+
+        case Qt::Key_Q :
+            xRot += deltaAngle/9;
         break;
-    case Qt::Key_4 :
-        cam_angle_x += 1;
-        if (cam_angle_x >= 360) cam_angle_x -= 360;
-        update();
+
+        case Qt::Key_Z :
+            yRot -= deltaAngle/9;
         break;
-    case Qt::Key_6 :
-        cam_angle_x -= 1;
-        if (cam_angle_x <= -1) cam_angle_x += 360;
-        update();
+
+        case Qt::Key_S :
+            yRot += deltaAngle/9;
         break;
-    case Qt::Key_8 :
-        cam_angle_z += 1;
-        if (cam_angle_z >= 360) cam_angle_z -= 360;
-        update();
+
+        case Qt::Key_E :
+            zRot -= deltaAngle/9;
         break;
-    case Qt::Key_2 :
-        cam_angle_z -= 1;
-        if (cam_angle_z <= -1) cam_angle_z += 360;
-        update();
+
+        case Qt::Key_D :
+            zRot += deltaAngle/9;
         break;
-    case Qt::Key_D :
-        cam_z+=0.1f;
-        update();
+
+        case Qt::Key_Plus :
+            deltaAngle*=2;
+            deltaZoom*=2;
+            qDebug() << "deltaMouvment = " << deltaAngle;
         break;
-    case Qt::Key_Q :
-        cam_z-=0.1f;
-        update();
+
+        case Qt::Key_Minus :
+            deltaAngle/=2;
+            deltaZoom/=2;
+            qDebug() << "deltaMouvment = " << deltaAngle;
         break;
-    case Qt::Key_Z :
-        cam_x+=0.1f;
-        update();
+
+        case Qt::Key_Return :
+            xRot=0.0f, yRot=0.0f, zRot=0.0f;
+            xPos=0.0f,  yPos=-1.0f, zPos=-2.0f;
         break;
-    case Qt::Key_S :
-        cam_x-=0.1f;
-        update();
+
+        case Qt::Key_Escape:
+            qDebug() <<"m_x" << xPos
+                     <<"m_y" << yPos
+                     <<"m_z" << zPos
+                     <<"a_x" << xRot
+                     <<"a_y" << yRot
+                     <<"a_z" << zRot;
         break;
-    case Qt::Key_R :
-        cam_y-=0.1f;
-        update();
+        case Qt::Key_Backspace:
+            makeGLObjects();
         break;
-    case Qt::Key_F :
-        cam_y+=0.1f;
-        update();
-        break;
-    case Qt::Key_Return :
-        cam_x=0;
-        cam_y=0;
-        cam_z=0;
-        cam_angle_x=0;
-        cam_angle_y=0;
-        cam_angle_z=0;
-        update();
-        break;
-    case Qt::Key_Escape:
-        qDebug() <<"m_x" << cam_x
-                 <<"m_y" << cam_y
-                 <<"m_z" << cam_z
-                 <<"a_x" << cam_angle_x
-                 <<"a_y" << cam_angle_y
-                 <<"a_z" << cam_angle_z;
-        break;
-    case Qt::Key_A :
-        if (m_timer->isActive())
-            m_timer->stop();
-        else m_timer->start();
-        break;
-    case Qt::Key_W :
-        if (ev->text() == "r")
+        case Qt::Key_W :
+        if (ev->text() == "w")
              setRadius(m_radius-0.10);
         else setRadius(m_radius+0.10);
         break;
+
     }
+    update();
 }
 
-void GLArea::onTimeout()
+
+void GLArea::keyReleaseEvent(QKeyEvent *ev)
 {
-    m_alpha += 1;
-    if (m_alpha >= 360) m_alpha = 0;
+    qDebug() << __FUNCTION__ << ev->text();
+}
+
+
+void GLArea::mousePressEvent(QMouseEvent *ev)
+{
+    lastPos = ev->pos();
+}
+
+void GLArea::wheelEvent(QWheelEvent *ev){
+    zPos += static_cast<float>(ev->delta() * deltaZoom/100);
+    update();
+}
+
+void GLArea::mouseReleaseEvent(QMouseEvent *ev)
+{
+    qDebug() << __FUNCTION__ << ev->x() << ev->y() << ev->button();
+}
+
+
+void GLArea::mouseMoveEvent(QMouseEvent *ev)
+{
+    int dx = ev->x() - lastPos.x();
+    int dy = ev->y() - lastPos.y();
+
+    if (ev->buttons() & Qt::MidButton || (ev->buttons() & Qt::LeftButton && ev->buttons() & Qt::RightButton)) {
+        xPos += dx/10.0f;
+        zPos += dy;
+        update();
+    } else if (ev->buttons() & Qt::LeftButton) {
+        xRot += dy;
+        yRot += dx;
+        update();
+    } else if (ev->buttons() & Qt::RightButton) {
+        xPos += dx/10.0f;
+        yPos -= dy/10.0f;
+        update();
+    }
+
+    lastPos = ev->pos();
+}
+
+
+void GLArea::onTimeout(){
+    static qint64 old_chrono = elapsedTimer.elapsed(); // static : initialisation la première fois et conserve la dernière valeur
+    qint64 chrono = elapsedTimer.elapsed();
+    dt = (chrono - old_chrono) / 1000.0f;
+    old_chrono = chrono;
+
     update();
 }
 
@@ -392,5 +522,6 @@ void GLArea::parseAndGenerate(LSystem *lsystem)
 {
     this->result = lsystem->getResult();
     this->lsystem = lsystem;
+    makeGLObjects();
     update();
 }

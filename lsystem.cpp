@@ -203,7 +203,7 @@ void LSystem::iterate()
                 if(!found && j+1 < result.size()) currentChar += result.at(++j);
             }
         }
-        //qDebug() << "ITERATION " << i+1 << " = " << result;
+        qDebug() << "ITERATION " << i+1 << " = " << result;
     }
     this->result = result;
 }

@@ -22,31 +22,40 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+win32{
+    LIBS += -lGLU32\
+        -lOpengl32
+}
 
-#LIBS += -lGLU32\
-#        -lOpengl32
-
-LIBS += -lglut -lGL -lGLU
+unix:!macx {
+    LIBS += -lglut -lGLU -lGL
+}
 
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    settings.cpp \
-    lsystem.cpp \
-    glarea.cpp
+        settings.cpp \
+        lsystem.cpp \
+        myobjects.cpp \
+        cylindre.cpp \
+        leaf.cpp \
+        glarea.cpp
 
 HEADERS += \
         mainwindow.h \
-    settings.h \
-    lsystem.h \
-    glarea.h
+        settings.h \
+        lsystem.h \
+        myobjects.h \
+        cylindre.h \
+        leaf.h \
+        glarea.h
 
 FORMS += \
         mainwindow.ui \
-    settings.ui
+        settings.ui
 
 RESOURCES += \
-    ressources.qrc
+        ressources.qrc
 
 CONFIG += c++11
 

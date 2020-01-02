@@ -3,13 +3,19 @@
 #ifndef GLAREA_H
 #define GLAREA_H
 
-#include <QOpenGLWidget>
-#include <QOpenGLFunctions>
 #include <QKeyEvent>
 #include <QTimer>
+#include <QElapsedTimer>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <QOpenGLBuffer>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLTexture>
 #include <stack>
 
 #include "lsystem.h"
+#include "cylindre.h"
+#include "leaf.h"
 
 class GLArea : public QOpenGLWidget,
                protected QOpenGLFunctions
@@ -39,25 +45,36 @@ protected:
     void resizeGL(int w, int h) override;
     void paintGL() override;
     void keyPressEvent(QKeyEvent *ev) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
 private:
     //cam setting
-    double cam_angle_x = 0;
-    double cam_angle_y = 0;
-    double cam_angle_z = 0;
-    double cam_x = 0;
-    double cam_y = 0;
-    double cam_z = 0;
+    float xRot=0.0f, yRot=0.0f, zRot=0.0f;
+    float xPos=0.0f,  yPos=-1.0f, zPos=-2.0f;
+    float bgr=0.2f, bgg=0.4f, bgb=1.0f, bga=1.0f;   //background rgba
+    float deltaAngle=1, deltaZoom=1;                //delta for mouvement
 
-
+    QPoint lastPos;
     QString result = "";
     LSystem* lsystem = nullptr;
 
 
-    QTimer *m_timer = nullptr;
-    double m_alpha = 0;
+    QTimer *timer = nullptr;
+    QElapsedTimer elapsedTimer;
+    float dt = 0;
     double m_radius = 0.5;
-    double m_ratio = 1;
+    double windowRatio = 1.0;
     GLuint textureFeuille;
+
+
+    Cylindre cy;
+    Leaf leaf;
+
+    void makeGLObjects();
+    void tearGLObjects();
 };
 
 #endif // GLAREA_H
