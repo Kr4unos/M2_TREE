@@ -116,10 +116,6 @@ bool LSystem::importJSON(QString fileName)
     this->setBranchLength(json_map["branch_length"].toFloat());
     this->setBranchLengthAlea(json_map["branch_length_alea"].toFloat());
 
-    this->setAngleAlea(json_map["angle_alea"].toFloat());
-    this->setBranchLengthAlea(json_map["branch_length_alea"].toFloat());
-    this->setBranchRadiusReduction(json_map["branch_radius_reduction"].toFloat());
-
     QVariantMap rules_map = json_map["rules"].toMap();
 
     QStringList key_list = rules_map.keys();
