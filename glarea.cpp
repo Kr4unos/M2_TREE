@@ -77,6 +77,7 @@ void GLArea::makeGLObjects()
     height=lsystem->getBranchLength()*10 ;
     cy=Cylindre(radius,radius-1*radius_reduction,height,8);
     cy.initializeGL();
+    cy.setTexture(":/icons/texTroncArbre.png");
     leaf=Leaf(0.5f,0.8f);
     leaf.initializeGL();
     leaf.setTexture(":/icons/texFeuille.png");

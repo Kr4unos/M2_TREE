@@ -19,13 +19,13 @@ void Leaf::makeGLObject(){
     vertData.append(0.0f);
 
     vertData.append(0.0f);
-    vertData.append(0.0f);
+    vertData.append(1.0f);
 
     vertData.append(-width/2);
     vertData.append(height);
     vertData.append(0.0f);
 
-    vertData.append(0.0f);
+    vertData.append(1.0f);
     vertData.append(1.0f);
 
     vertData.append(width/2);
@@ -33,13 +33,13 @@ void Leaf::makeGLObject(){
     vertData.append(0.0f);
 
     vertData.append(1.0f);
-    vertData.append(1.0f);
+    vertData.append(0.0f);
 
     vertData.append(width/2);
     vertData.append(0.0f);
     vertData.append(0.0f);
 
-    vertData.append(1.0f);
+    vertData.append(0.0f);
     vertData.append(0.0f);
 
     vbo->create();

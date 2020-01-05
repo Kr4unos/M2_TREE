@@ -6,6 +6,6 @@
   "angle": 25,
   "iterations": 6,
   "branch_length": 0.15,
-  "branch_radius": 0.02,
-  "branch_radius_reduction": 0.0015
+  "branch_radius": 0.05,
+  "branch_radius_reduction": 0.008
 }

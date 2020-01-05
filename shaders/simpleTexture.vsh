@@ -10,7 +10,7 @@ uniform float size;
 
 void main() {
    uv = in_uv;
-   vec4 pos = vec4(vec3(in_position) * size, 1.0);
+   vec4 pos = vec4(in_position.x * size,in_position.y,in_position.z * size, 1.0);
    gl_Position = projectionMatrix * viewMatrix * modelMatrix * pos;
 }
 

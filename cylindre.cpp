@@ -24,7 +24,7 @@ Cylindre::Cylindre(float radius1, float radius2, float height, int subdivision){
 
 void Cylindre::initializeGL(){
     setVbo();
-    setShaderProgram(":/shaders/simpleColor");
+    setShaderProgram(":/shaders/simpleTexture");
 }
 
 
@@ -32,36 +32,31 @@ void Cylindre::makeGLObject(){
     QVector<GLfloat> vertData;
     for(double i=0;i<subdivision;i++){
         vertData.append(radius1*cos(2*M_PI*(i/subdivision)));
-        vertData.append(0);
+        vertData.append(0.0f);
         vertData.append(radius1*sin(2*M_PI*(i/subdivision)));
 
-        vertData.append(0.5f);
-        vertData.append(0.35f);
-        vertData.append(0.05f);
+        vertData.append(1.0f);
+        vertData.append(1.0f);
 
         vertData.append(radius2*cos(2*M_PI*(i/subdivision)));
         vertData.append(height);
         vertData.append(radius2*sin(2*M_PI*(i/subdivision)));
 
-        vertData.append(0.5f);
-        vertData.append(0.35f);
-        vertData.append(0.05f);
+        vertData.append(1.0f);
+        vertData.append(0.0f);
 
         vertData.append(radius2*cos(2*M_PI*((i+1)/subdivision)));
         vertData.append(height);
         vertData.append(radius2*sin(2*M_PI*((i+1)/subdivision)));
-
-        vertData.append(0.5f);
-        vertData.append(0.35f);
-        vertData.append(0.05f);
+        vertData.append(0.0f);
+        vertData.append(0.0f);
 
         vertData.append(radius1*cos(2*M_PI*((i+1)/subdivision)));
-        vertData.append(0);
+        vertData.append(0.0f);
         vertData.append(radius1*sin(2*M_PI*((i+1)/subdivision)));
 
-        vertData.append(0.5f);
-        vertData.append(0.35f);
-        vertData.append(0.05f);
+        vertData.append(0.0f);
+        vertData.append(1.0f);
     }
     vbo->create();
     vbo->bind();
@@ -69,16 +64,17 @@ void Cylindre::makeGLObject(){
 }
 
 void Cylindre::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
+    texture->bind();
     vbo->bind();
     shaderProgram->bind(); // active le shader program
 
     shaderProgram->setUniformValue("projectionMatrix", projectionMatrix);
     shaderProgram->setUniformValue("viewMatrix", viewMatrix);
 
-    shaderProgram->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));
-    shaderProgram->setAttributeBuffer("colAttr", GL_FLOAT, 3 * sizeof(GLfloat), 3, 6 * sizeof(GLfloat));
+    shaderProgram->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 5 * sizeof(GLfloat));
+    shaderProgram->setAttributeBuffer("in_uv", GL_FLOAT, 3 * sizeof(GLfloat), 2, 5 * sizeof(GLfloat));
     shaderProgram->enableAttributeArray("in_position");
-    shaderProgram->enableAttributeArray("colAttr");
+    shaderProgram->enableAttributeArray("in_uv");
 
     for(uint i=0; i < getNbObject() ;i++){
         shaderProgram->setUniformValue("size",size[i]);
@@ -109,4 +105,5 @@ void Cylindre::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
     shaderProgram->disableAttributeArray("in_position");
     shaderProgram->disableAttributeArray("colAttr");
     shaderProgram->release();
+    texture->release();
 }
