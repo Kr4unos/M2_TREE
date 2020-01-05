@@ -8,43 +8,39 @@ Leaf::Leaf(float width, float height)
 
 void Leaf::initializeGL(){
     setVbo();
-    setShaderProgram(":/shaders/simple");
+    setShaderProgram(":/shaders/simpleTexture");
 }
 
 
 void Leaf::makeGLObject(){
     QVector<GLfloat> vertData;
     vertData.append(-width/2);
-    vertData.append(0);
-    vertData.append(0);
+    vertData.append(0.0f);
+    vertData.append(0.0f);
 
     vertData.append(0.0f);
-    vertData.append(0.5f);
-    vertData.append(0.05f);
+    vertData.append(0.0f);
 
     vertData.append(-width/2);
     vertData.append(height);
-    vertData.append(0);
+    vertData.append(0.0f);
 
     vertData.append(0.0f);
-    vertData.append(0.5f);
-    vertData.append(0.05f);
+    vertData.append(1.0f);
 
     vertData.append(width/2);
     vertData.append(height);
-    vertData.append(0);
-
     vertData.append(0.0f);
-    vertData.append(0.5f);
-    vertData.append(0.05f);
+
+    vertData.append(1.0f);
+    vertData.append(1.0f);
 
     vertData.append(width/2);
-    vertData.append(0);
-    vertData.append(0);
-
     vertData.append(0.0f);
-    vertData.append(0.5f);
-    vertData.append(0.05f);
+    vertData.append(0.0f);
+
+    vertData.append(1.0f);
+    vertData.append(0.0f);
 
     vbo->create();
     vbo->bind();
@@ -54,14 +50,19 @@ void Leaf::makeGLObject(){
 void Leaf::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
     vbo->bind();
     shaderProgram->bind(); // active le shader program
+    texture->bind();
 
     shaderProgram->setUniformValue("projectionMatrix", projectionMatrix);
     shaderProgram->setUniformValue("viewMatrix", viewMatrix);
 
-    shaderProgram->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));
-    shaderProgram->setAttributeBuffer("colAttr", GL_FLOAT, 3 * sizeof(GLfloat), 3, 6 * sizeof(GLfloat));
+    shaderProgram->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 5 * sizeof(GLfloat));
+    shaderProgram->setAttributeBuffer("in_uv", GL_FLOAT, 3 * sizeof(GLfloat), 2, 5 * sizeof(GLfloat));
     shaderProgram->enableAttributeArray("in_position");
-    shaderProgram->enableAttributeArray("colAttr");
+    shaderProgram->enableAttributeArray("in_uv");
+
+
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
 
     for(uint i=0; i < getNbObject() ;i++){
         shaderProgram->setUniformValue("size",size[i]);
@@ -89,7 +90,9 @@ void Leaf::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
         }
     }
 
+    glDisable(GL_BLEND);
     shaderProgram->disableAttributeArray("in_position");
     shaderProgram->disableAttributeArray("colAttr");
     shaderProgram->release();
+    texture->release();
 }

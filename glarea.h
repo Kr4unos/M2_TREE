@@ -52,8 +52,9 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
 private:
     //cam setting
-    float xRot=0.0f, yRot=0.0f, zRot=0.0f;
-    float xPos=0.0f,  yPos=-1.0f, zPos=-2.0f;
+    float xRot=20.0f, yRot=0.0f, zRot=0.0f;
+    float xPos=0.0f,  yPos=-6.0f, zPos=-40.0f;
+
     float bgr=0.2f, bgg=0.4f, bgb=1.0f, bga=1.0f;   //background rgba
     float deltaAngle=1, deltaZoom=1;                //delta for mouvement
 
@@ -72,6 +73,7 @@ private:
 
     Cylindre cy;
     Leaf leaf;
+    Leaf sol;
 
     void makeGLObjects();
     void tearGLObjects();

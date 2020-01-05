@@ -5,12 +5,12 @@ varying vec4 uv;
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
-uniform float pSize;
+uniform float size;
 
 
 void main() {
    uv = in_uv;
-   vec4 pos = vec4(vec3(in_position) * pSize, 1.0);
+   vec4 pos = vec4(vec3(in_position) * size, 1.0);
    gl_Position = projectionMatrix * viewMatrix * modelMatrix * pos;
 }
 

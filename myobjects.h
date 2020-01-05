@@ -36,7 +36,7 @@ protected:
 
     QMatrix4x4 modelMatrix;
     QOpenGLShaderProgram *shaderProgram;
-    QOpenGLBuffer * vbo;
+    QOpenGLBuffer *vbo;
     QOpenGLTexture *texture;
     bool privateVbo=false,privateTexture=false,privateShaderProgram=false;
 

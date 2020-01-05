@@ -7,13 +7,16 @@
         <file alias="settings.png">icons/settings.png</file>
         <file alias="logo.png">icons/logo.png</file>
         <file alias="texFeuille.png">icons/texFeuille.png</file>
+        <file alias="texTroncArbre.png">icons/texTroncArbre.png</file>
+        <file alias="texGround.png">icons/texGround.png</file>
+        <file alias="texGround.jpg">icons/texGround.jpg</file>
     </qresource>
     <qresource prefix="/shaders">
     
-        <file alias="poisson.fsh">shaders/poisson.fsh</file>
-        <file alias="poisson.vsh">shaders/poisson.vsh</file>
-        <file alias="simple.fsh">shaders/simple.fsh</file>
-        <file alias="simple.vsh">shaders/simple.vsh</file>
+        <file alias="simpleColor.fsh">shaders/simpleColor.fsh</file>
+        <file alias="simpleColor.vsh">shaders/simpleColor.vsh</file>
+        <file alias="simpleTexture.fsh">shaders/simpleTexture.fsh</file>
+        <file alias="simpleTexture.vsh">shaders/simpleTexture.vsh</file>
         <file alias="basic.fsh">shaders/basic.fsh</file>
         <file alias="basic.vsh">shaders/basic.vsh</file>
     </qresource>

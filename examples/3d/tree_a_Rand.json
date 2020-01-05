@@ -1,14 +1,15 @@
 {
-  "axiom": "FFFFFA",
-  "rules": {
-    "A": "F[++AL][--AL]>>>A"
-  },
-  "angle": 25,
-  "angle_alea": 2,
-  "iterations": 6,
-  "branch_length": 0.15,
-  "branch_length_alea": 0.05,
-  "branch_radius": 0.02,
-  "branch_radius_reduction": 0.0015,
-  "branch_radius_reduction_alea": 0.0000001
+    "angle": 25,
+    "angle_alea": 2,
+    "axiom": "FFFFFA",
+    "branch_length": 0.15,
+    "branch_length_alea": 0.05,
+    "branch_radius": 0.05,
+    "branch_radius_alea": 0,
+    "branch_radius_reduction": 0.008,
+    "branch_radius_reduction_alea": 0,
+    "iterations": 6,
+    "rules": {
+        "A": "F[++AL][--AL]>>>A"
+    }
 }

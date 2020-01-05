@@ -24,7 +24,7 @@ Cylindre::Cylindre(float radius1, float radius2, float height, int subdivision){
 
 void Cylindre::initializeGL(){
     setVbo();
-    setShaderProgram(":/shaders/simple");
+    setShaderProgram(":/shaders/simpleColor");
 }
 
 

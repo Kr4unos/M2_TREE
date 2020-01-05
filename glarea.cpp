@@ -69,21 +69,30 @@ void GLArea::makeGLObjects()
 
     GLfloat rotationAngle=lsystem->getAngleRandom();
 
-    GLfloat radius           = lsystem->getBranchRadius();
-    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
+    GLfloat radius          = lsystem->getBranchRadius()*10 ;
+    GLfloat radius_reduction = lsystem->getBranchRadiusReduction()*10;
     GLfloat height,size  = 1;
     std::stack<GLfloat> tempRadius;
 
-    height=lsystem->getBranchLength();
+    height=lsystem->getBranchLength()*10 ;
     cy=Cylindre(radius,radius-1*radius_reduction,height,8);
     cy.initializeGL();
-    leaf=Leaf(0.03f,0.08f);
+    leaf=Leaf(0.5f,0.8f);
     leaf.initializeGL();
+    leaf.setTexture(":/icons/texFeuille.png");
+    float groundSize=30;
+    sol=Leaf(groundSize,groundSize);
+    sol.initializeGL();
+    sol.setTexture(":/icons/texGround.png");
+
     QMatrix4x4 actualMatrice;
     std::vector<QMatrix4x4> vMatrice;
     std::vector<QVector3D> vNextRotation;
     std::vector<GLfloat> vSize;
-
+    actualMatrice.rotate(90,1,0,0);
+    actualMatrice.translate(0,-groundSize/2,0);
+    sol.addObj(actualMatrice);
+    actualMatrice.setToIdentity();
     for(int i = 0; i < result.size(); i++){
         char currentChar = lsystem->getResult().at(i).toLatin1();
         LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
@@ -136,6 +145,7 @@ void GLArea::makeGLObjects()
 
     cy.makeGLObject();
     leaf.makeGLObject();
+    sol.makeGLObject();
 }
 
 void GLArea::paintGL()
@@ -154,8 +164,12 @@ void GLArea::paintGL()
     viewMatrix.rotate(yRot, 0, 1, 0);
     viewMatrix.rotate(zRot, 0, 0, 1);
     if(lsystem == nullptr) return;
+
     cy.display(projectionMatrix,viewMatrix);
+    sol.display(projectionMatrix,viewMatrix);
+    glDepthMask(GL_FALSE);
     leaf.display(projectionMatrix,viewMatrix);
+    glDepthMask(GL_TRUE);
 
 /*
     GLfloat x              = 0.0;
@@ -413,17 +427,17 @@ void GLArea::keyPressEvent(QKeyEvent *ev)
         break;
 
         case Qt::Key_Return :
-            xRot=0.0f, yRot=0.0f, zRot=0.0f;
-            xPos=0.0f,  yPos=-1.0f, zPos=-2.0f;
+            xRot=20.0f, yRot=0.0f, zRot=0.0f;
+            xPos=0.0f,  yPos=-6.0f, zPos=-40.0f;
         break;
 
         case Qt::Key_Escape:
-            qDebug() <<"m_x" << xPos
-                     <<"m_y" << yPos
-                     <<"m_z" << zPos
-                     <<"a_x" << xRot
-                     <<"a_y" << yRot
-                     <<"a_z" << zRot;
+            qDebug() <<"xPos" << xPos
+                     <<"yPos" << yPos
+                     <<"zPos" << zPos
+                     <<"xRot" << xRot
+                     <<"yRot" << yRot
+                     <<"zRot" << zRot;
         break;
         case Qt::Key_Backspace:
             makeGLObjects();
