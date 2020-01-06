@@ -60,8 +60,102 @@ void MainWindow::on_exportOBJAction_triggered()
         QMessageBox::critical(this, tr("Erreur"), QString("Vous devez spécifier un nom de fichier!"));
         return;
     }
-    fileName += ".obj";
-    //TODO: Exportation en OBJ
+
+    QFile objFile(fileName);
+    if(objFile.open(QIODevice::ReadWrite)){
+        QTextStream stream(&objFile);
+        QVector3D pos;
+
+        uint nbCy= ui->glarea->cy.getNbObject();
+        uint nbLeaf= ui->glarea->leaf.getNbObject();
+        int id=1;
+
+
+        int cysubdivision=ui->glarea->cy.subdivision;
+        float cyradius1=ui->glarea->cy.radius1;
+        float cyradius2=ui->glarea->cy.radius2;
+        float cyheight=ui->glarea->cy.height;
+        for (uint i =0 ;i < nbCy;i++) {
+            QMatrix4x4 matrice=ui->glarea->cy.getMatrice(i);
+            float size=ui->glarea->cy.getSize(i);
+
+            for(double i=0;i<cysubdivision;i++){
+                pos.setX(size*cyradius1*cos(2*M_PI*(i/cysubdivision)));
+                pos.setY(0.0f);
+                pos.setZ(size*cyradius1*sin(2*M_PI*(i/cysubdivision)));
+
+                pos=matrice*pos;
+                stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+                id++;
+
+                pos.setX(size*cyradius2*cos(2*M_PI*(i/cysubdivision)));
+                pos.setY(cyheight);
+                pos.setZ(size*cyradius2*sin(2*M_PI*(i/cysubdivision)));
+
+                pos=matrice*pos;
+                stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+                id++;
+            }
+        }
+
+        int idStartLeafs=id;
+        float leafheight=ui->glarea->leaf.height;
+        float leafwidth=ui->glarea->leaf.width;
+        for (uint i =0 ;i < nbLeaf;i++) {
+            QMatrix4x4 matrice=ui->glarea->leaf.getMatrice(i);
+
+            pos.setX(-leafwidth/2);
+            pos.setY(0.0f);
+            pos.setZ(0.0f);
+
+            pos=matrice*pos;
+            stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+            id++;
+
+            pos.setX(-leafwidth/2);
+            pos.setY(leafheight);
+            pos.setZ(0.0f);
+
+            pos=matrice*pos;
+            stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+            id++;
+
+            pos.setX(leafwidth/2);
+            pos.setY(leafheight);
+            pos.setZ(0.0f);
+
+            pos=matrice*pos;
+            stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+            id++;
+
+            pos.setX(leafwidth/2);
+            pos.setY(0.0f);
+            pos.setZ(0.0f);
+
+            pos=matrice*pos;
+            stream << "v " << pos.x() << " " << pos.y() << " " << pos.z() << endl ;
+            id++;
+        }
+
+        id=1;
+        for (uint i =0 ;i < nbCy;i++) {
+            int idStartCy=id;
+            for(double i=0;i<cysubdivision-1;i++){
+
+                stream << "f " << id << " " << id+1 << " " << id+3 << " " << id+2 << endl ;
+                id+=2;
+            }
+            stream << "f " << id << " " << id+1 << " " << idStartCy+1 << " " << idStartCy << endl ;
+            id+=2;
+        }
+
+        id=idStartLeafs;
+        for (uint i =0 ;i < nbLeaf;i++) {
+
+            stream << "f " << id++ << " " << id++ << " " << id++ << " " << id++ << endl ;
+        }
+    }
+
     ui->statusBar->showMessage("Exportation en .OBJ terminée!");
 }
 void MainWindow::on_quitAction_triggered()

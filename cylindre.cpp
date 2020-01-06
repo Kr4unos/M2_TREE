@@ -48,6 +48,7 @@ void Cylindre::makeGLObject(){
         vertData.append(radius2*cos(2*M_PI*((i+1)/subdivision)));
         vertData.append(height);
         vertData.append(radius2*sin(2*M_PI*((i+1)/subdivision)));
+
         vertData.append(0.0f);
         vertData.append(0.0f);
 

@@ -70,13 +70,14 @@ private:
     double windowRatio = 1.0;
     GLuint textureFeuille;
 
+    void makeGLObjects();
+    void tearGLObjects();
 
+public:
     Cylindre cy;
     Leaf leaf;
     Leaf sol;
 
-    void makeGLObjects();
-    void tearGLObjects();
 };
 
 #endif // GLAREA_H

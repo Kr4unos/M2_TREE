@@ -201,6 +201,28 @@ int myObjects::getDisplayMode(uint id) const{
 }
 
 
+bool myObjects::setMatrice(QMatrix4x4 matrice, uint id){
+    if(id < getNbObject()){
+        this->matrice[id]=matrice;
+        return true;
+    }
+    else{
+        qWarning() << __FUNCTION__ << " error id " << id << " not created";
+        return false;
+    }
+}
+
+QMatrix4x4 myObjects::getMatrice(uint id) const{
+    if(id < getNbObject()){
+        return this->matrice[id];
+    }
+    else{
+        qWarning() << __FUNCTION__ << " error id " << id << " not created";
+        QMatrix4x4 tmp;
+        return tmp;
+    }
+}
+
 void myObjects::onTimeout(float dt){
 
 }

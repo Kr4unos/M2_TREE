@@ -57,6 +57,11 @@ public:
     bool setDisplayMode(int displayMode, uint id=0);
     int getDisplayMode(uint id=0) const; //0 if id not created
 
+    bool setMatrice(QMatrix4x4 matrice, uint id=0);
+    QMatrix4x4 getMatrice(uint id=0) const; //matrice id if id not created
+
+
+
 };
 
 #endif // MYOBJECTS_H
