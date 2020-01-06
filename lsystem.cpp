@@ -133,14 +133,18 @@ bool LSystem::importJSON(QString fileName)
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 
     R_generator= std::default_random_engine(seed);
-
-    distributionAngle                 = std::normal_distribution<float> (angle,angleAlea);
-    distributionBranchRadius          = std::normal_distribution<float> (branchRadius,angleAlea);
-    distributionBranchRadiusReduction = std::normal_distribution<float> (branchRadiusReduction,branchRadiusReductionAlea);
-    distributionBranchLength          = std::normal_distribution<float> (branchLength,branchLengthAlea);
+    setRandomGenerator();
 
     return true;
 }
+
+void LSystem::setRandomGenerator(){
+    distributionAngle                 = std::normal_distribution<float> (angle,angleAlea);
+    distributionBranchRadius          = std::normal_distribution<float> (branchRadius,branchRadiusAlea);
+    distributionBranchRadiusReduction = std::normal_distribution<float> (branchRadiusReduction,branchRadiusReductionAlea);
+    distributionBranchLength          = std::normal_distribution<float> (branchLength,branchLengthAlea);
+}
+
 bool LSystem::exportJSON(QString fileName)
 {
 

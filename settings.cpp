@@ -62,5 +62,7 @@ void Settings::on_buttonBox_accepted()
     this->lsystem->setRulesFrom(rulesFrom);
     this->lsystem->setRulesTo(rulesTo);
 
+    this->lsystem->setRandomGenerator();
+
     emit LSystemChanged();
 }

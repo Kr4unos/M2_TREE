@@ -60,6 +60,9 @@ void GLArea::doProjection()
 
 void GLArea::tearGLObjects()
 {
+    cy.tearGLObjects();
+    leaf.tearGLObjects();
+    sol.tearGLObjects();
 }
 
 void GLArea::makeGLObjects()
@@ -69,12 +72,12 @@ void GLArea::makeGLObjects()
 
     GLfloat rotationAngle=lsystem->getAngleRandom();
 
-    GLfloat radius          = lsystem->getBranchRadius()*10 ;
-    GLfloat radius_reduction = lsystem->getBranchRadiusReduction()*10;
+    GLfloat radius          = lsystem->getBranchRadiusRandom()*10 ;
+    GLfloat radius_reduction = lsystem->getBranchRadiusReductionRandom()*10;
     GLfloat height,size  = 1;
     std::stack<GLfloat> tempRadius;
 
-    height=lsystem->getBranchLength()*10 ;
+    height=lsystem->getBranchLengthRandom()*10 ;
     cy=Cylindre(radius,radius-1*radius_reduction,height,8);
     cy.initializeGL();
     cy.setTexture(":/icons/texTroncArbre.png");

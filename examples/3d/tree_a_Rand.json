@@ -3,7 +3,7 @@
     "angle_alea": 2,
     "axiom": "FFFFFA",
     "branch_length": 0.15,
-    "branch_length_alea": 0.05,
+    "branch_length_alea": 0,
     "branch_radius": 0.05,
     "branch_radius_alea": 0,
     "branch_radius_reduction": 0.008,

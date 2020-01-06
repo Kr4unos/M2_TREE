@@ -76,12 +76,15 @@ class LSystem
         float getBranchRadiusRandom();
         float getBranchRadiusReductionRandom();
 
+        void setRandomGenerator();
+
 private:
 
         QString axiom;
         QStringList rulesFrom;
         QStringList rulesTo;
         int iterations = 0;
+
         float angle = 0.0;
         float angleAlea = 0.0;
         float branchRadius = 0.0;

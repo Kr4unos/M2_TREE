@@ -159,10 +159,10 @@
        <item>
         <widget class="QDoubleSpinBox" name="radiusBranche_input">
          <property name="decimals">
-          <number>2</number>
+          <number>3</number>
          </property>
          <property name="singleStep">
-          <double>0.010000000000000</double>
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
@@ -179,8 +179,11 @@
        </item>
        <item>
         <widget class="QDoubleSpinBox" name="radiusBrancheRandom_input">
+         <property name="decimals">
+          <number>6</number>
+         </property>
          <property name="singleStep">
-          <double>0.010000000000000</double>
+          <double>0.000001000000000</double>
          </property>
         </widget>
        </item>
