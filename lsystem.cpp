@@ -6,12 +6,21 @@
 
 #include "lsystem.h"
 
+/**
+ * @brief LSystem::LSystem
+ * @param fileName
+ */
 LSystem::LSystem(QString fileName)
 {
     this->importJSON(fileName);
     this->iterate();
 }
 
+/**
+ * @brief LSystem::getActionFromSymbol
+ * @param symbol
+ * @return
+ */
 LSystem::Action LSystem::getActionFromSymbol(char symbol)
 {
     switch(symbol){
@@ -42,6 +51,11 @@ LSystem::Action LSystem::getActionFromSymbol(char symbol)
     }
 }
 
+/**
+ * @brief LSystem::getActionNameFromAction
+ * @param action
+ * @return
+ */
 QString LSystem::getActionNameFromAction(LSystem::Action action)
 {
     switch(action){
@@ -70,6 +84,11 @@ QString LSystem::getActionNameFromAction(LSystem::Action action)
     }
 }
 
+/**
+ * @brief LSystem::importJSON
+ * @param fileName
+ * @return
+ */
 bool LSystem::importJSON(QString fileName)
 {
     QFile file(fileName);
@@ -138,6 +157,9 @@ bool LSystem::importJSON(QString fileName)
     return true;
 }
 
+/**
+ * @brief LSystem::setRandomGenerator
+ */
 void LSystem::setRandomGenerator(){
     distributionAngle                 = std::normal_distribution<float> (angle,angleAlea);
     distributionBranchRadius          = std::normal_distribution<float> (branchRadius,branchRadiusAlea);
@@ -145,6 +167,11 @@ void LSystem::setRandomGenerator(){
     distributionBranchLength          = std::normal_distribution<float> (branchLength,branchLengthAlea);
 }
 
+/**
+ * @brief LSystem::exportJSON
+ * @param fileName
+ * @return
+ */
 bool LSystem::exportJSON(QString fileName)
 {
 
@@ -180,9 +207,12 @@ bool LSystem::exportJSON(QString fileName)
     return true;
 }
 
+/**
+ * @brief LSystem::iterate
+ */
 void LSystem::iterate()
 {
-    qDebug() << "NBR ITERATIONS A EFFECTUER:" << this->getIterations();
+    //qDebug() << "NBR ITERATIONS A EFFECTUER:" << this->getIterations();
     QString result(this->getAxiom());
     // On fait le nombre d'itérations demandées
     for(int i = 0; i < this->getIterations(); ++i){
@@ -207,156 +237,276 @@ void LSystem::iterate()
                 if(!found && j+1 < result.size()) currentChar += result.at(++j);
             }
         }
-        qDebug() << "ITERATION " << i+1 << " = " << result;
+        //qDebug() << "ITERATION " << i+1 << " = " << result;
     }
     this->result = result;
 }
 
+/**
+ * @brief LSystem::getAxiom
+ * @return
+ */
 QString LSystem::getAxiom() const
 {
     return axiom;
 }
 
+/**
+ * @brief LSystem::setAxiom
+ * @param value
+ */
 void LSystem::setAxiom(const QString &value)
 {
     axiom = value;
 }
 
+/**
+ * @brief LSystem::getRulesFrom
+ * @return
+ */
 QStringList LSystem::getRulesFrom() const
 {
     return rulesFrom;
 }
 
+/**
+ * @brief LSystem::setRulesFrom
+ * @param value
+ */
 void LSystem::setRulesFrom(const QStringList &value)
 {
     rulesFrom = value;
 }
 
+/**
+ * @brief LSystem::getRulesTo
+ * @return
+ */
 QStringList LSystem::getRulesTo() const
 {
     return rulesTo;
 }
 
+/**
+ * @brief LSystem::setRulesTo
+ * @param value
+ */
 void LSystem::setRulesTo(const QStringList &value)
 {
     rulesTo = value;
 }
 
+/**
+ * @brief LSystem::getAngle
+ * @return
+ */
 float LSystem::getAngle() const
 {
     return angle;
 }
 
+/**
+ * @brief LSystem::getAngleRandom
+ * @return
+ */
 float LSystem::getAngleRandom()
 {
     return distributionAngle(R_generator);
 }
 
+/**
+ * @brief LSystem::setAngle
+ * @param value
+ */
 void LSystem::setAngle(float value)
 {
     angle = value;
 }
 
+/**
+ * @brief LSystem::getIterations
+ * @return
+ */
 int LSystem::getIterations() const
 {
     return iterations;
 }
 
+/**
+ * @brief LSystem::setIterations
+ * @param value
+ */
 void LSystem::setIterations(int value)
 {
     iterations = value;
 }
 
+/**
+ * @brief LSystem::getBranchRadius
+ * @return
+ */
 float LSystem::getBranchRadius() const
 {
     return branchRadius;
 }
 
+/**
+ * @brief LSystem::getBranchRadiusRandom
+ * @return
+ */
 float LSystem::getBranchRadiusRandom()
 {
     return distributionBranchRadius(R_generator);
 }
 
+/**
+ * @brief LSystem::setBranchRadius
+ * @param value
+ */
 void LSystem::setBranchRadius(float value)
 {
     branchRadius = value;
 }
 
+/**
+ * @brief LSystem::getBranchRadiusReduction
+ * @return
+ */
 float LSystem::getBranchRadiusReduction() const
 {
     return branchRadiusReduction;
 }
 
+/**
+ * @brief LSystem::getBranchRadiusReductionRandom
+ * @return
+ */
 float LSystem::getBranchRadiusReductionRandom()
 {
     return distributionBranchRadiusReduction(R_generator);
 }
 
+/**
+ * @brief LSystem::setBranchRadiusReduction
+ * @param value
+ */
 void LSystem::setBranchRadiusReduction(float value)
 {
     branchRadiusReduction = value;
 }
 
+/**
+ * @brief LSystem::getBranchLength
+ * @return
+ */
 float LSystem::getBranchLength() const
 {
     return branchLength;
 }
 
+/**
+ * @brief LSystem::getBranchLengthRandom
+ * @return
+ */
 float LSystem::getBranchLengthRandom()
 {
     return distributionBranchLength(R_generator);
 }
 
+/**
+ * @brief LSystem::setBranchLength
+ * @param value
+ */
 void LSystem::setBranchLength(float value)
 {
     branchLength = value;
 }
 
+/**
+ * @brief LSystem::getResult
+ * @return
+ */
 QString LSystem::getResult() const
 {
     return result;
 }
 
+/**
+ * @brief LSystem::setResult
+ * @param value
+ */
 void LSystem::setResult(const QString &value)
 {
     result = value;
 }
 
+/**
+ * @brief LSystem::getBranchLengthAlea
+ * @return
+ */
 float LSystem::getBranchLengthAlea() const
 {
     return branchLengthAlea;
 }
 
+/**
+ * @brief LSystem::setBranchLengthAlea
+ * @param value
+ */
 void LSystem::setBranchLengthAlea(float value)
 {
     branchLengthAlea = value;
 }
 
+/**
+ * @brief LSystem::getBranchRadiusReductionAlea
+ * @return
+ */
 float LSystem::getBranchRadiusReductionAlea() const
 {
     return branchRadiusReductionAlea;
 }
 
+/**
+ * @brief LSystem::setBranchRadiusReductionAlea
+ * @param value
+ */
 void LSystem::setBranchRadiusReductionAlea(float value)
 {
     branchRadiusReductionAlea = value;
 }
 
+/**
+ * @brief LSystem::getBranchRadiusAlea
+ * @return
+ */
 float LSystem::getBranchRadiusAlea() const
 {
     return branchRadiusAlea;
 }
 
+/**
+ * @brief LSystem::setBranchRadiusAlea
+ * @param value
+ */
 void LSystem::setBranchRadiusAlea(float value)
 {
     branchRadiusAlea = value;
 }
 
+/**
+ * @brief LSystem::getAngleAlea
+ * @return
+ */
 float LSystem::getAngleAlea() const
 {
     return angleAlea;
 }
 
+/**
+ * @brief LSystem::setAngleAlea
+ * @param value
+ */
 void LSystem::setAngleAlea(float value)
 {
     angleAlea = value;

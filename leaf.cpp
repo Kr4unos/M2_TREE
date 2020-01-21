@@ -1,17 +1,27 @@
 #include "leaf.h"
 
+/**
+ * @brief Leaf::Leaf
+ * @param width
+ * @param height
+ */
 Leaf::Leaf(float width, float height)
 {
     this->width=width;
     this->height=height;
 }
 
+/**
+ * @brief Leaf::initializeGL
+ */
 void Leaf::initializeGL(){
     setVbo();
     setShaderProgram(":/shaders/simpleTexture");
 }
 
-
+/**
+ * @brief Leaf::makeGLObject
+ */
 void Leaf::makeGLObject(){
     QVector<GLfloat> vertData;
     vertData.append(-width/2);
@@ -47,6 +57,11 @@ void Leaf::makeGLObject(){
     vbo->allocate(vertData.constData(), vertData.count() * int(sizeof(GLfloat)));
 }
 
+/**
+ * @brief Leaf::display
+ * @param projectionMatrix
+ * @param viewMatrix
+ */
 void Leaf::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
     vbo->bind();
     shaderProgram->bind(); // active le shader program

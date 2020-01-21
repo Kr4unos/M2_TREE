@@ -4,22 +4,38 @@
 #include "ui_settings.h"
 #include "lsystem.h"
 
+/**
+ * @brief The Settings class linked to the settings window
+ */
 class Settings : public QDialog, private Ui::Settings
 {
     Q_OBJECT
 
-    public:
+public:
+    /**
+     * @brief Settings
+     * @param parent
+     * @param lsystem
+     */
+    explicit Settings(QWidget *parent = 0, LSystem* lsystem = nullptr);
 
-        explicit Settings(QWidget *parent = 0, LSystem* lsystem = nullptr);
+private:
+    /**
+     * @brief lsystem
+     */
+    LSystem* lsystem;
 
-    private:
-        LSystem* lsystem;
+private slots:
+    /**
+     * @brief on_buttonBox_accepted
+     */
+    void on_buttonBox_accepted();
 
-    private slots:
-        void on_buttonBox_accepted();
-
-    signals:
-        void LSystemChanged();
+signals:
+    /**
+     * @brief LSystemChanged activate when we modify our lsystem in the settings window
+     */
+    void LSystemChanged();
 };
 
 #endif // SETTINGS_H

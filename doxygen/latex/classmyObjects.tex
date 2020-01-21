@@ -1,0 +1,516 @@
+\hypertarget{classmyObjects}{}\section{my\+Objects Class Reference}
+\label{classmyObjects}\index{my\+Objects@{my\+Objects}}
+
+
+The \hyperlink{classmyObjects}{my\+Objects} class (abstract) used to serialize and store every tables of similar objects.  
+
+
+
+
+{\ttfamily \#include $<$myobjects.\+h$>$}
+
+
+
+Inheritance diagram for my\+Objects\+:
+% FIG 0
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmyObjects_a6b9ac7cbe04d4c976266ae903ed21aa0}{my\+Objects} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{classmyObjects}{my\+Objects} constructor \end{DoxyCompactList}\item 
+virtual \hyperlink{classmyObjects_a5695c2f6428b5b0e9633024d90b84102}{$\sim$my\+Objects} ()
+\begin{DoxyCompactList}\small\item\em $\sim$my\+Objects destructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_aeab77bc0741eeba1240ff68218769d16}\label{classmyObjects_aeab77bc0741eeba1240ff68218769d16}} 
+virtual void \hyperlink{classmyObjects_aeab77bc0741eeba1240ff68218769d16}{make\+G\+L\+Object} ()=0
+\begin{DoxyCompactList}\small\item\em make\+G\+L\+Object abstract \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a1e24feae7eecc42033706a88afec189b}{display} (Q\+Matrix4x4 \&projection\+Matrix, Q\+Matrix4x4 \&view\+Matrix)=0
+\begin{DoxyCompactList}\small\item\em display abstract \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a9b5dc2668a3fab5c74fd07e2145f6293}\label{classmyObjects_a9b5dc2668a3fab5c74fd07e2145f6293}} 
+virtual void \hyperlink{classmyObjects_a9b5dc2668a3fab5c74fd07e2145f6293}{initialize\+GL} ()=0
+\begin{DoxyCompactList}\small\item\em initialize\+GL abstract \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a83118c7f81624026cd3798dcde6a9a34}{tear\+G\+L\+Objects} ()
+\begin{DoxyCompactList}\small\item\em tear\+G\+L\+Objects \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_abe3e3cf13ae4534f3c19701d65d4ccc3}{on\+Timeout} (float dt)
+\begin{DoxyCompactList}\small\item\em on\+Timeout \end{DoxyCompactList}\item 
+virtual uint \hyperlink{classmyObjects_ad4388027a338e2d15f55b87499cdca42}{add\+Obj} (Q\+Matrix4x4 \hyperlink{classmyObjects_aef3994db6f38f3abbd4863acdac0612c}{matrice}, float \hyperlink{classmyObjects_ab522af7e49a03777cc176061c32db11c}{size}=1, int \hyperlink{classmyObjects_a0bdb1559971230bace7098dadc2d4ace}{display\+Mode}=1)
+\begin{DoxyCompactList}\small\item\em add\+Obj \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a1ec9026bb331e4d07d8da372424bbcdf}{set\+Vbo} (Q\+Open\+G\+L\+Buffer $\ast$\hyperlink{classmyObjects_adf868552b7a0a8acbbef2e8b5470e403}{vbo}=nullptr)
+\begin{DoxyCompactList}\small\item\em set\+Vbo \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a317bbb41dd176f37b9bf909637841e97}{set\+Shader\+Program} (Q\+Open\+G\+L\+Shader\+Program \&\hyperlink{classmyObjects_a3aebf3bf2954d78d703e927819a57559}{shader\+Program})
+\begin{DoxyCompactList}\small\item\em set\+Shader\+Program \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a79a82b3ee54eaab203a1a5d8427cc84c}{set\+Shader\+Program} (char $\ast$path\+And\+Name)
+\begin{DoxyCompactList}\small\item\em set\+Shader\+Program \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a8329f8b4d6818478737873390072c563}{set\+Shader\+Program} (char $\ast$path\+Vertex\+Shader, char $\ast$path\+Fragment\+Shader)
+\begin{DoxyCompactList}\small\item\em set\+Shader\+Program \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a51cd02184d2634fabeee1f0845f5ad21}{set\+Texture} (Q\+Open\+G\+L\+Texture \&\hyperlink{classmyObjects_a25fb21a6fe5ef009137a77605d531c33}{texture})
+\begin{DoxyCompactList}\small\item\em set\+Texture \end{DoxyCompactList}\item 
+virtual void \hyperlink{classmyObjects_a6d524f010cd92b04067748407d8ca65b}{set\+Texture} (char $\ast$path)
+\begin{DoxyCompactList}\small\item\em set\+Texture \end{DoxyCompactList}\item 
+virtual uint \hyperlink{classmyObjects_a76824e5ca54bebb188d12ad5ba96678d}{get\+Nb\+Object} () const
+\begin{DoxyCompactList}\small\item\em get\+Nb\+Object \end{DoxyCompactList}\item 
+bool \hyperlink{classmyObjects_ad58306f67d79a54ac844e194b08704c6}{set\+Size} (float value, uint id=0)
+\begin{DoxyCompactList}\small\item\em set\+Size \end{DoxyCompactList}\item 
+float \hyperlink{classmyObjects_ad5181c0f75a5cbadbff0022402ae448d}{get\+Size} (uint id=0) const
+\begin{DoxyCompactList}\small\item\em get\+Size \end{DoxyCompactList}\item 
+bool \hyperlink{classmyObjects_a031a16bfe7b2bfdbf8207cd76cbf9ffd}{set\+Display\+Mode} (int \hyperlink{classmyObjects_a0bdb1559971230bace7098dadc2d4ace}{display\+Mode}, uint id=0)
+\begin{DoxyCompactList}\small\item\em set\+Display\+Mode \end{DoxyCompactList}\item 
+int \hyperlink{classmyObjects_a5441e2c5d4ad660a73abe3863c81b05a}{get\+Display\+Mode} (uint id=0) const
+\begin{DoxyCompactList}\small\item\em get\+Display\+Mode \end{DoxyCompactList}\item 
+bool \hyperlink{classmyObjects_a9100b324aa8e47f94de10c66aaa606b1}{set\+Matrice} (Q\+Matrix4x4 \hyperlink{classmyObjects_aef3994db6f38f3abbd4863acdac0612c}{matrice}, uint id=0)
+\begin{DoxyCompactList}\small\item\em set\+Matrice \end{DoxyCompactList}\item 
+Q\+Matrix4x4 \hyperlink{classmyObjects_a98380353733220fa9d80d149db01732e}{get\+Matrice} (uint id=0) const
+\begin{DoxyCompactList}\small\item\em get\+Matrice \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmyObjects_aef3994db6f38f3abbd4863acdac0612c}\label{classmyObjects_aef3994db6f38f3abbd4863acdac0612c}} 
+std\+::vector$<$ Q\+Matrix4x4 $>$ \hyperlink{classmyObjects_aef3994db6f38f3abbd4863acdac0612c}{matrice}
+\begin{DoxyCompactList}\small\item\em matrice used to keep track of translations and rotations on our object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a0bdb1559971230bace7098dadc2d4ace}\label{classmyObjects_a0bdb1559971230bace7098dadc2d4ace}} 
+std\+::vector$<$ int $>$ \hyperlink{classmyObjects_a0bdb1559971230bace7098dadc2d4ace}{display\+Mode}
+\begin{DoxyCompactList}\small\item\em display\+Mode used to choose the display\+Mode of the object \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_ab522af7e49a03777cc176061c32db11c}\label{classmyObjects_ab522af7e49a03777cc176061c32db11c}} 
+std\+::vector$<$ float $>$ \hyperlink{classmyObjects_ab522af7e49a03777cc176061c32db11c}{size}
+\begin{DoxyCompactList}\small\item\em size size of the object (used by the shader) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a8485f5285f57ea2981327c4e8f9ba6fb}\label{classmyObjects_a8485f5285f57ea2981327c4e8f9ba6fb}} 
+uint \hyperlink{classmyObjects_a8485f5285f57ea2981327c4e8f9ba6fb}{nb\+Object} =0
+\begin{DoxyCompactList}\small\item\em nb\+Object count the number of object we have \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a32b18e774a2f2d51df99482e1bd308c3}\label{classmyObjects_a32b18e774a2f2d51df99482e1bd308c3}} 
+Q\+Matrix4x4 \hyperlink{classmyObjects_a32b18e774a2f2d51df99482e1bd308c3}{model\+Matrix}
+\begin{DoxyCompactList}\small\item\em model\+Matrix \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a3aebf3bf2954d78d703e927819a57559}\label{classmyObjects_a3aebf3bf2954d78d703e927819a57559}} 
+Q\+Open\+G\+L\+Shader\+Program $\ast$ \hyperlink{classmyObjects_a3aebf3bf2954d78d703e927819a57559}{shader\+Program}
+\begin{DoxyCompactList}\small\item\em shader\+Program \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_adf868552b7a0a8acbbef2e8b5470e403}\label{classmyObjects_adf868552b7a0a8acbbef2e8b5470e403}} 
+Q\+Open\+G\+L\+Buffer $\ast$ \hyperlink{classmyObjects_adf868552b7a0a8acbbef2e8b5470e403}{vbo}
+\begin{DoxyCompactList}\small\item\em vbo \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a25fb21a6fe5ef009137a77605d531c33}\label{classmyObjects_a25fb21a6fe5ef009137a77605d531c33}} 
+Q\+Open\+G\+L\+Texture $\ast$ \hyperlink{classmyObjects_a25fb21a6fe5ef009137a77605d531c33}{texture}
+\begin{DoxyCompactList}\small\item\em texture \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_a5074349d0065b918a9ba2b80835faa1d}\label{classmyObjects_a5074349d0065b918a9ba2b80835faa1d}} 
+bool \hyperlink{classmyObjects_a5074349d0065b918a9ba2b80835faa1d}{private\+Vbo} =false
+\begin{DoxyCompactList}\small\item\em private\+Vbo \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_ac26e5fcb31d9f261056007943c53c4a1}\label{classmyObjects_ac26e5fcb31d9f261056007943c53c4a1}} 
+bool \hyperlink{classmyObjects_ac26e5fcb31d9f261056007943c53c4a1}{private\+Texture} =false
+\begin{DoxyCompactList}\small\item\em private\+Texture \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmyObjects_af02a152336729bea65cf9666d8eea96b}\label{classmyObjects_af02a152336729bea65cf9666d8eea96b}} 
+bool \hyperlink{classmyObjects_af02a152336729bea65cf9666d8eea96b}{private\+Shader\+Program} =false
+\begin{DoxyCompactList}\small\item\em private\+Shader\+Program \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classmyObjects}{my\+Objects} class (abstract) used to serialize and store every tables of similar objects. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmyObjects_a6b9ac7cbe04d4c976266ae903ed21aa0}\label{classmyObjects_a6b9ac7cbe04d4c976266ae903ed21aa0}} 
+\index{my\+Objects@{my\+Objects}!my\+Objects@{my\+Objects}}
+\index{my\+Objects@{my\+Objects}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{my\+Objects()}{myObjects()}}
+{\footnotesize\ttfamily my\+Objects\+::my\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classmyObjects}{my\+Objects} constructor 
+
+\hyperlink{classmyObjects_a6b9ac7cbe04d4c976266ae903ed21aa0}{my\+Objects\+::my\+Objects} \mbox{\Hypertarget{classmyObjects_a5695c2f6428b5b0e9633024d90b84102}\label{classmyObjects_a5695c2f6428b5b0e9633024d90b84102}} 
+\index{my\+Objects@{my\+Objects}!````~my\+Objects@{$\sim$my\+Objects}}
+\index{````~my\+Objects@{$\sim$my\+Objects}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{$\sim$my\+Objects()}{~myObjects()}}
+{\footnotesize\ttfamily my\+Objects\+::$\sim$my\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+$\sim$my\+Objects destructor 
+
+\hyperlink{classmyObjects_a5695c2f6428b5b0e9633024d90b84102}{my\+Objects\+::$\sim$my\+Objects} 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmyObjects_ad4388027a338e2d15f55b87499cdca42}\label{classmyObjects_ad4388027a338e2d15f55b87499cdca42}} 
+\index{my\+Objects@{my\+Objects}!add\+Obj@{add\+Obj}}
+\index{add\+Obj@{add\+Obj}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{add\+Obj()}{addObj()}}
+{\footnotesize\ttfamily uint my\+Objects\+::add\+Obj (\begin{DoxyParamCaption}\item[{Q\+Matrix4x4}]{matrice,  }\item[{float}]{size = {\ttfamily 1},  }\item[{int}]{display\+Mode = {\ttfamily 1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+add\+Obj 
+
+\hyperlink{classmyObjects_ad4388027a338e2d15f55b87499cdca42}{my\+Objects\+::add\+Obj}
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrice} & \\
+\hline
+{\em size} & \\
+\hline
+{\em display\+Mode} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+id of the added object
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em matrice} & \\
+\hline
+{\em size} & \\
+\hline
+{\em display\+Mode} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a1e24feae7eecc42033706a88afec189b}\label{classmyObjects_a1e24feae7eecc42033706a88afec189b}} 
+\index{my\+Objects@{my\+Objects}!display@{display}}
+\index{display@{display}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily virtual void my\+Objects\+::display (\begin{DoxyParamCaption}\item[{Q\+Matrix4x4 \&}]{projection\+Matrix,  }\item[{Q\+Matrix4x4 \&}]{view\+Matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+display abstract 
+
+
+\begin{DoxyParams}{Parameters}
+{\em projection\+Matrix} & \\
+\hline
+{\em view\+Matrix} & \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classCylindre_ab4a43877d9fae5e95312027827eb114a}{Cylindre}, and \hyperlink{classLeaf_a8eb757a10f15e34dd72522ae463c760c}{Leaf}.
+
+\mbox{\Hypertarget{classmyObjects_a5441e2c5d4ad660a73abe3863c81b05a}\label{classmyObjects_a5441e2c5d4ad660a73abe3863c81b05a}} 
+\index{my\+Objects@{my\+Objects}!get\+Display\+Mode@{get\+Display\+Mode}}
+\index{get\+Display\+Mode@{get\+Display\+Mode}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{get\+Display\+Mode()}{getDisplayMode()}}
+{\footnotesize\ttfamily int my\+Objects\+::get\+Display\+Mode (\begin{DoxyParamCaption}\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+get\+Display\+Mode 
+
+\hyperlink{classmyObjects_a5441e2c5d4ad660a73abe3863c81b05a}{my\+Objects\+::get\+Display\+Mode}
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if id is not created
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a98380353733220fa9d80d149db01732e}\label{classmyObjects_a98380353733220fa9d80d149db01732e}} 
+\index{my\+Objects@{my\+Objects}!get\+Matrice@{get\+Matrice}}
+\index{get\+Matrice@{get\+Matrice}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{get\+Matrice()}{getMatrice()}}
+{\footnotesize\ttfamily Q\+Matrix4x4 my\+Objects\+::get\+Matrice (\begin{DoxyParamCaption}\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+get\+Matrice 
+
+\hyperlink{classmyObjects_a98380353733220fa9d80d149db01732e}{my\+Objects\+::get\+Matrice}
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if id is an existent object returns the matrix else return identity matrix
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a76824e5ca54bebb188d12ad5ba96678d}\label{classmyObjects_a76824e5ca54bebb188d12ad5ba96678d}} 
+\index{my\+Objects@{my\+Objects}!get\+Nb\+Object@{get\+Nb\+Object}}
+\index{get\+Nb\+Object@{get\+Nb\+Object}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{get\+Nb\+Object()}{getNbObject()}}
+{\footnotesize\ttfamily uint my\+Objects\+::get\+Nb\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+get\+Nb\+Object 
+
+\hyperlink{classmyObjects_a76824e5ca54bebb188d12ad5ba96678d}{my\+Objects\+::get\+Nb\+Object}
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_ad5181c0f75a5cbadbff0022402ae448d}\label{classmyObjects_ad5181c0f75a5cbadbff0022402ae448d}} 
+\index{my\+Objects@{my\+Objects}!get\+Size@{get\+Size}}
+\index{get\+Size@{get\+Size}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{get\+Size()}{getSize()}}
+{\footnotesize\ttfamily float my\+Objects\+::get\+Size (\begin{DoxyParamCaption}\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+
+
+
+get\+Size 
+
+\hyperlink{classmyObjects_ad5181c0f75a5cbadbff0022402ae448d}{my\+Objects\+::get\+Size}
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if id is not created
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_abe3e3cf13ae4534f3c19701d65d4ccc3}\label{classmyObjects_abe3e3cf13ae4534f3c19701d65d4ccc3}} 
+\index{my\+Objects@{my\+Objects}!on\+Timeout@{on\+Timeout}}
+\index{on\+Timeout@{on\+Timeout}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{on\+Timeout()}{onTimeout()}}
+{\footnotesize\ttfamily void my\+Objects\+::on\+Timeout (\begin{DoxyParamCaption}\item[{float}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+on\+Timeout 
+
+\hyperlink{classmyObjects_abe3e3cf13ae4534f3c19701d65d4ccc3}{my\+Objects\+::on\+Timeout}
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a031a16bfe7b2bfdbf8207cd76cbf9ffd}\label{classmyObjects_a031a16bfe7b2bfdbf8207cd76cbf9ffd}} 
+\index{my\+Objects@{my\+Objects}!set\+Display\+Mode@{set\+Display\+Mode}}
+\index{set\+Display\+Mode@{set\+Display\+Mode}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Display\+Mode()}{setDisplayMode()}}
+{\footnotesize\ttfamily bool my\+Objects\+::set\+Display\+Mode (\begin{DoxyParamCaption}\item[{int}]{display\+Mode,  }\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+set\+Display\+Mode 
+
+\hyperlink{classmyObjects_a031a16bfe7b2bfdbf8207cd76cbf9ffd}{my\+Objects\+::set\+Display\+Mode}
+
+
+\begin{DoxyParams}{Parameters}
+{\em display\+Mode} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if id is an existent object and display\+Mode is successfully set
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em display\+Mode} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a9100b324aa8e47f94de10c66aaa606b1}\label{classmyObjects_a9100b324aa8e47f94de10c66aaa606b1}} 
+\index{my\+Objects@{my\+Objects}!set\+Matrice@{set\+Matrice}}
+\index{set\+Matrice@{set\+Matrice}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Matrice()}{setMatrice()}}
+{\footnotesize\ttfamily bool my\+Objects\+::set\+Matrice (\begin{DoxyParamCaption}\item[{Q\+Matrix4x4}]{matrice,  }\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+set\+Matrice 
+
+\hyperlink{classmyObjects_a9100b324aa8e47f94de10c66aaa606b1}{my\+Objects\+::set\+Matrice}
+
+
+\begin{DoxyParams}{Parameters}
+{\em matrice} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if id is an existent object and matrice is successfully set
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em matrice} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a317bbb41dd176f37b9bf909637841e97}\label{classmyObjects_a317bbb41dd176f37b9bf909637841e97}} 
+\index{my\+Objects@{my\+Objects}!set\+Shader\+Program@{set\+Shader\+Program}}
+\index{set\+Shader\+Program@{set\+Shader\+Program}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Shader\+Program()}{setShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Shader\+Program (\begin{DoxyParamCaption}\item[{Q\+Open\+G\+L\+Shader\+Program \&}]{shader\+Program }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Shader\+Program 
+
+\hyperlink{classmyObjects_a317bbb41dd176f37b9bf909637841e97}{my\+Objects\+::set\+Shader\+Program}
+
+
+\begin{DoxyParams}{Parameters}
+{\em shader\+Program} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a79a82b3ee54eaab203a1a5d8427cc84c}\label{classmyObjects_a79a82b3ee54eaab203a1a5d8427cc84c}} 
+\index{my\+Objects@{my\+Objects}!set\+Shader\+Program@{set\+Shader\+Program}}
+\index{set\+Shader\+Program@{set\+Shader\+Program}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Shader\+Program()}{setShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Shader\+Program (\begin{DoxyParamCaption}\item[{char $\ast$}]{path\+And\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Shader\+Program 
+
+\hyperlink{classmyObjects_a317bbb41dd176f37b9bf909637841e97}{my\+Objects\+::set\+Shader\+Program}
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+And\+Name} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a8329f8b4d6818478737873390072c563}\label{classmyObjects_a8329f8b4d6818478737873390072c563}} 
+\index{my\+Objects@{my\+Objects}!set\+Shader\+Program@{set\+Shader\+Program}}
+\index{set\+Shader\+Program@{set\+Shader\+Program}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Shader\+Program()}{setShaderProgram()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Shader\+Program (\begin{DoxyParamCaption}\item[{char $\ast$}]{path\+Vertex\+Shader,  }\item[{char $\ast$}]{path\+Fragment\+Shader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Shader\+Program 
+
+\hyperlink{classmyObjects_a317bbb41dd176f37b9bf909637841e97}{my\+Objects\+::set\+Shader\+Program}
+
+
+\begin{DoxyParams}{Parameters}
+{\em path\+Vertex\+Shader} & \\
+\hline
+{\em path\+Fragment\+Shader} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_ad58306f67d79a54ac844e194b08704c6}\label{classmyObjects_ad58306f67d79a54ac844e194b08704c6}} 
+\index{my\+Objects@{my\+Objects}!set\+Size@{set\+Size}}
+\index{set\+Size@{set\+Size}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Size()}{setSize()}}
+{\footnotesize\ttfamily bool my\+Objects\+::set\+Size (\begin{DoxyParamCaption}\item[{float}]{value,  }\item[{uint}]{id = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+set\+Size 
+
+\hyperlink{classmyObjects_ad58306f67d79a54ac844e194b08704c6}{my\+Objects\+::set\+Size}
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if id is an existent object and size is successfully set
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+{\em id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmyObjects_a51cd02184d2634fabeee1f0845f5ad21}\label{classmyObjects_a51cd02184d2634fabeee1f0845f5ad21}} 
+\index{my\+Objects@{my\+Objects}!set\+Texture@{set\+Texture}}
+\index{set\+Texture@{set\+Texture}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Texture()}{setTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Texture (\begin{DoxyParamCaption}\item[{Q\+Open\+G\+L\+Texture \&}]{texture }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Texture 
+
+\hyperlink{classmyObjects_a51cd02184d2634fabeee1f0845f5ad21}{my\+Objects\+::set\+Texture}
+
+
+\begin{DoxyParams}{Parameters}
+{\em texture} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a6d524f010cd92b04067748407d8ca65b}\label{classmyObjects_a6d524f010cd92b04067748407d8ca65b}} 
+\index{my\+Objects@{my\+Objects}!set\+Texture@{set\+Texture}}
+\index{set\+Texture@{set\+Texture}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Texture()}{setTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Texture (\begin{DoxyParamCaption}\item[{char $\ast$}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Texture 
+
+\hyperlink{classmyObjects_a51cd02184d2634fabeee1f0845f5ad21}{my\+Objects\+::set\+Texture}
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a1ec9026bb331e4d07d8da372424bbcdf}\label{classmyObjects_a1ec9026bb331e4d07d8da372424bbcdf}} 
+\index{my\+Objects@{my\+Objects}!set\+Vbo@{set\+Vbo}}
+\index{set\+Vbo@{set\+Vbo}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{set\+Vbo()}{setVbo()}}
+{\footnotesize\ttfamily void my\+Objects\+::set\+Vbo (\begin{DoxyParamCaption}\item[{Q\+Open\+G\+L\+Buffer $\ast$}]{vbo = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+set\+Vbo 
+
+\hyperlink{classmyObjects_a1ec9026bb331e4d07d8da372424bbcdf}{my\+Objects\+::set\+Vbo}
+
+
+\begin{DoxyParams}{Parameters}
+{\em vbo} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classmyObjects_a83118c7f81624026cd3798dcde6a9a34}\label{classmyObjects_a83118c7f81624026cd3798dcde6a9a34}} 
+\index{my\+Objects@{my\+Objects}!tear\+G\+L\+Objects@{tear\+G\+L\+Objects}}
+\index{tear\+G\+L\+Objects@{tear\+G\+L\+Objects}!my\+Objects@{my\+Objects}}
+\subsubsection{\texorpdfstring{tear\+G\+L\+Objects()}{tearGLObjects()}}
+{\footnotesize\ttfamily void my\+Objects\+::tear\+G\+L\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+tear\+G\+L\+Objects 
+
+\hyperlink{classmyObjects_a83118c7f81624026cd3798dcde6a9a34}{my\+Objects\+::tear\+G\+L\+Objects} 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+myobjects.\+h\item 
+myobjects.\+cpp\end{DoxyCompactItemize}

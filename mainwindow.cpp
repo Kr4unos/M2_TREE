@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+/**
+ * @brief MainWindow::MainWindow
+ * @param parent
+ */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
@@ -20,11 +23,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->quitAction->setIcon(icon_quit);
     ui->settingsAction->setIcon(icon_settings);
 }
+
+/**
+ * @brief MainWindow::~MainWindow
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::on_openAction_triggered
+ */
 void MainWindow::on_openAction_triggered()
 {
     ui->statusBar->showMessage("Sélection du fichier de règles...");
@@ -37,6 +47,10 @@ void MainWindow::on_openAction_triggered()
     QFileInfo fileInfo(fileName);
     ui->statusBar->showMessage("Fichier " + fileInfo.baseName() + " ouvert avec succès!");
 }
+
+/**
+ * @brief MainWindow::on_exportJSONAction_triggered
+ */
 void MainWindow::on_exportJSONAction_triggered()
 {
     if(currentLSystem == nullptr) {
@@ -52,6 +66,10 @@ void MainWindow::on_exportJSONAction_triggered()
     currentLSystem->exportJSON(fileName);
     ui->statusBar->showMessage("Exportation en .JSON terminée!");
 }
+
+/**
+ * @brief MainWindow::on_exportOBJAction_triggered
+ */
 void MainWindow::on_exportOBJAction_triggered()
 {
     ui->statusBar->showMessage("Exportation en OBJ...");
@@ -155,13 +173,20 @@ void MainWindow::on_exportOBJAction_triggered()
             stream << "f " << id++ << " " << id++ << " " << id++ << " " << id++ << endl ;
         }
     }
-
     ui->statusBar->showMessage("Exportation en .OBJ terminée!");
 }
+
+/**
+ * @brief MainWindow::on_quitAction_triggered
+ */
 void MainWindow::on_quitAction_triggered()
 {
     QApplication::quit();
 }
+
+/**
+ * @brief MainWindow::on_settingsAction_triggered
+ */
 void MainWindow::on_settingsAction_triggered()
 {
     if(settings == nullptr){
@@ -175,6 +200,9 @@ void MainWindow::on_settingsAction_triggered()
     if(!settings->isVisible()) settings->show();
 }
 
+/**
+ * @brief MainWindow::settingsModified
+ */
 void MainWindow::settingsModified()
 {
     currentLSystem->iterate();

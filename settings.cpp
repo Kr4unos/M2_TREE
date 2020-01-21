@@ -2,6 +2,11 @@
 
 #include <QDebug>
 
+/**
+ * @brief Settings::Settings
+ * @param parent
+ * @param lsystem
+ */
 Settings::Settings(QWidget *parent, LSystem* lsystem) :
     QDialog(parent)
 {
@@ -31,6 +36,9 @@ Settings::Settings(QWidget *parent, LSystem* lsystem) :
     this->rules_input->setPlainText(rules_txt);
 }
 
+/**
+ * @brief Settings::on_buttonBox_accepted
+ */
 void Settings::on_buttonBox_accepted()
 {
     this->lsystem->setAngle(this->angle_input->value());

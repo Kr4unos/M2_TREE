@@ -1,0 +1,158 @@
+\hypertarget{classCylindre}{}\section{Cylindre Class Reference}
+\label{classCylindre}\index{Cylindre@{Cylindre}}
+
+
+The \hyperlink{classCylindre}{Cylindre} class used to generate log and branches for our trees.  
+
+
+
+
+{\ttfamily \#include $<$cylindre.\+h$>$}
+
+
+
+Inheritance diagram for Cylindre\+:
+% FIG 0
+
+
+Collaboration diagram for Cylindre\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classCylindre_ae5ed632c658e0b89a3effd43b23be086}{Cylindre} (float radius=1, float \hyperlink{classCylindre_a150acc76f2ac927392e236262fcaedc5}{height}=2, int \hyperlink{classCylindre_a6447276b27b5f38dea1f70c8fa83bcc7}{subdivision}=16)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCylindre}{Cylindre} constructor. \end{DoxyCompactList}\item 
+\hyperlink{classCylindre_ae1299c6ab013b1a8bc826abee4b8d79d}{Cylindre} (float \hyperlink{classCylindre_a2233a45816e32c0aa4fe7944e4880f63}{radius1}, float \hyperlink{classCylindre_af8f71527cc4e3a1e5e3993899cda55e7}{radius2}, float \hyperlink{classCylindre_a150acc76f2ac927392e236262fcaedc5}{height}, int \hyperlink{classCylindre_a6447276b27b5f38dea1f70c8fa83bcc7}{subdivision})
+\begin{DoxyCompactList}\small\item\em \hyperlink{classCylindre}{Cylindre} constructor if variable radius. \end{DoxyCompactList}\item 
+void \hyperlink{classCylindre_a7c95282f31719498eb30121d30190bdd}{make\+G\+L\+Object} () override
+\begin{DoxyCompactList}\small\item\em make\+G\+L\+Object \end{DoxyCompactList}\item 
+void \hyperlink{classCylindre_ab4a43877d9fae5e95312027827eb114a}{display} (Q\+Matrix4x4 \&projection\+Matrix, Q\+Matrix4x4 \&view\+Matrix) override
+\begin{DoxyCompactList}\small\item\em display \end{DoxyCompactList}\item 
+void \hyperlink{classCylindre_a4cdb5346b240761e2be58198b7b5ae3b}{initialize\+GL} () override
+\begin{DoxyCompactList}\small\item\em initialize\+GL \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCylindre_a6447276b27b5f38dea1f70c8fa83bcc7}\label{classCylindre_a6447276b27b5f38dea1f70c8fa83bcc7}} 
+int \hyperlink{classCylindre_a6447276b27b5f38dea1f70c8fa83bcc7}{subdivision}
+\begin{DoxyCompactList}\small\item\em subdivision \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCylindre_a150acc76f2ac927392e236262fcaedc5}\label{classCylindre_a150acc76f2ac927392e236262fcaedc5}} 
+float \hyperlink{classCylindre_a150acc76f2ac927392e236262fcaedc5}{height}
+\begin{DoxyCompactList}\small\item\em height \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCylindre_a2233a45816e32c0aa4fe7944e4880f63}\label{classCylindre_a2233a45816e32c0aa4fe7944e4880f63}} 
+float \hyperlink{classCylindre_a2233a45816e32c0aa4fe7944e4880f63}{radius1}
+\begin{DoxyCompactList}\small\item\em radius1 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCylindre_af8f71527cc4e3a1e5e3993899cda55e7}\label{classCylindre_af8f71527cc4e3a1e5e3993899cda55e7}} 
+float \hyperlink{classCylindre_af8f71527cc4e3a1e5e3993899cda55e7}{radius2}
+\begin{DoxyCompactList}\small\item\em radius2 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classCylindre}{Cylindre} class used to generate log and branches for our trees. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCylindre_ae5ed632c658e0b89a3effd43b23be086}\label{classCylindre_ae5ed632c658e0b89a3effd43b23be086}} 
+\index{Cylindre@{Cylindre}!Cylindre@{Cylindre}}
+\index{Cylindre@{Cylindre}!Cylindre@{Cylindre}}
+\subsubsection{\texorpdfstring{Cylindre()}{Cylindre()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Cylindre\+::\+Cylindre (\begin{DoxyParamCaption}\item[{float}]{radius = {\ttfamily 1},  }\item[{float}]{height = {\ttfamily 2},  }\item[{int}]{subdivision = {\ttfamily 16} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classCylindre}{Cylindre} constructor. 
+
+\hyperlink{classCylindre_ae5ed632c658e0b89a3effd43b23be086}{Cylindre\+::\+Cylindre}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius} & \\
+\hline
+{\em height} & \\
+\hline
+{\em subdivision} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCylindre_ae1299c6ab013b1a8bc826abee4b8d79d}\label{classCylindre_ae1299c6ab013b1a8bc826abee4b8d79d}} 
+\index{Cylindre@{Cylindre}!Cylindre@{Cylindre}}
+\index{Cylindre@{Cylindre}!Cylindre@{Cylindre}}
+\subsubsection{\texorpdfstring{Cylindre()}{Cylindre()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Cylindre\+::\+Cylindre (\begin{DoxyParamCaption}\item[{float}]{radius1,  }\item[{float}]{radius2,  }\item[{float}]{height,  }\item[{int}]{subdivision }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classCylindre}{Cylindre} constructor if variable radius. 
+
+\hyperlink{classCylindre_ae5ed632c658e0b89a3effd43b23be086}{Cylindre\+::\+Cylindre}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius1} & \\
+\hline
+{\em radius2} & \\
+\hline
+{\em height} & \\
+\hline
+{\em subdivision} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classCylindre_ab4a43877d9fae5e95312027827eb114a}\label{classCylindre_ab4a43877d9fae5e95312027827eb114a}} 
+\index{Cylindre@{Cylindre}!display@{display}}
+\index{display@{display}!Cylindre@{Cylindre}}
+\subsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Cylindre\+::display (\begin{DoxyParamCaption}\item[{Q\+Matrix4x4 \&}]{projection\+Matrix,  }\item[{Q\+Matrix4x4 \&}]{view\+Matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+display 
+
+\hyperlink{classCylindre_ab4a43877d9fae5e95312027827eb114a}{Cylindre\+::display}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em projection\+Matrix} & \\
+\hline
+{\em view\+Matrix} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classmyObjects_a1e24feae7eecc42033706a88afec189b}{my\+Objects}.
+
+\mbox{\Hypertarget{classCylindre_a4cdb5346b240761e2be58198b7b5ae3b}\label{classCylindre_a4cdb5346b240761e2be58198b7b5ae3b}} 
+\index{Cylindre@{Cylindre}!initialize\+GL@{initialize\+GL}}
+\index{initialize\+GL@{initialize\+GL}!Cylindre@{Cylindre}}
+\subsubsection{\texorpdfstring{initialize\+G\+L()}{initializeGL()}}
+{\footnotesize\ttfamily void Cylindre\+::initialize\+GL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+initialize\+GL 
+
+\hyperlink{classCylindre_a4cdb5346b240761e2be58198b7b5ae3b}{Cylindre\+::initialize\+GL}. 
+
+Implements \hyperlink{classmyObjects_a9b5dc2668a3fab5c74fd07e2145f6293}{my\+Objects}.
+
+\mbox{\Hypertarget{classCylindre_a7c95282f31719498eb30121d30190bdd}\label{classCylindre_a7c95282f31719498eb30121d30190bdd}} 
+\index{Cylindre@{Cylindre}!make\+G\+L\+Object@{make\+G\+L\+Object}}
+\index{make\+G\+L\+Object@{make\+G\+L\+Object}!Cylindre@{Cylindre}}
+\subsubsection{\texorpdfstring{make\+G\+L\+Object()}{makeGLObject()}}
+{\footnotesize\ttfamily void Cylindre\+::make\+G\+L\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+make\+G\+L\+Object 
+
+\hyperlink{classCylindre_a7c95282f31719498eb30121d30190bdd}{Cylindre\+::make\+G\+L\+Object}. 
+
+Implements \hyperlink{classmyObjects_aeab77bc0741eeba1240ff68218769d16}{my\+Objects}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+cylindre.\+h\item 
+cylindre.\+cpp\end{DoxyCompactItemize}

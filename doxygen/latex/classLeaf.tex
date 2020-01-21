@@ -1,0 +1,125 @@
+\hypertarget{classLeaf}{}\section{Leaf Class Reference}
+\label{classLeaf}\index{Leaf@{Leaf}}
+
+
+The \hyperlink{classLeaf}{Leaf} class used to generate a leaf for the 3D model of our tree.  
+
+
+
+
+{\ttfamily \#include $<$leaf.\+h$>$}
+
+
+
+Inheritance diagram for Leaf\+:
+% FIG 0
+
+
+Collaboration diagram for Leaf\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLeaf_a5549ab046aab3d58145ffaf99fd5579c}{Leaf} (float \hyperlink{classLeaf_ac3b292e68ddbf60ea185dab921fe4c68}{width}=1, float \hyperlink{classLeaf_a4ae312ed546e868d9e7e72f6a9307cb4}{height}=2)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classLeaf}{Leaf} constructor. \end{DoxyCompactList}\item 
+void \hyperlink{classLeaf_ac3d35271ec658ca78ca83e5bf81c20d1}{make\+G\+L\+Object} () override
+\begin{DoxyCompactList}\small\item\em make\+G\+L\+Object to create the vertices and triangles composing the leaf \end{DoxyCompactList}\item 
+void \hyperlink{classLeaf_a8eb757a10f15e34dd72522ae463c760c}{display} (Q\+Matrix4x4 \&projection\+Matrix, Q\+Matrix4x4 \&view\+Matrix) override
+\begin{DoxyCompactList}\small\item\em display the leaf in vbo \end{DoxyCompactList}\item 
+void \hyperlink{classLeaf_a5c0c2ea2fdb32a5b2f8c91982d987f65}{initialize\+GL} () override
+\begin{DoxyCompactList}\small\item\em initialize\+GL \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLeaf_a4ae312ed546e868d9e7e72f6a9307cb4}\label{classLeaf_a4ae312ed546e868d9e7e72f6a9307cb4}} 
+float \hyperlink{classLeaf_a4ae312ed546e868d9e7e72f6a9307cb4}{height}
+\begin{DoxyCompactList}\small\item\em height \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLeaf_ac3b292e68ddbf60ea185dab921fe4c68}\label{classLeaf_ac3b292e68ddbf60ea185dab921fe4c68}} 
+float \hyperlink{classLeaf_ac3b292e68ddbf60ea185dab921fe4c68}{width}
+\begin{DoxyCompactList}\small\item\em width \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classLeaf}{Leaf} class used to generate a leaf for the 3D model of our tree. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLeaf_a5549ab046aab3d58145ffaf99fd5579c}\label{classLeaf_a5549ab046aab3d58145ffaf99fd5579c}} 
+\index{Leaf@{Leaf}!Leaf@{Leaf}}
+\index{Leaf@{Leaf}!Leaf@{Leaf}}
+\subsubsection{\texorpdfstring{Leaf()}{Leaf()}}
+{\footnotesize\ttfamily Leaf\+::\+Leaf (\begin{DoxyParamCaption}\item[{float}]{width = {\ttfamily 1},  }\item[{float}]{height = {\ttfamily 2} }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classLeaf}{Leaf} constructor. 
+
+\hyperlink{classLeaf_a5549ab046aab3d58145ffaf99fd5579c}{Leaf\+::\+Leaf}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classLeaf_a8eb757a10f15e34dd72522ae463c760c}\label{classLeaf_a8eb757a10f15e34dd72522ae463c760c}} 
+\index{Leaf@{Leaf}!display@{display}}
+\index{display@{display}!Leaf@{Leaf}}
+\subsubsection{\texorpdfstring{display()}{display()}}
+{\footnotesize\ttfamily void Leaf\+::display (\begin{DoxyParamCaption}\item[{Q\+Matrix4x4 \&}]{projection\+Matrix,  }\item[{Q\+Matrix4x4 \&}]{view\+Matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+display the leaf in vbo 
+
+\hyperlink{classLeaf_a8eb757a10f15e34dd72522ae463c760c}{Leaf\+::display}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em projection\+Matrix} & \\
+\hline
+{\em view\+Matrix} & \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{classmyObjects_a1e24feae7eecc42033706a88afec189b}{my\+Objects}.
+
+\mbox{\Hypertarget{classLeaf_a5c0c2ea2fdb32a5b2f8c91982d987f65}\label{classLeaf_a5c0c2ea2fdb32a5b2f8c91982d987f65}} 
+\index{Leaf@{Leaf}!initialize\+GL@{initialize\+GL}}
+\index{initialize\+GL@{initialize\+GL}!Leaf@{Leaf}}
+\subsubsection{\texorpdfstring{initialize\+G\+L()}{initializeGL()}}
+{\footnotesize\ttfamily void Leaf\+::initialize\+GL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+initialize\+GL 
+
+\hyperlink{classLeaf_a5c0c2ea2fdb32a5b2f8c91982d987f65}{Leaf\+::initialize\+GL}. 
+
+Implements \hyperlink{classmyObjects_a9b5dc2668a3fab5c74fd07e2145f6293}{my\+Objects}.
+
+\mbox{\Hypertarget{classLeaf_ac3d35271ec658ca78ca83e5bf81c20d1}\label{classLeaf_ac3d35271ec658ca78ca83e5bf81c20d1}} 
+\index{Leaf@{Leaf}!make\+G\+L\+Object@{make\+G\+L\+Object}}
+\index{make\+G\+L\+Object@{make\+G\+L\+Object}!Leaf@{Leaf}}
+\subsubsection{\texorpdfstring{make\+G\+L\+Object()}{makeGLObject()}}
+{\footnotesize\ttfamily void Leaf\+::make\+G\+L\+Object (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+make\+G\+L\+Object to create the vertices and triangles composing the leaf 
+
+\hyperlink{classLeaf_ac3d35271ec658ca78ca83e5bf81c20d1}{Leaf\+::make\+G\+L\+Object}. 
+
+Implements \hyperlink{classmyObjects_aeab77bc0741eeba1240ff68218769d16}{my\+Objects}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+leaf.\+h\item 
+leaf.\+cpp\end{DoxyCompactItemize}

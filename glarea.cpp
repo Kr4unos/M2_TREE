@@ -6,6 +6,10 @@
 #include <QSurfaceFormat>
 #include "math.h"
 
+/**
+ * @brief GLArea::GLArea
+ * @param parent
+ */
 GLArea::GLArea(QWidget *parent) :
     QOpenGLWidget(parent)
 {
@@ -26,6 +30,9 @@ GLArea::GLArea(QWidget *parent) :
     connect (this, SIGNAL(radiusChanged(double)), this, SLOT(setRadius(double)));
 }
 
+/**
+ * @brief GLArea::~GLArea
+ */
 GLArea::~GLArea()
 {
     delete timer;
@@ -39,6 +46,9 @@ GLArea::~GLArea()
     doneCurrent();
 }
 
+/**
+ * @brief GLArea::initializeGL
+ */
 void GLArea::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -48,6 +58,9 @@ void GLArea::initializeGL()
     makeGLObjects();
 }
 
+/**
+ * @brief GLArea::doProjection
+ */
 void GLArea::doProjection()
 {
     qDebug() << __func__ ;
@@ -58,6 +71,9 @@ void GLArea::doProjection()
     glMatrixMode(GL_MODELVIEW);
 }
 
+/**
+ * @brief GLArea::tearGLObjects
+ */
 void GLArea::tearGLObjects()
 {
     cy.tearGLObjects();
@@ -65,6 +81,9 @@ void GLArea::tearGLObjects()
     sol.tearGLObjects();
 }
 
+/**
+ * @brief GLArea::makeGLObjects
+ */
 void GLArea::makeGLObjects()
 {
     if(lsystem == nullptr) return;
@@ -152,6 +171,9 @@ void GLArea::makeGLObjects()
     sol.makeGLObject();
 }
 
+/**
+ * @brief GLArea::paintGL
+ */
 void GLArea::paintGL()
 {
     glClearColor(bgr,bgg,bgb,bga);
@@ -174,162 +196,15 @@ void GLArea::paintGL()
     glDepthMask(GL_FALSE);
     leaf.display(projectionMatrix,viewMatrix);
     glDepthMask(GL_TRUE);
-
-/*
-    GLfloat x              = 0.0;
-    GLfloat y              = 0.0;
-    GLfloat z              = 0.0;
-
-    GLfloat angle          = 0.0;
-    GLfloat angle_stepsize = 0.1;
-
-    GLfloat radius           = lsystem->getBranchRadius();
-    GLfloat radius_reduction = lsystem->getBranchRadiusReduction();
-    GLfloat height,treeSize  = sqrt(lsystem->getBranchLengthRandom());
-    std::stack<GLfloat> tempRadius;
-
-    glLoadIdentity();
-    gluLookAt (3.0, 2.0, 0.0, 0, 0, 0, 0, 1, 0);
-
-    glTranslatef(xPos,yPos,zPos);
-    glRotatef(xRot, 1, 0, 0);
-    glRotatef(yRot, 0, 1, 0);
-    glRotatef(zRot, 0, 0, 1);
-//    glEnable(GL_LINE_SMOOTH);
-//    glLineWidth(3.0f);
-
-    for(int i = 0; i < result.size(); i++){
-        char currentChar = lsystem->getResult().at(i).toLatin1();
-        LSystem::Action action = lsystem->getActionFromSymbol(currentChar);
-
-        switch(action){
-
-            case LSystem::DRAW_BRANCH:
-               height           = treeSize*sqrt(lsystem->getBranchLengthRandom());
-                glColor3f(0.5f, 0.35f, 0.05f);
-
-                glBegin(GL_QUAD_STRIP);
-                    angle = 0.0;
-                    while( angle < 2 * M_PI ) {
-                        GLfloat tempX = radius * cos(angle);
-                        GLfloat tempZ = radius * sin(angle);
-                        glVertex3f(tempX, height, tempZ);
-                        glVertex3f(tempX, y, tempZ);
-                        angle += angle_stepsize;
-                    }
-                    glVertex3f(radius, height, 0.0);
-                    glVertex3f(radius, 0.0, 0.0);
-                glEnd();
-
-//                glBegin(GL_LINES);
-//                  glVertex3f(x, y, z);
-//                  glVertex3f(x, y+height, z);
-//                glEnd();
-
-
-                if(radius >= radius_reduction) radius -= radius_reduction;
-                glTranslatef (x, y+height, z);
-                break;
-
-            case LSystem::DRAW_LEAF:
-
-//                glColor3f(0.0f, 1.0f, 0.0f);
-//                glEnable(GL_TEXTURE_2D);
-//                glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-//                glBindTexture(GL_TEXTURE_2D, textureFeuille);
-
-//                glBegin(GL_TRIANGLES);
-//                glNormal3f(0.0, 0.0, 1.0);
-
-//                glTexCoord2d(0, 0); glVertex3f(x,y,z);
-//                glTexCoord2d(0, 1); glVertex3f(x,y+pas,z);
-//                glTexCoord2d(1, 0); glVertex3f(x+pas,y,z);
-//                glEnd();
-//                glFlush();
-
-//                glDisable(GL_TEXTURE_2D);
-
-
-//                glBegin(GL_TRIANGLES);
-//                    glVertex3f(x,y+pas,z);
-//                    glVertex3f(x+pas,y,z);
-//                    glVertex3f(x+pas,y+pas,z);
-//                glEnd();
-
-
-//                glBegin(GL_QUAD_STRIP); //cylindre
-//                    angle = 0.0;
-//                    while( angle < 2 * M_PI ) {
-//                        GLfloat tempX = radius * cos(angle);
-//                        GLfloat tempZ = radius * sin(angle);
-//                        glVertex3f(tempX, height, tempZ);
-//                        glVertex3f(tempX, y, tempZ);
-//                        angle += angle_stepsize;
-//                    }
-//                    glVertex3f(radius, height, 0.0);
-//                    glVertex3f(radius, 0.0, 0.0);
-//                glEnd();
-
-
-//                glBegin(GL_LINES);
-//                  glVertex3f(x, y, z);
-//                  glVertex3f(x, y+0.1f, z);
-//                glEnd();
-
-//                if(radius >= radius_reduction) radius -= radius_reduction;
-                break;
-
-            case LSystem::ROTATE_LEFT_X:
-
-                glRotatef(lsystem->getAngleRandom(), 1, 0, 0);
-                break;
-
-            case LSystem::ROTATE_RIGHT_X:
-
-                glRotatef(-lsystem->getAngleRandom(), 1, 0, 0);
-                break;
-
-            case LSystem::ROTATE_UP_Y:
-                qDebug() << "hello +y";
-                glRotatef(lsystem->getAngleRandom(), 0, 0, 1);
-                break;
-
-            case LSystem::ROTATE_DOWN_Y:
-                qDebug() << "hello -y";
-
-                glRotatef(-lsystem->getAngleRandom(), 0, 0, 1);
-                break;
-
-            case LSystem::TWIST_LEFT_Z:
-
-                glRotatef(lsystem->getAngleRandom(), 0, 1, 0);
-                break;
-
-            case LSystem::TWIST_RIGHT_Z:
-
-                glRotatef(-lsystem->getAngleRandom(), 0, 1, 0);
-                break;
-
-            case LSystem::PUSH_BACK:
-
-                tempRadius.push(radius);
-                glPushMatrix();
-                break;
-
-            case LSystem::POP_BACK:
-
-                radius = tempRadius.top();
-                tempRadius.pop();
-                glPopMatrix();
-                break;
-
-            case LSystem::NO_ACTION:
-                break;
-        }
-    }
-*/
 }
 
+/**
+ * @brief GLArea::raw_texture_load
+ * @param filename
+ * @param width
+ * @param height
+ * @return
+ */
 GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
  {
      GLuint texture;
@@ -376,9 +251,13 @@ GLuint GLArea::raw_texture_load(const char *filename, int width, int height)
      free(data);
 
      return texture;
- }
+}
 
-
+/**
+ * @brief GLArea::resizeGL
+ * @param w
+ * @param h
+ */
 void GLArea::resizeGL(int w, int h)
 {
     qDebug() << __FUNCTION__ << w << h;
@@ -390,6 +269,10 @@ void GLArea::resizeGL(int w, int h)
     doProjection();
 }
 
+/**
+ * @brief GLArea::keyPressEvent
+ * @param ev
+ */
 void GLArea::keyPressEvent(QKeyEvent *ev)
 {
     qDebug() << QKeySequence(ev->key()).toString();
@@ -456,29 +339,46 @@ void GLArea::keyPressEvent(QKeyEvent *ev)
     update();
 }
 
-
+/**
+ * @brief GLArea::keyReleaseEvent
+ * @param ev
+ */
 void GLArea::keyReleaseEvent(QKeyEvent *ev)
 {
     qDebug() << __FUNCTION__ << ev->text();
 }
 
-
+/**
+ * @brief GLArea::mousePressEvent
+ * @param ev
+ */
 void GLArea::mousePressEvent(QMouseEvent *ev)
 {
     lastPos = ev->pos();
 }
 
+/**
+ * @brief GLArea::wheelEvent
+ * @param ev
+ */
 void GLArea::wheelEvent(QWheelEvent *ev){
     zPos += static_cast<float>(ev->delta() * deltaZoom/100);
     update();
 }
 
+/**
+ * @brief GLArea::mouseReleaseEvent
+ * @param ev
+ */
 void GLArea::mouseReleaseEvent(QMouseEvent *ev)
 {
     qDebug() << __FUNCTION__ << ev->x() << ev->y() << ev->button();
 }
 
-
+/**
+ * @brief GLArea::mouseMoveEvent
+ * @param ev
+ */
 void GLArea::mouseMoveEvent(QMouseEvent *ev)
 {
     int dx = ev->x() - lastPos.x();
@@ -501,7 +401,9 @@ void GLArea::mouseMoveEvent(QMouseEvent *ev)
     lastPos = ev->pos();
 }
 
-
+/**
+ * @brief GLArea::onTimeout
+ */
 void GLArea::onTimeout(){
     static qint64 old_chrono = elapsedTimer.elapsed(); // static : initialisation la première fois et conserve la dernière valeur
     qint64 chrono = elapsedTimer.elapsed();
@@ -511,6 +413,10 @@ void GLArea::onTimeout(){
     update();
 }
 
+/**
+ * @brief GLArea::setRadius
+ * @param radius
+ */
 void GLArea::setRadius(double radius)
 {
     if (radius != m_radius && radius > 0.01 && radius <= 50) {
@@ -523,6 +429,10 @@ void GLArea::setRadius(double radius)
     }
 }
 
+/**
+ * @brief GLArea::parseAndGenerate
+ * @param lsystem
+ */
 void GLArea::parseAndGenerate(LSystem *lsystem)
 {
     this->result = lsystem->getResult();

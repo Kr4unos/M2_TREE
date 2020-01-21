@@ -1,13 +1,22 @@
 #include "myobjects.h"
 
+/**
+ * @brief myObjects::myObjects
+ */
 myObjects::myObjects(){
     nbObject=0;
 }
 
+/**
+ * @brief myObjects::~myObjects
+ */
 myObjects::~myObjects(){
     tearGLObjects();
 }
 
+/**
+ * @brief myObjects::tearGLObjects
+ */
 void myObjects::tearGLObjects(){
     if(privateVbo){
         vbo->destroy();
@@ -23,74 +32,10 @@ void myObjects::tearGLObjects(){
     shaderProgram=nullptr;
 }
 
-/*
-void myObjects::initializeGL(){
-    setVbo();
-    setShaderProgram(":/shaders/simple.vsh", ":/shaders/simple.fsh");
-    setTexture(":/textures/poisson1.png")
-}
-*/
-
-/*
-void myObjects::makeGLObject(){
-    QVector<GLfloat> vertData;
-
-    vbo->create();
-    vbo->bind();
-    vbo->allocate(vertData.constData(), vertData.count() * int(sizeof(GLfloat)));
-}
-*/
-
-/*
-void UVSphere::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
-    vbo->bind();
-    shaderProgram->bind(); // active le shader program
-
-    shaderProgram->setUniformValue("projectionMatrix", projectionMatrix);
-    shaderProgram->setUniformValue("viewMatrix", viewMatrix);
-
-    shaderProgram->setAttributeBuffer("in_position", GL_FLOAT, 0, 3, 6 * sizeof(GLfloat));
-    shaderProgram->setAttributeBuffer("colAttr", GL_FLOAT, 3 * sizeof(GLfloat), 3, 6 * sizeof(GLfloat));
-    shaderProgram->enableAttributeArray("in_position");
-    shaderProgram->enableAttributeArray("colAttr");
-
-    for(uint i=0; i < getNbObject() ;i++){
-        modelMatrix.setToIdentity();
-        modelMatrix.translate(position[i]);
-        modelMatrix.rotate(rotation[i].x(),1,0,0);
-        modelMatrix.rotate(rotation[i].y(),0,1,0);
-        modelMatrix.rotate(rotation[i].z(),0,0,1);
-        shaderProgram->setUniformValue("size",size[i]);
-        shaderProgram->setUniformValue("modelMatrix", modelMatrix);
-        switch (displayMode[i]) {
-        case 0 :
-        //pas d'affichage
-        break;
-        case 1 :
-        //affichage avec des faces triangle/quad
-            glDrawArrays(GL_QUADS, 0, subdivision*subdivision*4*2);
-        break;
-        case 2 :
-        //affichage en maille
-            glLineWidth(2);
-            glDrawArrays(GL_LINES, 0, subdivision*subdivision*4*2);
-            glDrawArrays(GL_LINES, 1, subdivision*subdivision*4*2 -1);
-        break;
-        case 3 :
-        //affichage en sommet
-            glPointSize(4);
-            glDrawArrays(GL_POINTS, 0, subdivision*subdivision*4*2);
-        break;
-        default:;
-        }
-    }
-
-    shaderProgram->disableAttributeArray("in_position");
-    shaderProgram->disableAttributeArray("colAttr");
-    shaderProgram->release();
-}
-*/
-
+/**
+ * @brief myObjects::setVbo
+ * @param vbo
+ */
 void myObjects::setVbo(QOpenGLBuffer * vbo){
     if(vbo != nullptr){
         this->vbo=vbo;
@@ -102,16 +47,28 @@ void myObjects::setVbo(QOpenGLBuffer * vbo){
     }
 }
 
+/**
+ * @brief myObjects::setShaderProgram
+ * @param shaderProgram
+ */
 void myObjects::setShaderProgram(QOpenGLShaderProgram &shaderProgram){
     this->shaderProgram=&shaderProgram;
     privateShaderProgram=false;
 }
 
+/**
+ * @brief myObjects::setTexture
+ * @param texture
+ */
 void myObjects::setTexture(QOpenGLTexture &texture){
     this->texture=&texture;
     privateTexture=false;
 }
 
+/**
+ * @brief myObjects::setShaderProgram
+ * @param pathAndName
+ */
 void myObjects::setShaderProgram(char * pathAndName){
     this->shaderProgram = new QOpenGLShaderProgram();
     shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex,   QString(pathAndName) + ".vsh");
@@ -123,6 +80,11 @@ void myObjects::setShaderProgram(char * pathAndName){
     this->privateShaderProgram=true;
 }
 
+/**
+ * @brief myObjects::setShaderProgram
+ * @param pathVertexShader
+ * @param pathFragmentShader
+ */
 void myObjects::setShaderProgram(char * pathVertexShader, char * pathFragmentShader){
     this->shaderProgram = new QOpenGLShaderProgram();
     shaderProgram->addShaderFromSourceFile(QOpenGLShader::Vertex, pathVertexShader);
@@ -134,6 +96,10 @@ void myObjects::setShaderProgram(char * pathVertexShader, char * pathFragmentSha
     this->privateShaderProgram=true;
 }
 
+/**
+ * @brief myObjects::setTexture
+ * @param path
+ */
 void myObjects::setTexture(char * path){
     QImage image_poisson(path);
     if (image_poisson.isNull()){
@@ -144,6 +110,13 @@ void myObjects::setTexture(char * path){
     this->privateTexture=true;
 }
 
+/**
+ * @brief myObjects::addObj
+ * @param matrice
+ * @param size
+ * @param displayMode
+ * @return
+ */
 uint myObjects::addObj(QMatrix4x4 matrice, float size, int displayMode){
     this->matrice.push_back(matrice);
     this->displayMode.push_back(displayMode);
@@ -154,10 +127,20 @@ uint myObjects::addObj(QMatrix4x4 matrice, float size, int displayMode){
     return getNbObject()-1;
 }
 
+/**
+ * @brief myObjects::getNbObject
+ * @return
+ */
 uint myObjects::getNbObject() const{
     return this->nbObject;
 }
 
+/**
+ * @brief myObjects::setSize
+ * @param value
+ * @param id
+ * @return
+ */
 bool myObjects::setSize(float value, uint id){
     if(id < getNbObject()){
         this->size[id] = value;
@@ -169,6 +152,11 @@ bool myObjects::setSize(float value, uint id){
     }
 }
 
+/**
+ * @brief myObjects::getSize
+ * @param id
+ * @return
+ */
 float myObjects::getSize(uint id) const{
     if(id < getNbObject()){
         return this->size[id];
@@ -179,6 +167,12 @@ float myObjects::getSize(uint id) const{
     }
 }
 
+/**
+ * @brief myObjects::setDisplayMode
+ * @param displayMode
+ * @param id
+ * @return
+ */
 bool myObjects::setDisplayMode(int displayMode, uint id){
     if(id < getNbObject()){
         this->displayMode[id]=displayMode;
@@ -190,6 +184,11 @@ bool myObjects::setDisplayMode(int displayMode, uint id){
     }
 }
 
+/**
+ * @brief myObjects::getDisplayMode
+ * @param id
+ * @return
+ */
 int myObjects::getDisplayMode(uint id) const{
     if(id < getNbObject()){
         return this->displayMode[id];
@@ -200,7 +199,12 @@ int myObjects::getDisplayMode(uint id) const{
     }
 }
 
-
+/**
+ * @brief myObjects::setMatrice
+ * @param matrice
+ * @param id
+ * @return
+ */
 bool myObjects::setMatrice(QMatrix4x4 matrice, uint id){
     if(id < getNbObject()){
         this->matrice[id]=matrice;
@@ -212,6 +216,11 @@ bool myObjects::setMatrice(QMatrix4x4 matrice, uint id){
     }
 }
 
+/**
+ * @brief myObjects::getMatrice
+ * @param id
+ * @return
+ */
 QMatrix4x4 myObjects::getMatrice(uint id) const{
     if(id < getNbObject()){
         return this->matrice[id];
@@ -223,6 +232,10 @@ QMatrix4x4 myObjects::getMatrice(uint id) const{
     }
 }
 
+/**
+ * @brief myObjects::onTimeout
+ * @param dt
+ */
 void myObjects::onTimeout(float dt){
 
 }

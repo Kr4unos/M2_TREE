@@ -14,6 +14,9 @@ namespace Ui {
 class MainWindow;
 }
 
+/**
+ * @brief The MainWindow class linked to the main window
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -25,6 +28,10 @@ public:
 
 
 signals:
+    /**
+     * @brief parseAndGenerate used to parse our generated string to generate a new version of our tree
+     * @param lsystem
+     */
     void parseAndGenerate(LSystem* lsystem);
 
 private slots:
@@ -37,9 +44,17 @@ private slots:
 
 private:
 
+    /**
+     * @brief currentLSystem
+     */
     LSystem* currentLSystem = nullptr;
+
+    /**
+     * @brief settings
+     */
     Settings* settings = nullptr;
 
+    // Icons
     const QIcon icon_open = QIcon(":/icons/open.png");
     const QIcon icon_export_json = QIcon(":/icons/export_json.png");
     const QIcon icon_export_obj = QIcon(":/icons/export_obj.png");

@@ -1,0 +1,805 @@
+\hypertarget{classLSystem}{}\section{L\+System Class Reference}
+\label{classLSystem}\index{L\+System@{L\+System}}
+
+
+The \hyperlink{classLSystem}{L\+System} class used to import, export, parse and generate languages.  
+
+
+
+
+{\ttfamily \#include $<$lsystem.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLSystem_a51a104d178453025feb01bd5c81298c7}\label{classLSystem_a51a104d178453025feb01bd5c81298c7}} 
+enum \hyperlink{classLSystem_a51a104d178453025feb01bd5c81298c7}{Action} \{ \newline
+{\bfseries D\+R\+A\+W\+\_\+\+B\+R\+A\+N\+CH} = 0, 
+{\bfseries D\+R\+A\+W\+\_\+\+L\+E\+AF} = 1, 
+{\bfseries R\+O\+T\+A\+T\+E\+\_\+\+L\+E\+F\+T\+\_\+X} = 2, 
+{\bfseries R\+O\+T\+A\+T\+E\+\_\+\+R\+I\+G\+H\+T\+\_\+X} = 3, 
+\newline
+{\bfseries R\+O\+T\+A\+T\+E\+\_\+\+U\+P\+\_\+Y} = 4, 
+{\bfseries R\+O\+T\+A\+T\+E\+\_\+\+D\+O\+W\+N\+\_\+Y} = 5, 
+{\bfseries T\+W\+I\+S\+T\+\_\+\+L\+E\+F\+T\+\_\+Z} = 6, 
+{\bfseries T\+W\+I\+S\+T\+\_\+\+R\+I\+G\+H\+T\+\_\+Z} = 7, 
+\newline
+{\bfseries P\+U\+S\+H\+\_\+\+B\+A\+CK} = 8, 
+{\bfseries P\+O\+P\+\_\+\+B\+A\+CK} = 9, 
+{\bfseries N\+O\+\_\+\+A\+C\+T\+I\+ON} = 10
+ \}\begin{DoxyCompactList}\small\item\em The Action enum used to get all the possible operations in our language. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classLSystem_ab867b4862befaaf5032f9d5d7c54d958}{L\+System} (Q\+String file\+Name)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classLSystem}{L\+System}. \end{DoxyCompactList}\item 
+\hyperlink{classLSystem_a51a104d178453025feb01bd5c81298c7}{Action} \hyperlink{classLSystem_a9ded49237eb7e5b87ce0a40c05ddd8dc}{get\+Action\+From\+Symbol} (char symbol)
+\begin{DoxyCompactList}\small\item\em get\+Action\+From\+Symbol \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classLSystem_a9e7629465147d4959c15bf678bff1325}{get\+Action\+Name\+From\+Action} (\hyperlink{classLSystem_a51a104d178453025feb01bd5c81298c7}{Action} action)
+\begin{DoxyCompactList}\small\item\em get\+Action\+Name\+From\+Action \end{DoxyCompactList}\item 
+bool \hyperlink{classLSystem_ab7987f060d378683ea3a5aadbf652fb8}{import\+J\+S\+ON} (Q\+String file\+Name)
+\begin{DoxyCompactList}\small\item\em import\+J\+S\+ON \end{DoxyCompactList}\item 
+bool \hyperlink{classLSystem_a6bd4eca47384206c7d54d8971add7766}{export\+J\+S\+ON} (Q\+String file\+Name)
+\begin{DoxyCompactList}\small\item\em export\+J\+S\+ON \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a75600a935cbd5bbdcb27168489657f48}{iterate} ()
+\begin{DoxyCompactList}\small\item\em iterate function used to iterate from our axiom to generate our tree \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classLSystem_aa5ac6cf5036d466402a6cb8eb7151abe}{get\+Axiom} () const
+\begin{DoxyCompactList}\small\item\em get\+Axiom \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a01c83e49821d4d19c83dc7d3bb8da97c}{set\+Axiom} (const Q\+String \&value)
+\begin{DoxyCompactList}\small\item\em set\+Axiom \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classLSystem_a05707c5386d45068ec6ef243f45abe72}{get\+Rules\+From} () const
+\begin{DoxyCompactList}\small\item\em get\+Rules\+From \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_aa641b21a2548158b5b45b42d2c836b1b}{set\+Rules\+From} (const Q\+String\+List \&value)
+\begin{DoxyCompactList}\small\item\em set\+Rules\+From \end{DoxyCompactList}\item 
+Q\+String\+List \hyperlink{classLSystem_aae9f8d83e3f0b2ad3805ce7cfe423754}{get\+Rules\+To} () const
+\begin{DoxyCompactList}\small\item\em get\+Rules\+To \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a803c72892ac4cb38f080b9a131235d7e}{set\+Rules\+To} (const Q\+String\+List \&value)
+\begin{DoxyCompactList}\small\item\em set\+Rules\+To \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_ad8747dbe41d79ae7ac257b78a967ebc0}{get\+Angle} () const
+\begin{DoxyCompactList}\small\item\em get\+Angle \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a9669053a1e08edfd525b933a99ab528d}{set\+Angle} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Angle \end{DoxyCompactList}\item 
+int \hyperlink{classLSystem_a704c6d2fed8cdc1dd0d298d4172cf54b}{get\+Iterations} () const
+\begin{DoxyCompactList}\small\item\em get\+Iterations \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_ab4cf1ae8b7ba189c6078970be98df8e7}{set\+Iterations} (int value)
+\begin{DoxyCompactList}\small\item\em set\+Iterations \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_ae4392bb48f3e6cb1e75099cefbf9fa18}{get\+Branch\+Radius} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a1c20e69f4d56292059fcb51409a7c1c1}{set\+Branch\+Radius} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Radius \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a71a1f31a07f2dc97cfa5081c716b394c}{get\+Branch\+Radius\+Reduction} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius\+Reduction \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a7a82ce235a7b591c862ddeb1daed1964}{set\+Branch\+Radius\+Reduction} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Radius\+Reduction \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a8d4fb387b953c1e98ee02d24ca7c9770}{get\+Branch\+Length} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Length \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_afda7870630630451988aa23d1fee2249}{set\+Branch\+Length} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Length \end{DoxyCompactList}\item 
+Q\+String \hyperlink{classLSystem_a10af0c8572f41e0eb1f2306c09c894d0}{get\+Result} () const
+\begin{DoxyCompactList}\small\item\em get\+Result \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a983ac2b4d6becc3a5f8b5ab082b71de1}{set\+Result} (const Q\+String \&value)
+\begin{DoxyCompactList}\small\item\em set\+Result \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a947039d67e95d2fcac3dea513c64ed39}{get\+Branch\+Length\+Alea} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Length\+Alea \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_ad09d0ac8d510a5aae1cc090a7b6c0266}{set\+Branch\+Length\+Alea} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Length\+Alea \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_af237321da5b4bad46d2422cd29b46986}{get\+Branch\+Radius\+Reduction\+Alea} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius\+Reduction\+Alea \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_abc2ccf751660dc5ffb4e90db527bed38}{set\+Branch\+Radius\+Reduction\+Alea} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Radius\+Reduction\+Alea \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_ad76d3b4b6f1b5bdd089b885c4e286543}{get\+Branch\+Radius\+Alea} () const
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius\+Alea \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_ae33f0faa46188cde512df810889b0f21}{set\+Branch\+Radius\+Alea} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Branch\+Radius\+Alea \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_aa6cc5c18686831374eafcfda3c96d392}{get\+Angle\+Alea} () const
+\begin{DoxyCompactList}\small\item\em get\+Angle\+Alea \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_ad05d5d24fdbe1ac6496bf5d9733a4702}{set\+Angle\+Alea} (float value)
+\begin{DoxyCompactList}\small\item\em set\+Angle\+Alea \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a2f5928d5bbfc537395e5c5f134f2b1e3}{get\+Angle\+Random} ()
+\begin{DoxyCompactList}\small\item\em get\+Angle\+Random \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a826543c6871f8cc26b0be7ad7c4c3f22}{get\+Branch\+Length\+Random} ()
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Length\+Random \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_aceef49d8f1e28428711c43f7d0487fed}{get\+Branch\+Radius\+Random} ()
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius\+Random \end{DoxyCompactList}\item 
+float \hyperlink{classLSystem_a868ccee91400bb3636befe0bdeab79d3}{get\+Branch\+Radius\+Reduction\+Random} ()
+\begin{DoxyCompactList}\small\item\em get\+Branch\+Radius\+Reduction\+Random \end{DoxyCompactList}\item 
+void \hyperlink{classLSystem_a91a77e99c7a237c8504dfa5dd01f9570}{set\+Random\+Generator} ()
+\begin{DoxyCompactList}\small\item\em set\+Random\+Generator \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLSystem_ab99dbbdfaf40b3af663cd83e4b7de0c6}\label{classLSystem_ab99dbbdfaf40b3af663cd83e4b7de0c6}} 
+Q\+String \hyperlink{classLSystem_ab99dbbdfaf40b3af663cd83e4b7de0c6}{axiom}
+\begin{DoxyCompactList}\small\item\em axiom \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_aaed954938814e9dcb45eea0fd54d7028}\label{classLSystem_aaed954938814e9dcb45eea0fd54d7028}} 
+Q\+String\+List \hyperlink{classLSystem_aaed954938814e9dcb45eea0fd54d7028}{rules\+From}
+\begin{DoxyCompactList}\small\item\em rules\+From (left side of rules =$>$ to find) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a9e4d67b3bbe6fcad3d1fd33b741781db}\label{classLSystem_a9e4d67b3bbe6fcad3d1fd33b741781db}} 
+Q\+String\+List \hyperlink{classLSystem_a9e4d67b3bbe6fcad3d1fd33b741781db}{rules\+To}
+\begin{DoxyCompactList}\small\item\em rules\+To (right side of rules =$>$ replace by) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a53b8cc7f0e56dfb4c6f85dd5992178cc}\label{classLSystem_a53b8cc7f0e56dfb4c6f85dd5992178cc}} 
+int \hyperlink{classLSystem_a53b8cc7f0e56dfb4c6f85dd5992178cc}{iterations} = 0
+\begin{DoxyCompactList}\small\item\em iterations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a708c4519815c1ca46773135e5ac21961}\label{classLSystem_a708c4519815c1ca46773135e5ac21961}} 
+float \hyperlink{classLSystem_a708c4519815c1ca46773135e5ac21961}{angle} = 0.\+0
+\begin{DoxyCompactList}\small\item\em angle \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a11e55d3bb6e352b4e1583f382b43a8a7}\label{classLSystem_a11e55d3bb6e352b4e1583f382b43a8a7}} 
+float \hyperlink{classLSystem_a11e55d3bb6e352b4e1583f382b43a8a7}{angle\+Alea} = 0.\+0
+\begin{DoxyCompactList}\small\item\em angle\+Alea \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a56efb4f563f724e3e305cf102252e9a9}\label{classLSystem_a56efb4f563f724e3e305cf102252e9a9}} 
+float \hyperlink{classLSystem_a56efb4f563f724e3e305cf102252e9a9}{branch\+Radius} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Radius \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_ae0935addead7e539c43a681fec7f85b6}\label{classLSystem_ae0935addead7e539c43a681fec7f85b6}} 
+float \hyperlink{classLSystem_ae0935addead7e539c43a681fec7f85b6}{branch\+Radius\+Alea} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Radius\+Alea \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_aabea0abccab6d881b0287de79cb67018}\label{classLSystem_aabea0abccab6d881b0287de79cb67018}} 
+float \hyperlink{classLSystem_aabea0abccab6d881b0287de79cb67018}{branch\+Radius\+Reduction} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Radius\+Reduction \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a66444245d5f7e889dfb54951067b4ca9}\label{classLSystem_a66444245d5f7e889dfb54951067b4ca9}} 
+float \hyperlink{classLSystem_a66444245d5f7e889dfb54951067b4ca9}{branch\+Radius\+Reduction\+Alea} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Radius\+Reduction\+Alea \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a770c9b56c5d8abe10ce8240e9b713731}\label{classLSystem_a770c9b56c5d8abe10ce8240e9b713731}} 
+float \hyperlink{classLSystem_a770c9b56c5d8abe10ce8240e9b713731}{branch\+Length} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Length \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a705548d3cd93d913f971ddab7583dcb5}\label{classLSystem_a705548d3cd93d913f971ddab7583dcb5}} 
+float \hyperlink{classLSystem_a705548d3cd93d913f971ddab7583dcb5}{branch\+Length\+Alea} = 0.\+0
+\begin{DoxyCompactList}\small\item\em branch\+Length\+Alea \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLSystem_a8cd1754c2ca9e6f36b97e635a89c38bb}\label{classLSystem_a8cd1754c2ca9e6f36b97e635a89c38bb}} 
+Q\+String {\bfseries result}
+\item 
+\mbox{\Hypertarget{classLSystem_a6085454616ac1e3d2694e953069d159a}\label{classLSystem_a6085454616ac1e3d2694e953069d159a}} 
+std\+::default\+\_\+random\+\_\+engine {\bfseries R\+\_\+generator}
+\item 
+\mbox{\Hypertarget{classLSystem_a473138ada139e110f0e478dea06030e2}\label{classLSystem_a473138ada139e110f0e478dea06030e2}} 
+std\+::normal\+\_\+distribution$<$ float $>$ {\bfseries distribution\+Angle}
+\item 
+\mbox{\Hypertarget{classLSystem_aad552a812175cc283059e4e2df2a558a}\label{classLSystem_aad552a812175cc283059e4e2df2a558a}} 
+std\+::normal\+\_\+distribution$<$ float $>$ {\bfseries distribution\+Branch\+Radius}
+\item 
+\mbox{\Hypertarget{classLSystem_a6aa50ae236060b40ba202e06635a2248}\label{classLSystem_a6aa50ae236060b40ba202e06635a2248}} 
+std\+::normal\+\_\+distribution$<$ float $>$ {\bfseries distribution\+Branch\+Radius\+Reduction}
+\item 
+\mbox{\Hypertarget{classLSystem_a892904bca26a2aea3a7bf0064b2f7edd}\label{classLSystem_a892904bca26a2aea3a7bf0064b2f7edd}} 
+std\+::normal\+\_\+distribution$<$ float $>$ {\bfseries distribution\+Branch\+Length}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classLSystem}{L\+System} class used to import, export, parse and generate languages. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLSystem_ab867b4862befaaf5032f9d5d7c54d958}\label{classLSystem_ab867b4862befaaf5032f9d5d7c54d958}} 
+\index{L\+System@{L\+System}!L\+System@{L\+System}}
+\index{L\+System@{L\+System}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{L\+System()}{LSystem()}}
+{\footnotesize\ttfamily L\+System\+::\+L\+System (\begin{DoxyParamCaption}\item[{Q\+String}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+\hyperlink{classLSystem}{L\+System}. 
+
+\hyperlink{classLSystem_ab867b4862befaaf5032f9d5d7c54d958}{L\+System\+::\+L\+System}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classLSystem_a6bd4eca47384206c7d54d8971add7766}\label{classLSystem_a6bd4eca47384206c7d54d8971add7766}} 
+\index{L\+System@{L\+System}!export\+J\+S\+ON@{export\+J\+S\+ON}}
+\index{export\+J\+S\+ON@{export\+J\+S\+ON}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{export\+J\+S\+O\+N()}{exportJSON()}}
+{\footnotesize\ttfamily bool L\+System\+::export\+J\+S\+ON (\begin{DoxyParamCaption}\item[{Q\+String}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+export\+J\+S\+ON 
+
+\hyperlink{classLSystem_a6bd4eca47384206c7d54d8971add7766}{L\+System\+::export\+J\+S\+ON}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if successfully exported
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a9ded49237eb7e5b87ce0a40c05ddd8dc}\label{classLSystem_a9ded49237eb7e5b87ce0a40c05ddd8dc}} 
+\index{L\+System@{L\+System}!get\+Action\+From\+Symbol@{get\+Action\+From\+Symbol}}
+\index{get\+Action\+From\+Symbol@{get\+Action\+From\+Symbol}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Action\+From\+Symbol()}{getActionFromSymbol()}}
+{\footnotesize\ttfamily \hyperlink{classLSystem_a51a104d178453025feb01bd5c81298c7}{L\+System\+::\+Action} L\+System\+::get\+Action\+From\+Symbol (\begin{DoxyParamCaption}\item[{char}]{symbol }\end{DoxyParamCaption})}
+
+
+
+get\+Action\+From\+Symbol 
+
+\hyperlink{classLSystem_a9ded49237eb7e5b87ce0a40c05ddd8dc}{L\+System\+::get\+Action\+From\+Symbol}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em symbol} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the Action linked to the symbol
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em symbol} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a9e7629465147d4959c15bf678bff1325}\label{classLSystem_a9e7629465147d4959c15bf678bff1325}} 
+\index{L\+System@{L\+System}!get\+Action\+Name\+From\+Action@{get\+Action\+Name\+From\+Action}}
+\index{get\+Action\+Name\+From\+Action@{get\+Action\+Name\+From\+Action}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Action\+Name\+From\+Action()}{getActionNameFromAction()}}
+{\footnotesize\ttfamily Q\+String L\+System\+::get\+Action\+Name\+From\+Action (\begin{DoxyParamCaption}\item[{\hyperlink{classLSystem_a51a104d178453025feb01bd5c81298c7}{L\+System\+::\+Action}}]{action }\end{DoxyParamCaption})}
+
+
+
+get\+Action\+Name\+From\+Action 
+
+\hyperlink{classLSystem_a9e7629465147d4959c15bf678bff1325}{L\+System\+::get\+Action\+Name\+From\+Action}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em action} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the symbol linked to the Action
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em action} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_ad8747dbe41d79ae7ac257b78a967ebc0}\label{classLSystem_ad8747dbe41d79ae7ac257b78a967ebc0}} 
+\index{L\+System@{L\+System}!get\+Angle@{get\+Angle}}
+\index{get\+Angle@{get\+Angle}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Angle()}{getAngle()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Angle 
+
+\hyperlink{classLSystem_ad8747dbe41d79ae7ac257b78a967ebc0}{L\+System\+::get\+Angle}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_aa6cc5c18686831374eafcfda3c96d392}\label{classLSystem_aa6cc5c18686831374eafcfda3c96d392}} 
+\index{L\+System@{L\+System}!get\+Angle\+Alea@{get\+Angle\+Alea}}
+\index{get\+Angle\+Alea@{get\+Angle\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Angle\+Alea()}{getAngleAlea()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Angle\+Alea (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Angle\+Alea 
+
+\hyperlink{classLSystem_aa6cc5c18686831374eafcfda3c96d392}{L\+System\+::get\+Angle\+Alea}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a2f5928d5bbfc537395e5c5f134f2b1e3}\label{classLSystem_a2f5928d5bbfc537395e5c5f134f2b1e3}} 
+\index{L\+System@{L\+System}!get\+Angle\+Random@{get\+Angle\+Random}}
+\index{get\+Angle\+Random@{get\+Angle\+Random}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Angle\+Random()}{getAngleRandom()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Angle\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Angle\+Random 
+
+\hyperlink{classLSystem_a2f5928d5bbfc537395e5c5f134f2b1e3}{L\+System\+::get\+Angle\+Random}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_aa5ac6cf5036d466402a6cb8eb7151abe}\label{classLSystem_aa5ac6cf5036d466402a6cb8eb7151abe}} 
+\index{L\+System@{L\+System}!get\+Axiom@{get\+Axiom}}
+\index{get\+Axiom@{get\+Axiom}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Axiom()}{getAxiom()}}
+{\footnotesize\ttfamily Q\+String L\+System\+::get\+Axiom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Axiom 
+
+\hyperlink{classLSystem_aa5ac6cf5036d466402a6cb8eb7151abe}{L\+System\+::get\+Axiom}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a8d4fb387b953c1e98ee02d24ca7c9770}\label{classLSystem_a8d4fb387b953c1e98ee02d24ca7c9770}} 
+\index{L\+System@{L\+System}!get\+Branch\+Length@{get\+Branch\+Length}}
+\index{get\+Branch\+Length@{get\+Branch\+Length}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Length()}{getBranchLength()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Length 
+
+\hyperlink{classLSystem_a8d4fb387b953c1e98ee02d24ca7c9770}{L\+System\+::get\+Branch\+Length}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a947039d67e95d2fcac3dea513c64ed39}\label{classLSystem_a947039d67e95d2fcac3dea513c64ed39}} 
+\index{L\+System@{L\+System}!get\+Branch\+Length\+Alea@{get\+Branch\+Length\+Alea}}
+\index{get\+Branch\+Length\+Alea@{get\+Branch\+Length\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Length\+Alea()}{getBranchLengthAlea()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Length\+Alea (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Length\+Alea 
+
+\hyperlink{classLSystem_a947039d67e95d2fcac3dea513c64ed39}{L\+System\+::get\+Branch\+Length\+Alea}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a826543c6871f8cc26b0be7ad7c4c3f22}\label{classLSystem_a826543c6871f8cc26b0be7ad7c4c3f22}} 
+\index{L\+System@{L\+System}!get\+Branch\+Length\+Random@{get\+Branch\+Length\+Random}}
+\index{get\+Branch\+Length\+Random@{get\+Branch\+Length\+Random}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Length\+Random()}{getBranchLengthRandom()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Length\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Branch\+Length\+Random 
+
+\hyperlink{classLSystem_a826543c6871f8cc26b0be7ad7c4c3f22}{L\+System\+::get\+Branch\+Length\+Random}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_ae4392bb48f3e6cb1e75099cefbf9fa18}\label{classLSystem_ae4392bb48f3e6cb1e75099cefbf9fa18}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius@{get\+Branch\+Radius}}
+\index{get\+Branch\+Radius@{get\+Branch\+Radius}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius()}{getBranchRadius()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Radius 
+
+\hyperlink{classLSystem_ae4392bb48f3e6cb1e75099cefbf9fa18}{L\+System\+::get\+Branch\+Radius}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_ad76d3b4b6f1b5bdd089b885c4e286543}\label{classLSystem_ad76d3b4b6f1b5bdd089b885c4e286543}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius\+Alea@{get\+Branch\+Radius\+Alea}}
+\index{get\+Branch\+Radius\+Alea@{get\+Branch\+Radius\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius\+Alea()}{getBranchRadiusAlea()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius\+Alea (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Radius\+Alea 
+
+\hyperlink{classLSystem_ad76d3b4b6f1b5bdd089b885c4e286543}{L\+System\+::get\+Branch\+Radius\+Alea}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_aceef49d8f1e28428711c43f7d0487fed}\label{classLSystem_aceef49d8f1e28428711c43f7d0487fed}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius\+Random@{get\+Branch\+Radius\+Random}}
+\index{get\+Branch\+Radius\+Random@{get\+Branch\+Radius\+Random}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius\+Random()}{getBranchRadiusRandom()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Branch\+Radius\+Random 
+
+\hyperlink{classLSystem_aceef49d8f1e28428711c43f7d0487fed}{L\+System\+::get\+Branch\+Radius\+Random}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a71a1f31a07f2dc97cfa5081c716b394c}\label{classLSystem_a71a1f31a07f2dc97cfa5081c716b394c}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius\+Reduction@{get\+Branch\+Radius\+Reduction}}
+\index{get\+Branch\+Radius\+Reduction@{get\+Branch\+Radius\+Reduction}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius\+Reduction()}{getBranchRadiusReduction()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius\+Reduction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Radius\+Reduction 
+
+\hyperlink{classLSystem_a71a1f31a07f2dc97cfa5081c716b394c}{L\+System\+::get\+Branch\+Radius\+Reduction}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_af237321da5b4bad46d2422cd29b46986}\label{classLSystem_af237321da5b4bad46d2422cd29b46986}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius\+Reduction\+Alea@{get\+Branch\+Radius\+Reduction\+Alea}}
+\index{get\+Branch\+Radius\+Reduction\+Alea@{get\+Branch\+Radius\+Reduction\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius\+Reduction\+Alea()}{getBranchRadiusReductionAlea()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius\+Reduction\+Alea (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Branch\+Radius\+Reduction\+Alea 
+
+\hyperlink{classLSystem_af237321da5b4bad46d2422cd29b46986}{L\+System\+::get\+Branch\+Radius\+Reduction\+Alea}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a868ccee91400bb3636befe0bdeab79d3}\label{classLSystem_a868ccee91400bb3636befe0bdeab79d3}} 
+\index{L\+System@{L\+System}!get\+Branch\+Radius\+Reduction\+Random@{get\+Branch\+Radius\+Reduction\+Random}}
+\index{get\+Branch\+Radius\+Reduction\+Random@{get\+Branch\+Radius\+Reduction\+Random}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Branch\+Radius\+Reduction\+Random()}{getBranchRadiusReductionRandom()}}
+{\footnotesize\ttfamily float L\+System\+::get\+Branch\+Radius\+Reduction\+Random (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Branch\+Radius\+Reduction\+Random 
+
+\hyperlink{classLSystem_a868ccee91400bb3636befe0bdeab79d3}{L\+System\+::get\+Branch\+Radius\+Reduction\+Random}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a704c6d2fed8cdc1dd0d298d4172cf54b}\label{classLSystem_a704c6d2fed8cdc1dd0d298d4172cf54b}} 
+\index{L\+System@{L\+System}!get\+Iterations@{get\+Iterations}}
+\index{get\+Iterations@{get\+Iterations}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Iterations()}{getIterations()}}
+{\footnotesize\ttfamily int L\+System\+::get\+Iterations (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Iterations 
+
+\hyperlink{classLSystem_a704c6d2fed8cdc1dd0d298d4172cf54b}{L\+System\+::get\+Iterations}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a10af0c8572f41e0eb1f2306c09c894d0}\label{classLSystem_a10af0c8572f41e0eb1f2306c09c894d0}} 
+\index{L\+System@{L\+System}!get\+Result@{get\+Result}}
+\index{get\+Result@{get\+Result}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Result()}{getResult()}}
+{\footnotesize\ttfamily Q\+String L\+System\+::get\+Result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Result 
+
+\hyperlink{classLSystem_a10af0c8572f41e0eb1f2306c09c894d0}{L\+System\+::get\+Result}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a05707c5386d45068ec6ef243f45abe72}\label{classLSystem_a05707c5386d45068ec6ef243f45abe72}} 
+\index{L\+System@{L\+System}!get\+Rules\+From@{get\+Rules\+From}}
+\index{get\+Rules\+From@{get\+Rules\+From}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Rules\+From()}{getRulesFrom()}}
+{\footnotesize\ttfamily Q\+String\+List L\+System\+::get\+Rules\+From (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Rules\+From 
+
+\hyperlink{classLSystem_a05707c5386d45068ec6ef243f45abe72}{L\+System\+::get\+Rules\+From}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_aae9f8d83e3f0b2ad3805ce7cfe423754}\label{classLSystem_aae9f8d83e3f0b2ad3805ce7cfe423754}} 
+\index{L\+System@{L\+System}!get\+Rules\+To@{get\+Rules\+To}}
+\index{get\+Rules\+To@{get\+Rules\+To}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{get\+Rules\+To()}{getRulesTo()}}
+{\footnotesize\ttfamily Q\+String\+List L\+System\+::get\+Rules\+To (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get\+Rules\+To 
+
+\hyperlink{classLSystem_aae9f8d83e3f0b2ad3805ce7cfe423754}{L\+System\+::get\+Rules\+To}.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_ab7987f060d378683ea3a5aadbf652fb8}\label{classLSystem_ab7987f060d378683ea3a5aadbf652fb8}} 
+\index{L\+System@{L\+System}!import\+J\+S\+ON@{import\+J\+S\+ON}}
+\index{import\+J\+S\+ON@{import\+J\+S\+ON}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{import\+J\+S\+O\+N()}{importJSON()}}
+{\footnotesize\ttfamily bool L\+System\+::import\+J\+S\+ON (\begin{DoxyParamCaption}\item[{Q\+String}]{file\+Name }\end{DoxyParamCaption})}
+
+
+
+import\+J\+S\+ON 
+
+\hyperlink{classLSystem_ab7987f060d378683ea3a5aadbf652fb8}{L\+System\+::import\+J\+S\+ON}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+if successfully imported
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLSystem_a75600a935cbd5bbdcb27168489657f48}\label{classLSystem_a75600a935cbd5bbdcb27168489657f48}} 
+\index{L\+System@{L\+System}!iterate@{iterate}}
+\index{iterate@{iterate}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{iterate()}{iterate()}}
+{\footnotesize\ttfamily void L\+System\+::iterate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+iterate function used to iterate from our axiom to generate our tree 
+
+\hyperlink{classLSystem_a75600a935cbd5bbdcb27168489657f48}{L\+System\+::iterate}. \mbox{\Hypertarget{classLSystem_a9669053a1e08edfd525b933a99ab528d}\label{classLSystem_a9669053a1e08edfd525b933a99ab528d}} 
+\index{L\+System@{L\+System}!set\+Angle@{set\+Angle}}
+\index{set\+Angle@{set\+Angle}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Angle()}{setAngle()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Angle (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Angle 
+
+\hyperlink{classLSystem_a9669053a1e08edfd525b933a99ab528d}{L\+System\+::set\+Angle}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_ad05d5d24fdbe1ac6496bf5d9733a4702}\label{classLSystem_ad05d5d24fdbe1ac6496bf5d9733a4702}} 
+\index{L\+System@{L\+System}!set\+Angle\+Alea@{set\+Angle\+Alea}}
+\index{set\+Angle\+Alea@{set\+Angle\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Angle\+Alea()}{setAngleAlea()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Angle\+Alea (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Angle\+Alea 
+
+\hyperlink{classLSystem_ad05d5d24fdbe1ac6496bf5d9733a4702}{L\+System\+::set\+Angle\+Alea}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_a01c83e49821d4d19c83dc7d3bb8da97c}\label{classLSystem_a01c83e49821d4d19c83dc7d3bb8da97c}} 
+\index{L\+System@{L\+System}!set\+Axiom@{set\+Axiom}}
+\index{set\+Axiom@{set\+Axiom}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Axiom()}{setAxiom()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Axiom (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Axiom 
+
+\hyperlink{classLSystem_a01c83e49821d4d19c83dc7d3bb8da97c}{L\+System\+::set\+Axiom}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_afda7870630630451988aa23d1fee2249}\label{classLSystem_afda7870630630451988aa23d1fee2249}} 
+\index{L\+System@{L\+System}!set\+Branch\+Length@{set\+Branch\+Length}}
+\index{set\+Branch\+Length@{set\+Branch\+Length}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Length()}{setBranchLength()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Length (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Length 
+
+\hyperlink{classLSystem_afda7870630630451988aa23d1fee2249}{L\+System\+::set\+Branch\+Length}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_ad09d0ac8d510a5aae1cc090a7b6c0266}\label{classLSystem_ad09d0ac8d510a5aae1cc090a7b6c0266}} 
+\index{L\+System@{L\+System}!set\+Branch\+Length\+Alea@{set\+Branch\+Length\+Alea}}
+\index{set\+Branch\+Length\+Alea@{set\+Branch\+Length\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Length\+Alea()}{setBranchLengthAlea()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Length\+Alea (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Length\+Alea 
+
+\hyperlink{classLSystem_ad09d0ac8d510a5aae1cc090a7b6c0266}{L\+System\+::set\+Branch\+Length\+Alea}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_a1c20e69f4d56292059fcb51409a7c1c1}\label{classLSystem_a1c20e69f4d56292059fcb51409a7c1c1}} 
+\index{L\+System@{L\+System}!set\+Branch\+Radius@{set\+Branch\+Radius}}
+\index{set\+Branch\+Radius@{set\+Branch\+Radius}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Radius()}{setBranchRadius()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Radius (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Radius 
+
+\hyperlink{classLSystem_a1c20e69f4d56292059fcb51409a7c1c1}{L\+System\+::set\+Branch\+Radius}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_ae33f0faa46188cde512df810889b0f21}\label{classLSystem_ae33f0faa46188cde512df810889b0f21}} 
+\index{L\+System@{L\+System}!set\+Branch\+Radius\+Alea@{set\+Branch\+Radius\+Alea}}
+\index{set\+Branch\+Radius\+Alea@{set\+Branch\+Radius\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Radius\+Alea()}{setBranchRadiusAlea()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Radius\+Alea (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Radius\+Alea 
+
+\hyperlink{classLSystem_ae33f0faa46188cde512df810889b0f21}{L\+System\+::set\+Branch\+Radius\+Alea}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_a7a82ce235a7b591c862ddeb1daed1964}\label{classLSystem_a7a82ce235a7b591c862ddeb1daed1964}} 
+\index{L\+System@{L\+System}!set\+Branch\+Radius\+Reduction@{set\+Branch\+Radius\+Reduction}}
+\index{set\+Branch\+Radius\+Reduction@{set\+Branch\+Radius\+Reduction}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Radius\+Reduction()}{setBranchRadiusReduction()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Radius\+Reduction (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Radius\+Reduction 
+
+\hyperlink{classLSystem_a7a82ce235a7b591c862ddeb1daed1964}{L\+System\+::set\+Branch\+Radius\+Reduction}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_abc2ccf751660dc5ffb4e90db527bed38}\label{classLSystem_abc2ccf751660dc5ffb4e90db527bed38}} 
+\index{L\+System@{L\+System}!set\+Branch\+Radius\+Reduction\+Alea@{set\+Branch\+Radius\+Reduction\+Alea}}
+\index{set\+Branch\+Radius\+Reduction\+Alea@{set\+Branch\+Radius\+Reduction\+Alea}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Branch\+Radius\+Reduction\+Alea()}{setBranchRadiusReductionAlea()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Branch\+Radius\+Reduction\+Alea (\begin{DoxyParamCaption}\item[{float}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Branch\+Radius\+Reduction\+Alea 
+
+\hyperlink{classLSystem_abc2ccf751660dc5ffb4e90db527bed38}{L\+System\+::set\+Branch\+Radius\+Reduction\+Alea}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_ab4cf1ae8b7ba189c6078970be98df8e7}\label{classLSystem_ab4cf1ae8b7ba189c6078970be98df8e7}} 
+\index{L\+System@{L\+System}!set\+Iterations@{set\+Iterations}}
+\index{set\+Iterations@{set\+Iterations}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Iterations()}{setIterations()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Iterations (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Iterations 
+
+\hyperlink{classLSystem_ab4cf1ae8b7ba189c6078970be98df8e7}{L\+System\+::set\+Iterations}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_a91a77e99c7a237c8504dfa5dd01f9570}\label{classLSystem_a91a77e99c7a237c8504dfa5dd01f9570}} 
+\index{L\+System@{L\+System}!set\+Random\+Generator@{set\+Random\+Generator}}
+\index{set\+Random\+Generator@{set\+Random\+Generator}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Random\+Generator()}{setRandomGenerator()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Random\+Generator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+set\+Random\+Generator 
+
+\hyperlink{classLSystem_a91a77e99c7a237c8504dfa5dd01f9570}{L\+System\+::set\+Random\+Generator}. \mbox{\Hypertarget{classLSystem_a983ac2b4d6becc3a5f8b5ab082b71de1}\label{classLSystem_a983ac2b4d6becc3a5f8b5ab082b71de1}} 
+\index{L\+System@{L\+System}!set\+Result@{set\+Result}}
+\index{set\+Result@{set\+Result}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Result()}{setResult()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Result (\begin{DoxyParamCaption}\item[{const Q\+String \&}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Result 
+
+\hyperlink{classLSystem_a983ac2b4d6becc3a5f8b5ab082b71de1}{L\+System\+::set\+Result}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_aa641b21a2548158b5b45b42d2c836b1b}\label{classLSystem_aa641b21a2548158b5b45b42d2c836b1b}} 
+\index{L\+System@{L\+System}!set\+Rules\+From@{set\+Rules\+From}}
+\index{set\+Rules\+From@{set\+Rules\+From}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Rules\+From()}{setRulesFrom()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Rules\+From (\begin{DoxyParamCaption}\item[{const Q\+String\+List \&}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Rules\+From 
+
+\hyperlink{classLSystem_aa641b21a2548158b5b45b42d2c836b1b}{L\+System\+::set\+Rules\+From}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLSystem_a803c72892ac4cb38f080b9a131235d7e}\label{classLSystem_a803c72892ac4cb38f080b9a131235d7e}} 
+\index{L\+System@{L\+System}!set\+Rules\+To@{set\+Rules\+To}}
+\index{set\+Rules\+To@{set\+Rules\+To}!L\+System@{L\+System}}
+\subsubsection{\texorpdfstring{set\+Rules\+To()}{setRulesTo()}}
+{\footnotesize\ttfamily void L\+System\+::set\+Rules\+To (\begin{DoxyParamCaption}\item[{const Q\+String\+List \&}]{value }\end{DoxyParamCaption})}
+
+
+
+set\+Rules\+To 
+
+\hyperlink{classLSystem_a803c72892ac4cb38f080b9a131235d7e}{L\+System\+::set\+Rules\+To}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+lsystem.\+h\item 
+lsystem.\+cpp\end{DoxyCompactItemize}

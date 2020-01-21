@@ -1,5 +1,11 @@
 #include "cylindre.h"
 
+/**
+ * @brief Cylindre::Cylindre
+ * @param radius
+ * @param height
+ * @param subdivision
+ */
 Cylindre::Cylindre(float radius, float height, int subdivision){
     this->radius1=radius;
     this->radius2=radius;
@@ -11,6 +17,13 @@ Cylindre::Cylindre(float radius, float height, int subdivision){
     }
 }
 
+/**
+ * @brief Cylindre::Cylindre
+ * @param radius1
+ * @param radius2
+ * @param height
+ * @param subdivision
+ */
 Cylindre::Cylindre(float radius1, float radius2, float height, int subdivision){
     this->radius1=radius1;
     this->radius2=radius2;
@@ -22,12 +35,17 @@ Cylindre::Cylindre(float radius1, float radius2, float height, int subdivision){
     }
 }
 
+/**
+ * @brief Cylindre::initializeGL
+ */
 void Cylindre::initializeGL(){
     setVbo();
     setShaderProgram(":/shaders/simpleTexture");
 }
 
-
+/**
+ * @brief Cylindre::makeGLObject
+ */
 void Cylindre::makeGLObject(){
     QVector<GLfloat> vertData;
     for(double i=0;i<subdivision;i++){
@@ -64,6 +82,11 @@ void Cylindre::makeGLObject(){
     vbo->allocate(vertData.constData(), vertData.count() * int(sizeof(GLfloat)));
 }
 
+/**
+ * @brief Cylindre::display
+ * @param projectionMatrix
+ * @param viewMatrix
+ */
 void Cylindre::display(QMatrix4x4 &projectionMatrix,QMatrix4x4 &viewMatrix){
     texture->bind();
     vbo->bind();

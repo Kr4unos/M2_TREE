@@ -1,0 +1,459 @@
+\hypertarget{classGLArea}{}\section{G\+L\+Area Class Reference}
+\label{classGLArea}\index{G\+L\+Area@{G\+L\+Area}}
+
+
+The \hyperlink{classGLArea}{G\+L\+Area} class used to display our object in a 3D area.  
+
+
+
+
+{\ttfamily \#include $<$glarea.\+h$>$}
+
+
+
+Inheritance diagram for G\+L\+Area\+:
+% FIG 0
+
+
+Collaboration diagram for G\+L\+Area\+:
+% FIG 1
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLArea_adc0925522aef672674532556f275a573}{set\+Radius} (double radius)
+\begin{DoxyCompactList}\small\item\em set\+Radius \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a9a09b4b0282edd1ab833ae7b676260de}{parse\+And\+Generate} (\hyperlink{classLSystem}{L\+System} $\ast$\hyperlink{classGLArea_a6ee532e8c421415c438976fe2bfca6ce}{lsystem})
+\begin{DoxyCompactList}\small\item\em parse\+And\+Generate \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLArea_a814e5294e79165efc0878718c72db9f6}{radius\+Changed} (double new\+Radius)
+\begin{DoxyCompactList}\small\item\em radius\+Changed \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classGLArea_a999988e18caf705bcd41acb09a8dcc8e}{G\+L\+Area} (Q\+Widget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em \hyperlink{classGLArea}{G\+L\+Area}. \end{DoxyCompactList}\item 
+\hyperlink{classGLArea_afa9c60f160f51d8ff4af29e602792722}{$\sim$\+G\+L\+Area} () override
+\begin{DoxyCompactList}\small\item\em $\sim$\+G\+L\+Area \end{DoxyCompactList}\item 
+G\+Luint \hyperlink{classGLArea_ac4f7a48d46be9e7c6e63b16b5c3c6441}{raw\+\_\+texture\+\_\+load} (const char $\ast$filename, int width, int height)
+\begin{DoxyCompactList}\small\item\em raw\+\_\+texture\+\_\+load \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGLArea_a00eaf00791d40aab84a8b842d91d2987}\label{classGLArea_a00eaf00791d40aab84a8b842d91d2987}} 
+\hyperlink{classCylindre}{Cylindre} \hyperlink{classGLArea_a00eaf00791d40aab84a8b842d91d2987}{cy}
+\begin{DoxyCompactList}\small\item\em cy \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a5e7246cc8fd27dcc4a7d1c32919c1bba}\label{classGLArea_a5e7246cc8fd27dcc4a7d1c32919c1bba}} 
+\hyperlink{classLeaf}{Leaf} \hyperlink{classGLArea_a5e7246cc8fd27dcc4a7d1c32919c1bba}{leaf}
+\begin{DoxyCompactList}\small\item\em leaf \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a94eee49b2f64ec207bc4a952c79ef96e}\label{classGLArea_a94eee49b2f64ec207bc4a952c79ef96e}} 
+\hyperlink{classLeaf}{Leaf} \hyperlink{classGLArea_a94eee49b2f64ec207bc4a952c79ef96e}{sol}
+\begin{DoxyCompactList}\small\item\em sol \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLArea_a62ff54b320abd318088f06bf861d8024}{on\+Timeout} ()
+\begin{DoxyCompactList}\small\item\em on\+Timeout \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLArea_a561f724c4f5a676c7d48dc4c1facab6a}{initialize\+GL} () override
+\begin{DoxyCompactList}\small\item\em initialize\+GL \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a7258b85eec87415b8bdfde5a20b9bf34}{do\+Projection} ()
+\begin{DoxyCompactList}\small\item\em do\+Projection \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_af4aefae86c0eab7dcd5773daccca6582}{resize\+GL} (int w, int h) override
+\begin{DoxyCompactList}\small\item\em resize\+GL \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a235d7e6e2dcdb4c47cf368f11686ab8f}{paint\+GL} () override
+\begin{DoxyCompactList}\small\item\em paint\+GL \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a675245da4965c357b5752dfdfc610ebc}{key\+Press\+Event} (Q\+Key\+Event $\ast$ev) override
+\begin{DoxyCompactList}\small\item\em key\+Press\+Event \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_ab3087976a0dbc5257aecf5e89d492eab}{key\+Release\+Event} (Q\+Key\+Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em key\+Release\+Event \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_aed19de6baa33397b6d3403a168a306b5}{mouse\+Press\+Event} (Q\+Mouse\+Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em mouse\+Press\+Event \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a858693d86fe1e40a8a333466b93e0cdd}{mouse\+Release\+Event} (Q\+Mouse\+Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em mouse\+Release\+Event \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a5222f8d2cee08e188c66fab93fcb5779}{mouse\+Move\+Event} (Q\+Mouse\+Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em mouse\+Move\+Event \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a40884963629d3fb97a752875fd741e5e}{wheel\+Event} (Q\+Wheel\+Event $\ast$event) override
+\begin{DoxyCompactList}\small\item\em wheel\+Event \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classGLArea_a6813d77eb9a8f03a1d61749f93d82120}{make\+G\+L\+Objects} ()
+\begin{DoxyCompactList}\small\item\em make\+G\+L\+Objects \end{DoxyCompactList}\item 
+void \hyperlink{classGLArea_a0492da4c02cd7265be107fe819da1196}{tear\+G\+L\+Objects} ()
+\begin{DoxyCompactList}\small\item\em tear\+G\+L\+Objects \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classGLArea_a9e6ccb31b9276cc6802e4975e6865f10}\label{classGLArea_a9e6ccb31b9276cc6802e4975e6865f10}} 
+float \hyperlink{classGLArea_a9e6ccb31b9276cc6802e4975e6865f10}{x\+Rot} =20.\+0f
+\begin{DoxyCompactList}\small\item\em x\+Rot \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_aef59623ef883589d4c0a0f2b556f6f85}\label{classGLArea_aef59623ef883589d4c0a0f2b556f6f85}} 
+float \hyperlink{classGLArea_aef59623ef883589d4c0a0f2b556f6f85}{y\+Rot} =0.\+0f
+\begin{DoxyCompactList}\small\item\em y\+Rot \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a8fcd59d1fc2863c7a543777aa1471b6d}\label{classGLArea_a8fcd59d1fc2863c7a543777aa1471b6d}} 
+float \hyperlink{classGLArea_a8fcd59d1fc2863c7a543777aa1471b6d}{z\+Rot} =0.\+0f
+\begin{DoxyCompactList}\small\item\em z\+Rot \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_abae89a1d81c11c64534649dfebff9809}\label{classGLArea_abae89a1d81c11c64534649dfebff9809}} 
+float \hyperlink{classGLArea_abae89a1d81c11c64534649dfebff9809}{x\+Pos} =0.\+0f
+\begin{DoxyCompactList}\small\item\em x\+Pos \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_ad7c6f9b56b3bd72859ffa9ba82e44bb1}\label{classGLArea_ad7c6f9b56b3bd72859ffa9ba82e44bb1}} 
+float \hyperlink{classGLArea_ad7c6f9b56b3bd72859ffa9ba82e44bb1}{y\+Pos} =-\/6.\+0f
+\begin{DoxyCompactList}\small\item\em y\+Pos \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_ae0a96496d46cc99c08820a06529db66a}\label{classGLArea_ae0a96496d46cc99c08820a06529db66a}} 
+float \hyperlink{classGLArea_ae0a96496d46cc99c08820a06529db66a}{z\+Pos} =-\/40.\+0f
+\begin{DoxyCompactList}\small\item\em z\+Pos \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a9fd17990ad006d122e4f804752b42277}\label{classGLArea_a9fd17990ad006d122e4f804752b42277}} 
+float \hyperlink{classGLArea_a9fd17990ad006d122e4f804752b42277}{bgr} =0.\+2f
+\begin{DoxyCompactList}\small\item\em bgr \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_adaf7d8289630b56c2bb311446e9585e1}\label{classGLArea_adaf7d8289630b56c2bb311446e9585e1}} 
+float \hyperlink{classGLArea_adaf7d8289630b56c2bb311446e9585e1}{bgg} =0.\+4f
+\begin{DoxyCompactList}\small\item\em bgg \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_ad847c08632f73ca7d4d58b3f53156c58}\label{classGLArea_ad847c08632f73ca7d4d58b3f53156c58}} 
+float \hyperlink{classGLArea_ad847c08632f73ca7d4d58b3f53156c58}{bgb} =1.\+0f
+\begin{DoxyCompactList}\small\item\em bgb \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_ad32be6437ab8cba3095fd1023429742f}\label{classGLArea_ad32be6437ab8cba3095fd1023429742f}} 
+float \hyperlink{classGLArea_ad32be6437ab8cba3095fd1023429742f}{bga} =1.\+0f
+\begin{DoxyCompactList}\small\item\em bga \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_aef6b11852df233793c9f2d164827b041}\label{classGLArea_aef6b11852df233793c9f2d164827b041}} 
+float \hyperlink{classGLArea_aef6b11852df233793c9f2d164827b041}{delta\+Angle} =1
+\begin{DoxyCompactList}\small\item\em delta\+Angle \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a7e5fd9a8ed8ca1e8759d75c325d9a204}\label{classGLArea_a7e5fd9a8ed8ca1e8759d75c325d9a204}} 
+float \hyperlink{classGLArea_a7e5fd9a8ed8ca1e8759d75c325d9a204}{delta\+Zoom} =1
+\begin{DoxyCompactList}\small\item\em delta\+Zoom \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_ac6a4e3c068caaf76cf0ea87bbe71eefa}\label{classGLArea_ac6a4e3c068caaf76cf0ea87bbe71eefa}} 
+Q\+Point \hyperlink{classGLArea_ac6a4e3c068caaf76cf0ea87bbe71eefa}{last\+Pos}
+\begin{DoxyCompactList}\small\item\em last\+Pos \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_aa65fb45e3679338b8c46d89909c30b3b}\label{classGLArea_aa65fb45e3679338b8c46d89909c30b3b}} 
+Q\+String \hyperlink{classGLArea_aa65fb45e3679338b8c46d89909c30b3b}{result} = \char`\"{}\char`\"{}
+\begin{DoxyCompactList}\small\item\em result \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a6ee532e8c421415c438976fe2bfca6ce}\label{classGLArea_a6ee532e8c421415c438976fe2bfca6ce}} 
+\hyperlink{classLSystem}{L\+System} $\ast$ \hyperlink{classGLArea_a6ee532e8c421415c438976fe2bfca6ce}{lsystem} = nullptr
+\begin{DoxyCompactList}\small\item\em lsystem \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_acfcb07f1d8e185b210b949e4534fe15a}\label{classGLArea_acfcb07f1d8e185b210b949e4534fe15a}} 
+Q\+Timer $\ast$ \hyperlink{classGLArea_acfcb07f1d8e185b210b949e4534fe15a}{timer} = nullptr
+\begin{DoxyCompactList}\small\item\em timer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a6deb97fc9ab129842fb732b1444bf311}\label{classGLArea_a6deb97fc9ab129842fb732b1444bf311}} 
+Q\+Elapsed\+Timer \hyperlink{classGLArea_a6deb97fc9ab129842fb732b1444bf311}{elapsed\+Timer}
+\begin{DoxyCompactList}\small\item\em elapsed\+Timer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a417c1e45c60687785531252071475276}\label{classGLArea_a417c1e45c60687785531252071475276}} 
+float \hyperlink{classGLArea_a417c1e45c60687785531252071475276}{dt} = 0
+\begin{DoxyCompactList}\small\item\em dt \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a706043c2b332cbfd725f89f044aebaf3}\label{classGLArea_a706043c2b332cbfd725f89f044aebaf3}} 
+double \hyperlink{classGLArea_a706043c2b332cbfd725f89f044aebaf3}{m\+\_\+radius} = 0.\+5
+\begin{DoxyCompactList}\small\item\em m\+\_\+radius \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a45a299e558924d26bd99149981b7d367}\label{classGLArea_a45a299e558924d26bd99149981b7d367}} 
+double \hyperlink{classGLArea_a45a299e558924d26bd99149981b7d367}{window\+Ratio} = 1.\+0
+\begin{DoxyCompactList}\small\item\em window\+Ratio \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGLArea_a16a4bb6286b5df9a370f78b5fd4e8f70}\label{classGLArea_a16a4bb6286b5df9a370f78b5fd4e8f70}} 
+G\+Luint \hyperlink{classGLArea_a16a4bb6286b5df9a370f78b5fd4e8f70}{texture\+Feuille}
+\begin{DoxyCompactList}\small\item\em texture\+Feuille \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{classGLArea}{G\+L\+Area} class used to display our object in a 3D area. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGLArea_a999988e18caf705bcd41acb09a8dcc8e}\label{classGLArea_a999988e18caf705bcd41acb09a8dcc8e}} 
+\index{G\+L\+Area@{G\+L\+Area}!G\+L\+Area@{G\+L\+Area}}
+\index{G\+L\+Area@{G\+L\+Area}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{G\+L\+Area()}{GLArea()}}
+{\footnotesize\ttfamily G\+L\+Area\+::\+G\+L\+Area (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\hyperlink{classGLArea}{G\+L\+Area}. 
+
+\hyperlink{classGLArea_a999988e18caf705bcd41acb09a8dcc8e}{G\+L\+Area\+::\+G\+L\+Area}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_afa9c60f160f51d8ff4af29e602792722}\label{classGLArea_afa9c60f160f51d8ff4af29e602792722}} 
+\index{G\+L\+Area@{G\+L\+Area}!````~G\+L\+Area@{$\sim$\+G\+L\+Area}}
+\index{````~G\+L\+Area@{$\sim$\+G\+L\+Area}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{$\sim$\+G\+L\+Area()}{~GLArea()}}
+{\footnotesize\ttfamily G\+L\+Area\+::$\sim$\+G\+L\+Area (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+$\sim$\+G\+L\+Area 
+
+\hyperlink{classGLArea_afa9c60f160f51d8ff4af29e602792722}{G\+L\+Area\+::$\sim$\+G\+L\+Area}. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classGLArea_a7258b85eec87415b8bdfde5a20b9bf34}\label{classGLArea_a7258b85eec87415b8bdfde5a20b9bf34}} 
+\index{G\+L\+Area@{G\+L\+Area}!do\+Projection@{do\+Projection}}
+\index{do\+Projection@{do\+Projection}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{do\+Projection()}{doProjection()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::do\+Projection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+do\+Projection 
+
+\hyperlink{classGLArea_a7258b85eec87415b8bdfde5a20b9bf34}{G\+L\+Area\+::do\+Projection}. \mbox{\Hypertarget{classGLArea_a561f724c4f5a676c7d48dc4c1facab6a}\label{classGLArea_a561f724c4f5a676c7d48dc4c1facab6a}} 
+\index{G\+L\+Area@{G\+L\+Area}!initialize\+GL@{initialize\+GL}}
+\index{initialize\+GL@{initialize\+GL}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{initialize\+G\+L()}{initializeGL()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::initialize\+GL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+initialize\+GL 
+
+\hyperlink{classGLArea_a561f724c4f5a676c7d48dc4c1facab6a}{G\+L\+Area\+::initialize\+GL}. \mbox{\Hypertarget{classGLArea_a675245da4965c357b5752dfdfc610ebc}\label{classGLArea_a675245da4965c357b5752dfdfc610ebc}} 
+\index{G\+L\+Area@{G\+L\+Area}!key\+Press\+Event@{key\+Press\+Event}}
+\index{key\+Press\+Event@{key\+Press\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{key\+Press\+Event()}{keyPressEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{Q\+Key\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+key\+Press\+Event 
+
+\hyperlink{classGLArea_a675245da4965c357b5752dfdfc610ebc}{G\+L\+Area\+::key\+Press\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_ab3087976a0dbc5257aecf5e89d492eab}\label{classGLArea_ab3087976a0dbc5257aecf5e89d492eab}} 
+\index{G\+L\+Area@{G\+L\+Area}!key\+Release\+Event@{key\+Release\+Event}}
+\index{key\+Release\+Event@{key\+Release\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{key\+Release\+Event()}{keyReleaseEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::key\+Release\+Event (\begin{DoxyParamCaption}\item[{Q\+Key\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+key\+Release\+Event 
+
+\hyperlink{classGLArea_ab3087976a0dbc5257aecf5e89d492eab}{G\+L\+Area\+::key\+Release\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_a6813d77eb9a8f03a1d61749f93d82120}\label{classGLArea_a6813d77eb9a8f03a1d61749f93d82120}} 
+\index{G\+L\+Area@{G\+L\+Area}!make\+G\+L\+Objects@{make\+G\+L\+Objects}}
+\index{make\+G\+L\+Objects@{make\+G\+L\+Objects}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{make\+G\+L\+Objects()}{makeGLObjects()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::make\+G\+L\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+make\+G\+L\+Objects 
+
+\hyperlink{classGLArea_a6813d77eb9a8f03a1d61749f93d82120}{G\+L\+Area\+::make\+G\+L\+Objects}. \mbox{\Hypertarget{classGLArea_a5222f8d2cee08e188c66fab93fcb5779}\label{classGLArea_a5222f8d2cee08e188c66fab93fcb5779}} 
+\index{G\+L\+Area@{G\+L\+Area}!mouse\+Move\+Event@{mouse\+Move\+Event}}
+\index{mouse\+Move\+Event@{mouse\+Move\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{mouse\+Move\+Event()}{mouseMoveEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::mouse\+Move\+Event (\begin{DoxyParamCaption}\item[{Q\+Mouse\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+mouse\+Move\+Event 
+
+\hyperlink{classGLArea_a5222f8d2cee08e188c66fab93fcb5779}{G\+L\+Area\+::mouse\+Move\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_aed19de6baa33397b6d3403a168a306b5}\label{classGLArea_aed19de6baa33397b6d3403a168a306b5}} 
+\index{G\+L\+Area@{G\+L\+Area}!mouse\+Press\+Event@{mouse\+Press\+Event}}
+\index{mouse\+Press\+Event@{mouse\+Press\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{mouse\+Press\+Event()}{mousePressEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{Q\+Mouse\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+mouse\+Press\+Event 
+
+\hyperlink{classGLArea_aed19de6baa33397b6d3403a168a306b5}{G\+L\+Area\+::mouse\+Press\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_a858693d86fe1e40a8a333466b93e0cdd}\label{classGLArea_a858693d86fe1e40a8a333466b93e0cdd}} 
+\index{G\+L\+Area@{G\+L\+Area}!mouse\+Release\+Event@{mouse\+Release\+Event}}
+\index{mouse\+Release\+Event@{mouse\+Release\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{mouse\+Release\+Event()}{mouseReleaseEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::mouse\+Release\+Event (\begin{DoxyParamCaption}\item[{Q\+Mouse\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+mouse\+Release\+Event 
+
+\hyperlink{classGLArea_a858693d86fe1e40a8a333466b93e0cdd}{G\+L\+Area\+::mouse\+Release\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_a62ff54b320abd318088f06bf861d8024}\label{classGLArea_a62ff54b320abd318088f06bf861d8024}} 
+\index{G\+L\+Area@{G\+L\+Area}!on\+Timeout@{on\+Timeout}}
+\index{on\+Timeout@{on\+Timeout}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{on\+Timeout}{onTimeout}}
+{\footnotesize\ttfamily void G\+L\+Area\+::on\+Timeout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+
+
+on\+Timeout 
+
+\hyperlink{classGLArea_a62ff54b320abd318088f06bf861d8024}{G\+L\+Area\+::on\+Timeout}. \mbox{\Hypertarget{classGLArea_a235d7e6e2dcdb4c47cf368f11686ab8f}\label{classGLArea_a235d7e6e2dcdb4c47cf368f11686ab8f}} 
+\index{G\+L\+Area@{G\+L\+Area}!paint\+GL@{paint\+GL}}
+\index{paint\+GL@{paint\+GL}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{paint\+G\+L()}{paintGL()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::paint\+GL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+paint\+GL 
+
+\hyperlink{classGLArea_a235d7e6e2dcdb4c47cf368f11686ab8f}{G\+L\+Area\+::paint\+GL}. \mbox{\Hypertarget{classGLArea_a9a09b4b0282edd1ab833ae7b676260de}\label{classGLArea_a9a09b4b0282edd1ab833ae7b676260de}} 
+\index{G\+L\+Area@{G\+L\+Area}!parse\+And\+Generate@{parse\+And\+Generate}}
+\index{parse\+And\+Generate@{parse\+And\+Generate}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{parse\+And\+Generate}{parseAndGenerate}}
+{\footnotesize\ttfamily void G\+L\+Area\+::parse\+And\+Generate (\begin{DoxyParamCaption}\item[{\hyperlink{classLSystem}{L\+System} $\ast$}]{lsystem }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+parse\+And\+Generate 
+
+\hyperlink{classGLArea_a9a09b4b0282edd1ab833ae7b676260de}{G\+L\+Area\+::parse\+And\+Generate}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lsystem} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_a814e5294e79165efc0878718c72db9f6}\label{classGLArea_a814e5294e79165efc0878718c72db9f6}} 
+\index{G\+L\+Area@{G\+L\+Area}!radius\+Changed@{radius\+Changed}}
+\index{radius\+Changed@{radius\+Changed}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{radius\+Changed}{radiusChanged}}
+{\footnotesize\ttfamily void G\+L\+Area\+::radius\+Changed (\begin{DoxyParamCaption}\item[{double}]{new\+Radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+radius\+Changed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Radius} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_ac4f7a48d46be9e7c6e63b16b5c3c6441}\label{classGLArea_ac4f7a48d46be9e7c6e63b16b5c3c6441}} 
+\index{G\+L\+Area@{G\+L\+Area}!raw\+\_\+texture\+\_\+load@{raw\+\_\+texture\+\_\+load}}
+\index{raw\+\_\+texture\+\_\+load@{raw\+\_\+texture\+\_\+load}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{raw\+\_\+texture\+\_\+load()}{raw\_texture\_load()}}
+{\footnotesize\ttfamily G\+Luint G\+L\+Area\+::raw\+\_\+texture\+\_\+load (\begin{DoxyParamCaption}\item[{const char $\ast$}]{filename,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+raw\+\_\+texture\+\_\+load 
+
+\hyperlink{classGLArea_ac4f7a48d46be9e7c6e63b16b5c3c6441}{G\+L\+Area\+::raw\+\_\+texture\+\_\+load}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & \\
+\hline
+{\em width} & \\
+\hline
+{\em height} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGLArea_af4aefae86c0eab7dcd5773daccca6582}\label{classGLArea_af4aefae86c0eab7dcd5773daccca6582}} 
+\index{G\+L\+Area@{G\+L\+Area}!resize\+GL@{resize\+GL}}
+\index{resize\+GL@{resize\+GL}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{resize\+G\+L()}{resizeGL()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::resize\+GL (\begin{DoxyParamCaption}\item[{int}]{w,  }\item[{int}]{h }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+resize\+GL 
+
+\hyperlink{classGLArea_af4aefae86c0eab7dcd5773daccca6582}{G\+L\+Area\+::resize\+GL}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & \\
+\hline
+{\em h} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_adc0925522aef672674532556f275a573}\label{classGLArea_adc0925522aef672674532556f275a573}} 
+\index{G\+L\+Area@{G\+L\+Area}!set\+Radius@{set\+Radius}}
+\index{set\+Radius@{set\+Radius}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{set\+Radius}{setRadius}}
+{\footnotesize\ttfamily void G\+L\+Area\+::set\+Radius (\begin{DoxyParamCaption}\item[{double}]{radius }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+set\+Radius 
+
+\hyperlink{classGLArea_adc0925522aef672674532556f275a573}{G\+L\+Area\+::set\+Radius}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em radius} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGLArea_a0492da4c02cd7265be107fe819da1196}\label{classGLArea_a0492da4c02cd7265be107fe819da1196}} 
+\index{G\+L\+Area@{G\+L\+Area}!tear\+G\+L\+Objects@{tear\+G\+L\+Objects}}
+\index{tear\+G\+L\+Objects@{tear\+G\+L\+Objects}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{tear\+G\+L\+Objects()}{tearGLObjects()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::tear\+G\+L\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+tear\+G\+L\+Objects 
+
+\hyperlink{classGLArea_a0492da4c02cd7265be107fe819da1196}{G\+L\+Area\+::tear\+G\+L\+Objects}. \mbox{\Hypertarget{classGLArea_a40884963629d3fb97a752875fd741e5e}\label{classGLArea_a40884963629d3fb97a752875fd741e5e}} 
+\index{G\+L\+Area@{G\+L\+Area}!wheel\+Event@{wheel\+Event}}
+\index{wheel\+Event@{wheel\+Event}!G\+L\+Area@{G\+L\+Area}}
+\subsubsection{\texorpdfstring{wheel\+Event()}{wheelEvent()}}
+{\footnotesize\ttfamily void G\+L\+Area\+::wheel\+Event (\begin{DoxyParamCaption}\item[{Q\+Wheel\+Event $\ast$}]{ev }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+wheel\+Event 
+
+\hyperlink{classGLArea_a40884963629d3fb97a752875fd741e5e}{G\+L\+Area\+::wheel\+Event}.
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & \\
+\hline
+{\em ev} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+glarea.\+h\item 
+glarea.\+cpp\end{DoxyCompactItemize}
